@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.backend.mapper.UserMapper">
+    <!--
+        회원가입 Query 문
+        Uid는 Auto Increment로 증가시켜주며,
+        nickname,email,password,profileImage,qrImage,admin 직접 지정
+        관리자는 False로 지정
+    -->
+    <insert id="save" parameterType="User">
+        insert into user (nickname,email,password,profileImage,qrImage,admin)
+        values (#{nickname}, #{email}, #{password}, #{profileImage}, default, false)
+    </insert>
+
+    <!-- 회원 탈퇴 Query
+       uid를 기준으로 탈퇴
+       -->
+    <delete id="delete" parameterType="String">
+        delete from user where uid = #{uid}
+    </delete>
+
+    <!--  회원 정보 확인
+       uid를 기준으로 회원정보 확인
+       -->
+    <select id="findByUid" resultType="User" parameterType="String">
+        select * from user where uid = #{uid}
+    </select>
+    <!--  회원 정보 확인
+       email을 기준으로 회원정보 확인
+       -->
+    <select id="findByEmail" resultType="User" parameterType="String">
+        select * from user where email like #{email}
+    </select>
+
+    <!-- 회원 정보 수정
+       uid를 기준으로 nickname,email,password,profileImage,qrImage 변경
+      -->
+    <update id="updateIntroduce" parameterType="User">
+        update user set nickname=#{nickname}, introduce=#{introduce} where email = #{email}
+    </update>
+
+    <update id="updateSNS" parameterType="User">
+        update user set email=#{email}, facebook=#{facebook},
+        github=#{github}, instagram=#{instagram}
+        where email = #{email};
+    </update>
+
+
+
+    <update id="updateProfileImage" parameterType="String">
+        update user set profileImage = #{url} where uid = #{uid}
+    </update>
+
+    <update id="updateQRImage" parameterType="String">
+        update user set qrImage = #{url} where uid = #{uid}
+    </update>
+
+    <!-- -->
+
+    <update id="updateDefaultProfile" parameterType="String">
+        update user set profileImage = #{url} where uid = #{uid}
+    </update>
+
+    <update id="updateDefaultQR" parameterType="String">
+        update user set qrImage = #{url} where uid = #{uid}
+    </update>
+
+
+    <select id="signin" resultType="User" parameterType="String">
+        select * from user where email like #{email} and password like #{password}
+    </select>
+
+    <!-- 닉네임 변경시 전체 게시글의 닉네임도 변경됨 -->
+    <update id="updateAllPostsNickName">
+        update post set author = #{nickname} where uid = #{uid}
+    </update>
+</mapper>

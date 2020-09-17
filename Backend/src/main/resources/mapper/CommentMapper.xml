@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.backend.mapper.CommentMapper">
+
+    <!-- 댓글 작성 후 저장 -->
+    <insert id="save">
+        insert into comment values(default , #{pid}, #{uid}, null, default, #{author}, #{content})
+    </insert>
+
+    <!-- 대댓글 작성 후 저장 -->
+    <insert id="saveReply">
+        insert into comment values(default , #{pid}, #{uid}, #{parent}, default , #{author}, #{content})
+    </insert>
+
+    <!-- 해당 글의 모든 댓글 조회 -->
+    <select id="findAllComment" resultType="com.backend.dto.comment.Comment">
+        select * from comment where pid = #{pid} and parent is null
+    </select>
+    <!-- 해당 댓글의 모든 대댓글 조회 -->
+    <select id="findAllChildComment" resultType="com.backend.dto.comment.Comment">
+        select * from comment where parent = #{cid}
+    </select>
+
+    <!-- 댓글 삭제 -->
+    <delete id="delete">
+        delete from comment where cid = #{cid}
+    </delete>
+
+
+    <!-- 댓글 수정 -->
+    <update id="update">
+        update comment
+        set content = #{content}
+        where cid = #{cid}
+    </update>
+</mapper>
