@@ -1,37 +1,41 @@
 <template>
+<v-card class="overflow-hidden">
   <v-app-bar
       fixed
-      color="white"
+      color="red"
       elevate-on-scroll
-			height="90px"
+			height="60px"
 			justify
   >
-    <h1 class="logo_title"><router-link to="/">DO!</router-link></h1>
+    <h1 class="logo_title"><router-link to="/">SSAFOOD</router-link></h1>
     <v-toolbar-items style="align-items: center">
       <router-link to="/introduce">소개</router-link>
     </v-toolbar-items>
     <v-toolbar-items style="align-items: center">
-      <router-link to="/forum">포럼</router-link>
+      <router-link to="/forum">리스트</router-link>
     </v-toolbar-items>
-    <v-toolbar-items style="align-items: center">
+    <!-- <v-toolbar-items style="align-items: center">
       <router-link to="/feed">피드</router-link>
-    </v-toolbar-items>
+    </v-toolbar-items> -->
 
-
-      <div class="notice">
+    <!-- 공지사항 -->
+      <!-- <div class="notice">
         <v-icon small>fas fa-volume-down</v-icon>
         <div class="banner" @click="gotonotice">
           {{list.title}}
         </div>
-			</div>
+			</div> -->
+      
 			<v-spacer></v-spacer>
-      <router-link to="/search">
+      <!-- <router-link to="/search">
       <v-icon small color="black" class="icon" style="margin-top:5px;">fas fa-search</v-icon>
-      </router-link>
+      </router-link> -->
+
       <!-- 로그인 안했을 때 -->
       <div v-if="!isLogin" class="login">
 				<span><router-link to="/login">로그인</router-link></span>
-        <span>/</span>
+        <!-- <span style="white">/</span> -->
+        <v-spacer></v-spacer>
         <span><router-link to="/register">회원가입</router-link></span>
       </div> 
       <!-- 로그인 했을때 -->
@@ -73,6 +77,7 @@
         <v-icon small color="black" style="margin: 20px 4px 0px 5px">fas fa-angle-down</v-icon>
       </div>
   </v-app-bar>
+</v-card>
 </template>
 
 <script>
@@ -179,7 +184,7 @@ h1{
   font-weight: 800;
 }
 a{
-  color : black !important;
+  color : white !important;
   text-decoration: none !important;
 }
 button > span {
@@ -206,7 +211,7 @@ div > .newpost > a >button:hover {
 	/* margin: 0 40px 0 0; */
 }
 .login span a{
-	color: black;
+	color: white;
 	font-size: 13px;
 	font-family: 'Noto Sans DemiLight', 'sans-serif';
 	text-decoration: none;
