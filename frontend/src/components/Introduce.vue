@@ -244,7 +244,7 @@ a{
 
 .section_madeby {
 	height: 1160px;
-	background-image: url("../assets/img/food3.jpg");
+	background-image: url("../assets/img/food2.jpg");
 	background-size: cover;
 	background-position: 80% 100%;
 }
