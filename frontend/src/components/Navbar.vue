@@ -33,9 +33,11 @@
 
       <!-- 로그인 안했을 때 -->
       <div v-if="!isLogin" class="login">
+        <v-icon>mdi-account-check</v-icon>
 				<span><router-link to="/login">로그인</router-link></span>
         <!-- <span style="white">/</span> -->
         <v-spacer></v-spacer>
+        <v-icon>mdi-pencil</v-icon>
         <span><router-link to="/register">회원가입</router-link></span>
       </div> 
       <!-- 로그인 했을때 -->

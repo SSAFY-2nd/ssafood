@@ -6,12 +6,12 @@
         <v-form name="form" @submit.prevent>
           <div class="cont_data">
           <span><h2>Sign up</h2></span>
-          <p>DO!를 시작해보세요.</p>
+          <p><span style="color:red">SSAFOOD</span>를 시작해보세요.</p>
           <div style="border:1px solid #ddd">
           <table v-if="!successful">
             <tr>
               <td class="def">
-                아이디
+                <v-icon>mdi-email</v-icon>이메일
               </td>
               <td>
                 <v-text-field
@@ -43,7 +43,7 @@
             </tr>
             <tr>
               <td class="def">
-                비밀번호
+                <v-icon>mdi-lock</v-icon>비밀번호
               </td>
               <td>
                 <v-text-field
@@ -64,7 +64,7 @@
             </tr>
             <tr>
               <td class="def">
-                비밀번호 확인
+                <v-icon>mdi-lock</v-icon>비밀번호 확인
               </td>
               <!-- <label for="password">비밀번호 확인</label> -->
               <td>
@@ -87,7 +87,7 @@
             </tr>
             <tr>
               <td class="def">
-                닉네임
+                <v-icon>mdi-account-outline</v-icon>닉네임
               </td>
               <!-- <label for="password">비밀번호 확인</label> -->
               <td>
