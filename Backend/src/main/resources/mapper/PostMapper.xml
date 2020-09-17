@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.backend.mapper.PostMapper">
+
+    <!-- #################### 글 작성 #################### -->
+
+    <!-- 글 작성 후 저장 -->
+    <insert id="save" useGeneratedKeys="true" keyProperty="pid" parameterType="com.backend.dto.post.Post">
+                insert into post values(default, #{uid}, default, #{author}, #{title}, #{content},
+                0, 0, #{thumbnail}, default, null)
+    </insert>
+
+    <!-- 태그가 존재하는지 검색 -->
+    <select id="findTagByName" resultType="Long">
+                select tid from tag where name like #{tag}
+    </select>
+
+    <!-- 새로운 태그를 등록 -->
+    <insert id="saveNewTag" useGeneratedKeys="true" keyProperty="tid" parameterType="com.backend.dto.post.Tag">
+                insert into tag values(default, #{name}, 1)
+    </insert>
+
+    <!-- 태그가 이미 존재하는 경우 태그 사용 횟수를 1 증가 -->
+    <update id="increaseTagHits">
+                update tag set hits = hits + 1 where name = #{tag}
+    </update>
+
+    <!-- 포스트가 사용중인 태그들을 태그리스트에 등록 -->
+    <insert id="savePostTagList">
+                insert into taglist values(#{pid}, #{tid})
+    </insert>
+
+    <!-- #################### 글 검색 #################### -->
+
+
+    <!-- 포스트 제목으로 글 검색 -->
+    <select id="findByTitle" resultType="com.backend.dto.post.Post">
+                select * from post where title like concat('%', #{keyword}, '%') and isTemp = 0 and uid != 1
+    </select>
+
+
+    <!-- 사용자 닉네임으로 작성글 검색 -->
+    <select id="findByNickName" resultType="com.backend.dto.post.Post">
+                select * from post where author like concat('%', #{nickname}, '%') and isTemp = 0 and uid != 1
+    </select>
+
+    <!-- 태그를 사용해서 검색 -->
+    <select id="findByTag" resultType="String">
+                select title from post join taglist on post.pid = taglist.pid
+                where taglist.tid in (select tid from tag where name like #{tag}) and isTemp = 0 and uid != 1
+    </select>
+
+    <!-- #################### 전체 게시글 조회 #################### -->
+
+    <!-- 조회수 순으로 정렬 -->
+    <select id="findAllOrderedByHits" resultType="com.backend.dto.post.Post">
+                select * from post where isTemp = 0 and uid != 1 order by hits desc
+    </select>
+
+    <!-- 좋아요 순으로 정렬 -->
+    <select id="findAllOrderedByLikes" resultType="com.backend.dto.post.Post">
+                select * from post where isTemp = 0 and uid != 1 order by likes desc
+    </select>
+
+    <!-- 최신글 순으로 정렬 -->
+    <select id="findAllOrderedByPublishedTime" resultType="com.backend.dto.post.Post">
+                select * from post where isTemp = 0 and uid != 1 order by publishedtime desc
+    </select>
+
+    <!-- 사용자가 작성한 임시저장 게시글 조회 -->
+    <select id="findAllTempPost" resultType="com.backend.dto.post.Post">
+        select * from post where uid = #{uid} and isTemp = 1
+    </select>
+
+
+    <!-- 사용자가 작성한 게시글 조회 -->
+    <select id="findAllUserPost" resultType="com.backend.dto.post.Post">
+        select * from post where uid = #{uid} and isTemp = 0
+    </select>
+
+    <!-- #################### 글 조회 #################### -->
+
+    <!-- 포스트 아이디로 검색 -->
+    <select id="findById" resultType="com.backend.dto.post.Post">
+                select * from post where pid = #{pid}
+    </select>
+
+    <!-- 조회수 증가 -->
+    <update id="increaseHits">
+                update post set hits = hits + 1 where pid = #{pid}
+    </update>
+
+    <!-- 좋아요 증가 -->
+    <update id="increaseLikes">
+                update post set likes = likes + 1 where pid = #{pid}
+    </update>
+
+    <!-- 좋아요 감소 -->
+    <update id="decreaseLikes">
+                update post set likes = likes - 1 where pid = #{pid}
+    </update>
+
+    <!-- 포스트에 적용된 모든 태그를 조회 -->
+    <select id="findAllPostTags" resultType="String">
+                select name from tag join taglist on tag.tid = taglist.tid
+                where taglist.pid = #{pid}
+    </select>
+
+    <!-- 작성자 정보를 읽어옴 -->
+    <select id="findAuthorInfo" resultType="com.backend.dto.user.User">
+        select qrImage, profileImage, facebook, instagram, github, introduce from user where uid = #{uid}
+    </select>
+
+    <!-- #################### 글 수정 및 삭제 #################### -->
+
+    <delete id="delete">
+            delete from post where pid = #{pid}
+    </delete>
+
+    <update id="update">
+        update from post
+        set title = #{title}, content = #{content}, thumbnail = #{thumbnail}, isTemp = 0
+        where pid = #{pid}
+    </update>
+
+
+    <!-- 글을 수정하거나 삭제할 때 사용한 태그 횟수도 감소하는게 필요함 -->
+
+    <!-- 가장 최신의 공지사항 5개 불러옴 -->
+    <select id="findLatestNotice" resultType="com.backend.dto.post.Post">
+                select * from post join user on post.uid = user.uid where user.admin = 1 order by publishedTime desc
+    </select>
+
+    <!-- 임시저장 -->
+    <update id="temporarily">
+                update post
+                set title = #{title}, content = #{content}, thumbnail = #{thumbnail}, isTemp = 1
+                where pid = #{pid}
+    </update>
+</mapper>
