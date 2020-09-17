@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.backend.mapper.TagMapper">
+    
+    <!-- Word Cloud를 구성하기 위한 태그 목록을 가져옴 -->
+    <select id="loadTopTags" resultType="com.backend.dto.post.Tag">
+        select * from tag order by hits desc
+    </select>
+
+    <!-- 좋아요 순으로 태그가 사용된 게시글 목록 불러오기 -->
+    <select id="getAllPostByTag" resultType="com.backend.dto.post.Post">
+        select * from post where pid in (select taglist.pid from taglist join tag on taglist.tid = tag.tid where tag.name = #{name}) order by likes desc
+    </select>
+
+</mapper>
