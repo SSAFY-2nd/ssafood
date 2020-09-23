@@ -4,49 +4,49 @@
 		<div class="wrap">
 			<div id="spot" class="spot">
 				<div class="inner">
-					<h2 class="spot_title">3RD GENERATION PROJECT <span style="color:#08d3bc">BLOG</span> FOR DEVELOPER</h2>
+					<h2 class="spot_title">FOOD PROJECT HOMEPAGE FOR <span style="color:Orange">Gourmet hunter</span></h2>
 					<div class="spot_desc_box">
-						<strong class="point"><span style="font-family: 'Inter', sans-serif;font-weight: 800;">DO!</span>는 개발자를 위한 블로그입니다</strong><br>
-						오늘의 개발은 어떠셨나요? 이슈는 없으셨나요?<br>
-						모두 <span style="font-family: 'Inter', sans-serif;font-weight: 800;color:#08d3bc">DO!</span>에 기록해보세요!
+						<strong class="point"><span style="font-family: 'Inter', sans-serif;font-weight: 800;">SSAFOOD</span>는 식객들을 위한 홈페이지입니다</strong><br>
+						오늘은 어떤 맛집을 가야 할 지 고민이신가요? 어떤 메뉴를 먹어야 할 지 고민이신가요?<br>
+						모두 <span style="font-family: 'Inter', sans-serif;font-weight: 800;color:Orange">SSAFOOD</span>로 해결하세요! 
 					</div>
 				</div>
 			</div>
 			<div class="contents">
 				<div id="section_contents" class="section_contents effect">
 					<div class="inner">
-						<h3 class="section_title"><span style="font-family: 'Inter', sans-serif;font-weight: 800;color:#08d3bc">DO!</span>가 제공하는<br> 놀라운 서비스</h3>
+						<h3 class="section_title"><span style="font-family: 'Inter', sans-serif;font-weight: 800;color:Orange">SSAFOOD</span>가 제공하는<br> 놀라운 서비스</h3>
 						<ul class="contents_container">
 							<li class="contents_list">
 								<div class="slide_item">
-									<strong class="content_sort">조회순? 인기순? 최신순?</strong>
-									<h4 class="content_title">오늘은 또 무슨 포스트가?</h4>
+									<strong class="content_sort">평점순? 인기순? 거리순?</strong>
+									<h4 class="content_title">오늘은 어떤 맛집으로?</h4>
 									<p class="contents_desc">
-										DO!에 기록되는 다양한 콘텐츠를<br> 
-										보여드리기 위한 세 가지 정렬 방식!<br>
+										SSAFOOD에 있는 다양한 맛집을<br> 
+										최대한 많은 메뉴와 음식점을 보여드립니다<br>
 										취향에 맞게 골라보세요.
 									</p>
 								</div>
 							</li>
 							<li class="contents_list">
 								<div class="slide_item">
-									<strong class="content_sort">내 피드 안에 저장</strong>
-									<h4 class="content_title">보고 싶은 것만 담아 보자</h4>
+									<strong class="content_sort">가고 싶다! </strong>
+									<h4 class="content_title">가고 싶은 곳만 모아서 보자</h4>
 									<p class="contents_desc">
-										자주 보고 싶고, 오래 보고 싶은 포스트는<br>
-										북마크를 눌러 피드에 담아두세요.
+										가고 싶은 맛집과 자신의 취향을<br>
+										모아모아 골라보세요! 
 									</p>
 								</div>
 							</li>
 							<li class="contents_list">
 								<div class="slide_item">
-									<strong class="content_sort">코드</strong>
+									<strong class="content_sort">다이어리</strong>
 									<h4 class="content_title">당신을 위해 준비했습니다</h4>
 									<p class="contents_desc">
-										DO!는 가독성 좋은 코드 포스팅을 위해<br> 
-										마크다운 에디터를 제공합니다.<br>
-										거기에 WYSIWYG까지!<br> 
-										마음껏 당신의 이야기를 기록하세요. 
+										다녀왔던 맛집이 혹시 기억이 안나시나요?<br> 
+										다시 가고픈 맛집이 계신가요?<br>
+										걱정하지마세요! SSAFOOD 다이어리에서<br> 
+										당신의 맛집들을 모두 기록하고 있으니까요
 									</p>
 								</div>
 							</li>
@@ -56,10 +56,12 @@
 				<div id="section_madeby" class="section_madeby effect">
 					<div class="inner">
 						<h3 class="section_title">
-							KEEP <span style="font-family: 'Inter', sans-serif;font-weight: 800;color:#08d3bc">DO</span>ING<br>
+							<span style="font-family: 'Inter', sans-serif;font-weight: 800;color:WHITE">
+							KEEP <span style="font-family: 'Inter', sans-serif;font-weight: 800;color:RED">EAT</span>ING</span><br>
+							
 						</h3>
-							<span class="section_desc">4명이 제공하는 블로그 서비스 DO!<br>
-							우주호, 안시원, 김현성, 김민하가 함께합니다.</span>
+							<strong><span class="section_desc">5명이 제공하는 맛집 서비스 SSAFOOD!<br>
+							우주호, 김재현, 김정현, 백상혁, 임건호가 함께합니다.</span></strong>
 					</div>
 				</div>
 				<!-- <div id="section_reg" class="section_reg">
@@ -143,7 +145,7 @@ a{
 	margin: 0 auto;
 }
 .point {
-	color: #08d3bc;
+	color: orange;
 	font-weight: normal;
 }
 .spot .spot_desc_box {
@@ -180,6 +182,7 @@ a{
 	font-size: 42px;
 	line-height:1.4;
 	font-family: 'NanumSquareR','나눔스퀘어', "나눔고딕", NanumGothic, -apple-system, BlinkMacSystemFont,"Apple SD Gothic Neo","Helvetica Neue", Helvetica, Arial, sans-serif;
+	
 }
 .section_contents .section_title::before{
 	content: '';
@@ -219,7 +222,7 @@ a{
 	font-family: 'NanumSquareR','나눔스퀘어', "나눔고딕", NanumGothic, -apple-system, BlinkMacSystemFont,"Apple SD Gothic Neo","Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 .section_contents .contents_list .content_sort {
-	color:#08d3bc;
+	color:orange;
 	font-family: 'NanumSquareR','나눔스퀘어', "나눔고딕", NanumGothic, -apple-system, BlinkMacSystemFont,"Apple SD Gothic Neo","Helvetica Neue", Helvetica, Arial, sans-serif;
 	font-size: 18px;
 	font-weight:400;
@@ -241,7 +244,7 @@ a{
 
 .section_madeby {
 	height: 1160px;
-	background-image: url(https://miro.medium.com/max/11014/1*xAFAiAxqZVrOVLBTo9tf6w.jpeg);
+	background-image: url("../assets/img/food4.jpg");
 	background-size: cover;
 	background-position: 80% 100%;
 }
@@ -276,6 +279,7 @@ a{
 	font-size: 20px;
 	line-height:26px;
 	top: 180px;
+	color : white;
 }
 /* .btn_apply {
 	display: inline-block;
