@@ -15,7 +15,10 @@
 import Navbar from '../components/Navbar.vue'
 
 export default {
-    name: 'Detail',
+    name: 'detail',
+    components:{
+        Navbar
+    },
     data(){
         return{
             id:null,

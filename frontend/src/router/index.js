@@ -12,7 +12,7 @@ import Feed from '../components/Feed.vue'
 import Forum from '../components/Forum.vue'
 import Myblog from '../components/Myblog.vue'
 import Notice from '../components/Notice.vue'
-
+import Detail from '../components/Detail.vue'
 Vue.use(VueRouter)
 import store from '../router/index.js'
 
@@ -88,6 +88,11 @@ export default new VueRouter({
       path:'/notice',
       name:'notice',
       component: Notice,
+    },
+    {
+      path:'/detail',
+      name:'detail',
+      component: Detail
     }
   ]
 })
