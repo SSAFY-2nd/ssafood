@@ -1,7 +1,13 @@
 <template>
-    <div id="Datail">
+    <div id="Detail">
         <Navbar></Navbar>
-        <h3></h3>
+        <h1>상세페이지</h1>
+        <tr>
+			<td>{{name}}</td>
+		</tr>
+		    <tr>
+				<td class="txt_cont" v-html="cont"></td>
+			</tr>
     </div>
 </template>
 
@@ -9,6 +15,16 @@
 import Navbar from '../components/Navbar.vue'
 
 export default {
-    
+    name: 'Detail',
+    data(){
+        return{
+            id:null,
+            name:null,
+            branch:null,
+            area:null,
+            tel:null,
+            
+        }
+    }
 }
 </script>
