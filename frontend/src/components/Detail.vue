@@ -1,13 +1,7 @@
 <template>
     <div id="Detail">
         <Navbar></Navbar>
-        <h1>상세페이지</h1>
-        <tr>
-			<td>{{name}}</td>
-		</tr>
-		    <tr>
-				<td class="txt_cont" v-html="cont"></td>
-			</tr>
+        
     </div>
 </template>
 

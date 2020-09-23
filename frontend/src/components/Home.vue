@@ -25,7 +25,7 @@
                       class="indigo white--text ma-5"
                       rounded
                       color="orange darken-1"
-                      @click="onSubmit"
+                      @click="onSubmit" to = "/search"
                     >GO!</v-btn>
                   </v-flex>
                 </v-layout>
