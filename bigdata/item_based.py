@@ -44,8 +44,6 @@ def recur_dictify(frame):
 
 
 def dic_to_train(data):
-    over_3_df = data
-    
     from surprise.model_selection import KFold
 
     bsl_options = {
@@ -59,7 +57,7 @@ def dic_to_train(data):
     ax1 = data.plot.scatter(x='store',y='user',s=1,c='score')
     print(ax1)
     
-    df_to_dict = recur_dictify(over_3_df)
+    df_to_dict = recur_dictify(data)
 
     store_list = []  # 음식점 목록을 담을 리스트
     user_set = set()  # 유저 목록을 담을 set
@@ -154,8 +152,8 @@ def main():
     # 여기부터
     print("make dump file")
     #reviews = pd.read_pickle("../data/dump.pkl")
-    #over_3_df = makestoredump(reviews)
-    #pd.to_pickle(over_3_df, "../data/10_review_stores.pkl")
+    #df = makestoredump(reviews)
+    #pd.to_pickle(df, "../data/10_review_stores.pkl")
     #print("end of make dump file")
 
     print("dic to train")

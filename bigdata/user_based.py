@@ -161,10 +161,10 @@ def load_dataframes():
 def main():
 
     dataframes = load_dataframes()
-#    over_3_df = makeuserdump(dataframes)
-#    pd.to_pickle(over_3_df, "../data/over_10review_peoples.pkl")
+#    df = makeuserdump(dataframes)
+#    pd.to_pickle(df, "../data/over_10_review_peoples.pkl")
 
-#    data = pd.read_pickle("../data/over_10review_peoples.pkl")
+#    data = pd.read_pickle("../data/over_10_review_peoples.pkl")
 #    frame = dic_to_train(data)
 #    pd.to_pickle(frame, "../data/dic_to_train.pkl")
 
