@@ -139,221 +139,40 @@
 
 
 
-
     
-    
-    <!-- <div class="toptab">
-      <div class="doasis" 
-        data-aos="fade-up" 
-        data-aos-offset="50"
-        data-aos-easing="ease-in-sine"
-        data-aos-duration="500">
-          <span><em style="color: #6987f7; padding-left:3px">D</em>eveloper</span>
-      </div>
-      <div class="doasis" 
-        data-aos="fade-up" 
-        data-aos-offset="50"
-        data-aos-easing="ease-in-sine"
-        data-aos-duration="500"
-        data-aos-delay="400"
-        >
-          <span class="spot_title"><em style="color: #08d3bc;">O</em>asis</span>
-        <div class="blink"></div>
-      </div>
-      
-      <v-tabs v-model="tab" 
-        class="nav"
-        background-color="transparent"
-        color="black"
-        slider-color="#6987f7"
-        slider-size="3"
-        >
-        <v-tab @click="postread(item)" v-for="item in items" :key="item">
-          <div>{{ item }}</div>
-        </v-tab>
-      </v-tabs>
-    </div> --> 
-
-
-    <div class="contain">
-      <div class="content_area">
-        <!-- 게시글 탭 -->
-        <v-tabs-items v-model="tab">
-          <!-- 게시글 미리보기 -->
-          <v-tab-item v-for="(item) in items" :key="item">
-            <v-row v-if="posts.length">
-              <v-col cols="4" v-for="(post, index) in posts" :key="index+'_posts'"
-                style="padding:1rem">
-                <v-hover>
-                  <template v-slot="{hover}">
-                  <v-card 
-                    @click="postdetail(post)"
-                    height="406px"
-                    max-width="350px"
-                    :elevation="hover ? 8 : 2"
-                  >
-                    <v-img
-                      class="white--text align-end"
-                      height="180px"
-                      :src="post.thumbnail"
-                    />
-                    <div class="inner_card">
-                      <!-- 제목이 가로범위 초과시 ... -->
-                      <div class="card_title"><h5>{{post.title}}</h5></div>
-                      <!-- 내용 -->
-                      <div class="card_content">
-                        <p>{{post.content}}</p>
-                        <div v-if="!post.content">게시글 내용이 비어있습니다.</div>
-                      </div>
-                      <!-- 날짜 -->
-                      <div class="card_date">{{post.publishedTime}}</div>
-                      <!-- 작성자, 좋아요 -->
-                      <div class="card_info">
-                        <div class="author">
-                          {{post.author}}
-                        </div>
-                        <div class="liked">
-                          <v-icon x-small style="margin-top:-2px" color="black">fas fa-heart</v-icon>
-                          {{post.likes}}
-                        </div>
-                      </div>
-                    </div>
-                  </v-card>
-                </template>
-                </v-hover>
-              </v-col>
-            </v-row>
-            <v-row v-else>
-              게시글이 없습니다.
-            </v-row>
-            <infinite-loading @infinite="infiniteHandler" spinner="waveDots">
-              <div slot="no-more" style="color: rgb(102, 102, 102); font-size: 14px; padding: 10px 0px;">목록의 끝입니다 :)</div>
-            </infinite-loading>
-          </v-tab-item>
-        </v-tabs-items>
-      </div>
-    </div>
   </div>
 </template>
 
 <script>
 import Navbar from '../components/Navbar.vue'
 
-import axios from 'axios'
+// import axios from 'axios'
 import AOS from 'aos'
 import 'aos/dist/aos.css'
-import InfiniteLoading from 'vue-infinite-loading';
+//import InfiniteLoading from 'vue-infinite-loading';
 import Card from "@/components/Card";
 import StoreListCard from "@/components/StoreListCard";
 
 AOS.init();
 
 // const API_URL = 'http://i3a507.p.ssafy.io:8081/'
-const API_URL = 'http://localhost:8081/'
-const storage = window.sessionStorage
+//const API_URL = 'http://localhost:8081/'
+//const storage = window.sessionStorage
 
 export default {
   name: 'Home',
   data() {
     return {
-      tab: null,
-      items: [
-        '조회수', '좋아요', '최신'
-      ],
-      posts : {
-        pid: '',
-        title: '',
-        content: '',
-        publishedTime: '',
-        thumbnail:'',
-      },
-      limit: 1
+      
     }
   },
-  created() {
-    this.postread('최신')
-    // 무한 스크롤
-    async function getTopicFromApi() {
-          try {
-              const init = await fetch(`/api/idol/uwasa/pages/0`, {method: "GET"})
-              const data = await init.json()
-              return data
-          } catch(exc) {
-              console.error(exc)
-          }
-      }
-      getTopicFromApi().then(data => {
-          console.log("fromAPI", data)
-          this.topicData = data
-      })
-  },
+  
   components: {
-    InfiniteLoading,
+    //InfiniteLoading,
     Navbar,
     Card,
     StoreListCard
   },
-  methods: {
-    postdetail(one_post) {
-      storage.removeItem("pid")
-      storage.setItem("pid", one_post.pid)
-      // this.$router.push({name: 'postdetail', params: {data: one_post}})
-      this.$router.push({name: 'postdetail',  params: {data: one_post}})
-    },
-    postread(item) {
-      let option = ""
-      if (item === "최신") {
-        option = "latest"
-      } else if (item === '조회수') {
-        option = "hits"
-      } else if (item === '좋아요') {
-        option = "likes"
-      }
-      axios.get(API_URL+`api/v2/${option}`)
-      .then(({data})=>{
-        // 콘텐츠 미리보기 슬라이스
-        data.forEach(el => {
-          // el.tmp = el.content
-          if (el.content.length > 120) {
-            // 마크다운 사진 제외
-            el.content = el.content.replace(/!\[.*\)+/, "")
-          }
-          // 작성 날짜만 보이게 수정
-          let year = el.publishedTime.slice(0,4);
-          let month = el.publishedTime.slice(5,7);
-          let day = el.publishedTime.slice(8,10);
-          el.publishedTime = year+"년 "+month+"월 "+day+"일"
-          this.posts = data
-        });
-        console.log(data);
-      })
-      .catch(err => console.log(err))
-    },
-    // 무한스크롤 핸들러
-    infiniteHandler($state) {
-      const EACH_LEN = 30
-      fetch("/api/idol/uwasa/pages/" + (this.limit), {method: "get"}).then(resp => {
-        return resp.json()
-      }).then(data => {
-        setTimeout(() => {
-          if(data.length) {
-            this.topicData = this.topicData.concat(data)
-            $state.loaded()
-            this.limit += 1
-            // 끝 지정(No more data) - 데이터가 EACH_LEN개 미만이면 
-            if(data.length / EACH_LEN < 1) {
-              $state.complete()
-            }
-          } else {
-            // 끝 지정(No more data)
-            $state.complete()
-          }
-        }, 1000)
-      }).catch(err => {
-        console.error(err);
-      })
-    }
-  }
 }
 </script>
 

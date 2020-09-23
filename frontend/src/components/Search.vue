@@ -109,16 +109,30 @@ export default {
   name: 'Home',
   data() {
     return {
-      listData: [],
-      dataPerPage: 10,
+       search: '',
+        listData: [],
+        searchData: [],
+        dataPerPage: 10,
         curPageNum: 1,
+        curSelectIndex: 0,
+
+        newData: {
+          id: Number,
+          guide_title: '',
+          guide_type: ''
+        },
+        selectedData: {
+          id: Number,
+          guide_title: '',
+          guide_type: ''
+        }
     }
   },
   created() {
      axios.get('http://localhost:8080/guide/list')
         .then((response) => {
           this.listData = response.data;
-          console.log(this.listData);
+          console.log(this.listData.length);
         });
          //this.listData = testData
   },
@@ -128,6 +142,20 @@ export default {
     Card,
     StoreListCard
   },
+   computed: {
+      startOffset() {
+        return ((this.curPageNum - 1) * this.dataPerPage);
+      },
+      endOffset() {
+        return (this.startOffset + this.dataPerPage);
+      },
+      numOfPages() {
+        return Math.ceil(this.listData.length / this.dataPerPage);
+      },
+      calData() {
+        return this.listData.slice(this.startOffset, this.endOffset)
+      }
+	},
 }
 </script>
 
