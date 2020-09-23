@@ -7,7 +7,7 @@
 
     <v-container fluid fill-height>
       <div class="login_do">
-        <span><h2><span class="logo">DO!</span>에 로그인하세요</h2></span>
+        <span><h2><span class="logo">SSAFOOD</span>에 로그인</h2></span>
         <v-form name="form" @submit.prevent style="width:318px">
           <v-text-field
             outlined
