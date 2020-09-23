@@ -108,6 +108,42 @@
                 </div>
               </td>
             </tr>
+            <tr>
+              <td class="def">
+                <v-icon>mdi-gauge</v-icon>나이
+              </td>
+              <!-- <label for="password">비밀번호 확인</label> -->
+              <td>
+                <v-text-field
+                  @keyup.enter="handleRegister"
+                  solo
+                  flat
+                  hide-details
+                  placeholder="나이를 적어주세요"
+                  name="age"
+                  v-model="user.age"
+                  v-validate="'required|min:3|max:20'"
+                  data-vv-as="password"
+                />
+                <div
+                  class="warn" v-if="submitted && errors.has('age')">
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="def">
+                <v-icon>mdi-gender-male-female</v-icon>성별
+              </td>
+              <td>
+                <div id="demo">
+                <input type="radio" name="test_id" @change="onChange($event)" value="male"> Male
+                <input type="radio" name="test_id" @change="onChange($event)" value="female"> Female
+                </div>
+                <div
+                  class="warn" v-if="submitted && errors.has('age')">
+                </div>
+              </td>
+            </tr>
           </table>
         </div>
           <!-- user field와 중복체크를 했을 때만 활성화-->
@@ -145,13 +181,14 @@ export default {
   },
   data() {
     return {
-      user: new User('', '', '', ''),
+      user: new User('', '', '', '', '', ''),
       isLogin: this.$store.state.isLoggedIn,
       submitted: false,
       successful: false,
       message: '',
       dupcheck: false,//중복체크 했는지
       fillcheck: false,
+      gender : []
     }
   },
   mounted() {
