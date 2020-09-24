@@ -12,8 +12,8 @@
         <v-container fill-height fluid grid-list-xl>
       <v-layout justify-center wrap mt-5>
         <v-flex xs12 md8>
-          <card title="맛집 검색">
-            <v-form>
+          <card title="맛집 검색 GO!" @click="searchFood(search)" to = "/search" >
+            <!-- <v-form>
               <v-container py-0>
                 <v-layout wrap>
                   <v-flex xs12 md12>
@@ -30,7 +30,7 @@
                   </v-flex>
                 </v-layout>
               </v-container>
-            </v-form>
+            </v-form> -->
           </card>
           <v-divider class="mx-4" />
         </v-flex>
