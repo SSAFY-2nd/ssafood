@@ -13,7 +13,7 @@ import java.util.List;
 public class StoreDetail {
 
     // store
-    private int id; // 음식점 고유 식별 번호
+    private int store_id; // 음식점 고유 식별 번호
     private String name; // 식당명
     private String branch; // 지점명
     private String area; // 지역명

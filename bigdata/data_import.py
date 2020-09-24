@@ -5,11 +5,13 @@ import shutil
 import pymysql
 
 mydb = pymysql.connect(
+    
     host = "localhost",
     user = "root", 
-    password = "1234",
-    database = "django_test",
+    password = "root",
+    database = "ssafood",
     charset='utf8mb4'
+
 )
 
 mycursor = mydb.cursor(pymysql.cursors.DictCursor)
@@ -76,9 +78,6 @@ def import_data(data_path=DATA_FILE):
                     r["reg_time"])
             mycursor.execute(sql,val)
         mydb.commit()
-#        count = count + 1
-#        if count == 100:
-#            break
 
 if __name__ == "__main__":
     import_data()
