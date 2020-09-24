@@ -9,4 +9,5 @@ public interface UserDao {
     public User findByUid(String uid); // 회원 정보 확인
     public User findByEmail(String email); // 회원 정보 확인
     public void update(User c); // 회원 정보 수정
+    public User signin(String email, String password);
 }

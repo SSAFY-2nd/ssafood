@@ -13,7 +13,8 @@ public class WebConfig implements WebMvcConfigurer {
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
                 .allowedOrigins("*")
-                .allowedOrigins("http://i3a507.p.ssafy.io:8080")
+                .allowedOrigins("http://localhost:8080")
+//                .allowedOrigins("http://j3a407.p.ssafy.io:8080")
                 .allowedHeaders("*")
                 .allowedMethods("HEAD", "GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS")
                 .allowedHeaders("*")
