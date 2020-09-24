@@ -146,26 +146,25 @@ export default {
         var geocoder = new kakao.maps.services.Geocoder();
         // var address = this.address
         geocoder.addressSearch('경기도 고양시 일산동구 강석로 152', function(result, status) {
-
-        if (status === kakao.maps.services.Status.OK) {
-            var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-        var imageSrc = 'https://ifh.cc/g/PIvBP3.png',    
-        imageSize = new kakao.maps.Size(64, 69), 
-        imageOption = {offset: new kakao.maps.Point(27, 69)}; 
-
-        var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption)
-        var marker = new kakao.maps.Marker({
+            if (status === kakao.maps.services.Status.OK) {
+                var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+                var imageSrc = 'https://ifh.cc/g/PIvBP3.png',    
+                imageSize = new kakao.maps.Size(64, 69), 
+                imageOption = {offset: new kakao.maps.Point(27, 69)
+                }; 
+            var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption)
+            var marker = new kakao.maps.Marker({
             map: map,
             image: markerImage,
             position: coords
-        });
-        var infowindow = new kakao.maps.InfoWindow({
-            content: '<div style="width:150px;text-align:center;padding:6px 0;">음식점 이름</div>'
-        });
-        infowindow.open(map, marker);
-        map.setCenter(coords);
-    } 
-    });    
+            });
+            var infowindow = new kakao.maps.InfoWindow({
+                content: '<div style="width:150px;text-align:center;padding:6px 0;">음식점 이름</div>'
+            });
+            infowindow.open(map, marker);
+            map.setCenter(coords);
+        } 
+        });    
          }
     }
 }
