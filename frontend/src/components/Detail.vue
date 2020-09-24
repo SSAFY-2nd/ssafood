@@ -15,17 +15,17 @@
                 <table class = "story">
                     <tr>
                         <td>주소</td>
-                        <td><div style="margin-left:150px">음식점 주소</div></td>
+                        <td><div style="margin-left:150px">음식점 주소(address)</div></td>
                     </tr>
                      <div style="margin-top:10px"></div>
                      <tr>
                         <td>전화번호</td>
-                        <td><div style="margin-left:150px">음식점 전화번호</div></td>
+                        <td><div style="margin-left:150px">음식점 전화번호(tel)</div></td>
                     </tr>
                      <div style="margin-top:10px"></div>
                      <tr>
                         <td>음식 종류</td>
-                        <td><div style="margin-left:150px">음식점 음식 종류</div></td>
+                        <td><div style="margin-left:150px">음식점 음식 종류(category_list)</div></td>
                     </tr>
                      <div style="margin-top:10px"></div>
                      <tr>
@@ -45,7 +45,7 @@
                      <div style="margin-top:10px"></div>
                      <tr>
                         <td>휴일</td>
-                        <td><div style="margin-left:150px">일, 둘째 / 넷째 월</div></td>
+                        <td><div style="margin-left:150px">일, 둘째 / 넷째 월(bhour_list)</div></td>
                     </tr>
                      <div style="margin-top:10px"></div>
                      <tr>
@@ -55,7 +55,7 @@
                     <div style="margin-top:10px"></div>
                      <tr>
                         <td rowspan=3>메뉴</td>
-                        <td><div style="margin-left:150px">메뉴1 가격</div></td>
+                        <td><div style="margin-left:150px">메뉴1 가격(menu_list)</div></td>
                     </tr>
                     <tr>
                         <div style="margin-left:150px">메뉴2 가격</div>
@@ -103,6 +103,7 @@
 <script>
 import Navbar from '../components/Navbar.vue'
 
+//import axios from 'axios'
 export default {
     name: 'detail',
     components:{
@@ -116,6 +117,10 @@ export default {
             branch:'',
             area:'',
             tel:'',
+            category_list:[],
+            menu_list:[],
+            bhour_list:[],
+            review_cnt:''
             }
         }
     },
@@ -132,15 +137,36 @@ export default {
     },
     methods: {
         initMap() {
-            var container = document.getElementById('map');
-            var options = {
-              center: new kakao.maps.LatLng(33.450701, 126.570667),
-              level: 3
-            };
+        var mapContainer = document.getElementById('map'),  
+        mapOption = {
+        center: new kakao.maps.LatLng(33.450701, 126.570667), 
+        level: 3 
+        };     
+        var map = new kakao.maps.Map(mapContainer, mapOption); 
+        var geocoder = new kakao.maps.services.Geocoder();
+        // var address = this.address
+        geocoder.addressSearch('경기도 고양시 일산동구 강석로 152', function(result, status) {
 
-            var map = new kakao.maps.Map(container, options);
-            map.setMapTypeId(kakao.maps.MapTypeId.HYBRID);
-        }
+        if (status === kakao.maps.services.Status.OK) {
+            var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+        var imageSrc = 'https://ifh.cc/g/PIvBP3.png',    
+        imageSize = new kakao.maps.Size(64, 69), 
+        imageOption = {offset: new kakao.maps.Point(27, 69)}; 
+
+        var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption)
+        var marker = new kakao.maps.Marker({
+            map: map,
+            image: markerImage,
+            position: coords
+        });
+        var infowindow = new kakao.maps.InfoWindow({
+            content: '<div style="width:150px;text-align:center;padding:6px 0;">음식점 이름</div>'
+        });
+        infowindow.open(map, marker);
+        map.setCenter(coords);
+    } 
+    });    
+         }
     }
 }
 </script>
