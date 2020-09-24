@@ -24,4 +24,9 @@ public class StoreDaoImpl implements StoreDao {
     public List<Store> findByKeyword(String keyword) {
         return mapper.findByKeyword(keyword);
     }
+
+    @Override
+    public List<Store> findAllStore() {
+        return mapper.findAllStore();
+    }
 }
