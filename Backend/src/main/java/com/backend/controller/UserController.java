@@ -151,7 +151,7 @@ public class UserController {
     @PostMapping("/api/v1")
     public ResponseEntity<?> signup(@RequestBody User user)
     {
-        System.out.println(user.toString());
+
         try{
             service.save(user);
             return new ResponseEntity<>("회원가입 완료", HttpStatus.OK);
