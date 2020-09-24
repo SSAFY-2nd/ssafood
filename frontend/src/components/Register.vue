@@ -136,8 +136,8 @@
               </td>
               <td>
                 <div id="demo" >
-                <input type="radio" name="test_id" @change="onChange($event)" value="male"> Male
-                <input type="radio" name="test_id" @change="onChange($event)" value="female"> Female
+                <input type="radio" name="test_id" @change="onChange($event)" value=0 v-model="user.gender"> Male
+                <input type="radio" name="test_id" @change="onChange($event)" value=1 v-model="user.gender"> Female
                 </div>
                 <div
                   class="warn" v-if="submitted && errors.has('gender')">
@@ -187,8 +187,7 @@ export default {
       successful: false,
       message: '',
       dupcheck: false,//중복체크 했는지
-      fillcheck: false,
-      gender : []
+      fillcheck: false
     }
   },
   mounted() {
