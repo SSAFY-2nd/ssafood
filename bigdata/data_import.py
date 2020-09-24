@@ -8,7 +8,7 @@ mydb = pymysql.connect(
     
     host = "localhost",
     user = "root", 
-    password = "root",
+    password = "1q2w3e4r",
     database = "ssafood",
     charset='utf8mb4'
 
@@ -16,7 +16,7 @@ mydb = pymysql.connect(
 
 mycursor = mydb.cursor(pymysql.cursors.DictCursor)
 
-DATA_DIR = "..\data"
+DATA_DIR = "../data"
 DATA_FILE = os.path.join(DATA_DIR, "data.json")
 DUMP_FILE = os.path.join(DATA_DIR, "dump.pkl")
 
@@ -78,6 +78,9 @@ def import_data(data_path=DATA_FILE):
                     r["reg_time"])
             mycursor.execute(sql,val)
         mydb.commit()
+        
+        
+
 
 if __name__ == "__main__":
     import_data()

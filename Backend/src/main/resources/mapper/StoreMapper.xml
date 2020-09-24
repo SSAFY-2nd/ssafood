@@ -10,4 +10,15 @@
         select * from store where store_id = #{id}
     </select>
 
+    <!--  음식점 id를 기준으로 음식점 정보 확인 -->
+    <select id="findByKeyword" resultType="com.backend.dto.store.Store">
+        select * from store where area LIKE CONCAT('%', #{keyword}, '%')
+        UNION
+        select * from store where name LIKE CONCAT('%', #{keyword}, '%')
+        UNION
+        select * from store where category LIKE CONCAT('%', #{keyword}, '%')
+    </select>
+
+
+
 </mapper>
