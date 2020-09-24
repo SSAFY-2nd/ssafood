@@ -202,7 +202,7 @@ export default {
       // console.log(user)
       // if(){
       // }
-      if(this.user.email && this.user.password && this.user.confirmPassword && this.user.name){
+      if(this.user.email && this.user.password && this.user.confirmPassword && this.user.name && this.user.age){
         this.fillcheck= true;
         return true;
       }
