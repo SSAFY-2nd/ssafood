@@ -1,11 +1,12 @@
 package com.backend.service;
 
-import java.util.Map;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.tomcat.util.codec.binary.Base64;
 
+import java.util.Map;
 
-public class JWTDecoding  {
+
+public class JWTDecoding {
 
     static public String decode (String id_token) throws Exception {
         String[] tokens = ((String) id_token).split("\\.");
