@@ -7,6 +7,7 @@
             </div>
             <div class="content">
             <h1 class="rest-title">음식점 이름 들어갈 곳</h1>
+            <br>
             <v-icon slot="append" >mdi-eye</v-icon>조회수
             <v-icon slot="append" >mdi-pencil</v-icon>리뷰수
             <v-icon slot="append" >mdi-star</v-icon>즐겨찾기수
