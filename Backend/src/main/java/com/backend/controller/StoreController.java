@@ -72,7 +72,7 @@ public class StoreController {
         Store store = storeService.findById(id);
 
         // Store
-        details.setId(store.getId());
+        details.setStore_id(store.getStore_id());
         details.setName(store.getName());
         details.setBranch(store.getBranch());
         details.setArea(store.getArea());
