@@ -17,7 +17,7 @@
               <v-container py-0>
                 <v-layout wrap>
                   <v-flex xs12 md12>
-                    <v-text-field v-model="storeName" label="음식점 이름" />
+                    <v-text-field v-model="search" label="음식점 이름" />
                   </v-flex>
                   <v-flex xs12 text-center>
                     <v-btn
@@ -25,7 +25,7 @@
                       class="indigo white--text ma-5"
                       rounded
                       color="orange darken-1"
-                      @click="onSubmit" to = "/search"
+                      @click="searchFood(search)" to = "/search"
                     >GO!</v-btn>
                   </v-flex>
                 </v-layout>
@@ -55,10 +55,27 @@
         <h1>About SSAFOOD</h1>
         <hr />
         <h2>당신이 가고 싶은 음식점은 어디?</h2>
+        <!-- <p>음식 추천 사이트</p> -->
+        <section class ="ui tow column centered grid">
+          <div class = "column">
+            <form class ="ui segment large form">
+              <div class = "ui message red"></div>
+              <div class = "ui segment">
+              <div class = "field">
+                <div class = "ui right icon input large">
+                  <input type = "text" placeholder="Enter your address"/>
+                  <i class = "dot circle link icon" @click="locatorButtonPressed"></i>
+                </div>
+              </div>
+              <button class = "ui button">Go</button>
+            </div>
+            </form>
+          </div>
+        </section>
+    </div>
 
-        <p>음식 추천 사이트</p>
         
-        </div>
+
         <section id="services" class="sec-services">
         <div class="container">
           <h1>Services</h1>
@@ -135,6 +152,7 @@
           </div>
         </div>
       </section>
+      
       </main>
 
 
@@ -146,33 +164,104 @@
 <script>
 import Navbar from '../components/Navbar.vue'
 
-// import axios from 'axios'
+import axios from 'axios'
 import AOS from 'aos'
 import 'aos/dist/aos.css'
-//import InfiniteLoading from 'vue-infinite-loading';
+// import InfiniteLoading from 'vue-infinite-loading';
 import Card from "@/components/Card";
 import StoreListCard from "@/components/StoreListCard";
 
 AOS.init();
 
 // const API_URL = 'http://i3a507.p.ssafy.io:8081/'
-//const API_URL = 'http://localhost:8081/'
-//const storage = window.sessionStorage
+// const API_URL = 'http://localhost:8081/'
+// const storage = window.sessionStorage
 
 export default {
   name: 'Home',
   data() {
     return {
-      
+        search: '',
+        listData: [],
+        searchData: [],
+        dataPerPage: 10,
+        curPageNum: 1,
+        curSelectIndex: 0,
+
+        newData: {
+          id: Number,
+          guide_title: '',
+          guide_type: ''
+        },
+        selectedData: {
+          id: Number,
+          guide_title: '',
+          guide_type: ''
+        }
     }
   },
-  
+  created() {
+     axios.get('http://localhost:8080/guide/list')
+        .then((response) => {
+          this.listData = response.data;
+          console.log(this.listData.length);
+        });
+         //this.listData = testData
+  },
   components: {
-    //InfiniteLoading,
+    // InfiniteLoading,
     Navbar,
     Card,
     StoreListCard
   },
+   computed: {
+      startOffset() {
+        return ((this.curPageNum - 1) * this.dataPerPage);
+      },
+      endOffset() {
+		console.log('startoffset : ')
+		console.log(this.startOffset)
+        return (this.startOffset + this.dataPerPage);
+      },
+      numOfPages() {
+		console.log('endoffset : ')
+		console.log(this.endOffset)
+        return Math.ceil(this.listData.length/this.dataPerPage);
+      },
+      calData() {
+		console.log('numofPages : ')
+		console.log(this.startOffset)
+         return this.listData.slice(this.startOffset, this.endOffset)
+      }
+  },
+  methods: {
+        locatorButtonPressed(){
+          if(navigator.geolocation){
+            navigator.geolocation.getCurrentPosition(position=>{
+              console.log(position.coords.latitude);
+              console.log(position.coords.longitude);
+            },
+            error =>{
+                console.log(error.message);
+              }
+
+            );
+          }else{
+            console.log("your browser does not support geolocation API");
+            }
+        },
+        searchFood(search) {
+            if (search == null) {
+                alert("내용을 입력해주세요")
+                return
+            }
+            axios.get(`http://localhost:8080/guide/` + search)
+                .then((response) => {
+                  this.listData = response.data;
+                  console.log(this.listData.length);
+                });
+        },
+  }
 }
 </script>
 
@@ -180,6 +269,11 @@ export default {
 /* @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap'); */
 @import url('http://fonts.googleapis.com/earlyaccess/notosanskr.css');
 
+.ui.button,
+.dot.circle.icon{
+  background-color:  #ff5a5f;
+  color : white;
+}
 .doasis{
   position: relative;
   line-height: 1;

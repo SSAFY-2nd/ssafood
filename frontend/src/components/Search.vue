@@ -17,7 +17,7 @@
               <v-container py-0>
                 <v-layout wrap>
                   <v-flex xs12 md12>
-                    <v-text-field v-model="storeName" label="음식점 이름" />
+                    <v-text-field v-model="search" label="음식점 이름" />
                   </v-flex>
                   <v-flex xs12 text-center>
                     <v-btn
@@ -25,7 +25,7 @@
                       class="indigo white--text ma-5"
                       rounded
                       color="orange darken-1"
-                      @click="onSubmit"
+                      @click="searchFood(search)"
                     >GO!</v-btn>
                   </v-flex>
                 </v-layout>
@@ -59,7 +59,7 @@
         <v-app id="list-sample">
           
            <v-list two-line
-              v-for="(listItem, index) in listData"
+              v-for="(listItem, index) in calData"
               :key="index">
           <v-list-tile>
           <v-list-tile-content>
@@ -109,7 +109,7 @@ export default {
   name: 'Home',
   data() {
     return {
-       search: '',
+        search: '',
         listData: [],
         searchData: [],
         dataPerPage: 10,
@@ -147,15 +147,34 @@ export default {
         return ((this.curPageNum - 1) * this.dataPerPage);
       },
       endOffset() {
+		console.log('startoffset : ')
+		console.log(this.startOffset)
         return (this.startOffset + this.dataPerPage);
       },
       numOfPages() {
-        return Math.ceil(this.listData.length / this.dataPerPage);
+		console.log('endoffset : ')
+		console.log(this.endOffset)
+        return Math.ceil(this.listData.length/this.dataPerPage);
       },
       calData() {
-        return this.listData.slice(this.startOffset, this.endOffset)
+		console.log('numofPages : ')
+		console.log(this.startOffset)
+         return this.listData.slice(this.startOffset, this.endOffset)
       }
-	},
+  },
+  methods: {
+        searchFood(search) {
+            if (search == null) {
+                alert("내용을 입력해주세요")
+                return
+            }
+            axios.get(`http://localhost:8080/guide/` + search)
+                .then((response) => {
+                  this.listData = response.data;
+                  console.log(this.listData.length);
+                });
+        },
+  }
 }
 </script>
 
