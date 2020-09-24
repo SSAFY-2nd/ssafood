@@ -90,7 +90,7 @@ export default new VueRouter({
     //   component: Notice,
     // },
     {
-      path:'/detail',
+      path:'/detail/:store_id',
       name:'detail',
       component: Detail
     }

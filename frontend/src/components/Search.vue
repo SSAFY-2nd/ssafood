@@ -54,7 +54,7 @@
     
 		<section id="list" class="sec-list">
         <div class="container">
-          <h1>검색 리스트</h1>
+          <!-- <h1>검색 리스트</h1> -->
           <hr />
         <v-app id="list-sample">
           
@@ -64,10 +64,17 @@
           <v-list-tile>
           <v-list-tile-content>
             <v-list-tile-title class="text--primary">
-              {{ listItem.guide_title }}
+              <h3>
+                <!-- <a :href="link"> -->
+              <router-link :to="{name:'detail',params:{store_id : listItem.store_id}}">
+              {{ listItem.name }}
+              </router-link>
+               <!-- </a> -->
+              </h3>
             </v-list-tile-title>
+            <br>
             <v-list-tile-sub-title>
-              {{ listItem.guide_type }}
+              {{ listItem.address }}
             </v-list-tile-sub-title>
           </v-list-tile-content>
           </v-list-tile>
@@ -102,7 +109,7 @@ import StoreListCard from "@/components/StoreListCard";
 AOS.init();
 
 // const API_URL = 'http://i3a507.p.ssafy.io:8081/'
-// const API_URL = 'http://localhost:8081/'
+ const API_URL = 'http://localhost:8080/'
 // const storage = window.sessionStorage
 
 export default {
@@ -115,6 +122,8 @@ export default {
         dataPerPage: 10,
         curPageNum: 1,
         curSelectIndex: 0,
+        link : API_URL+"detail",
+        store_id:'',
 
         newData: {
           id: Number,
@@ -129,7 +138,7 @@ export default {
     }
   },
   created() {
-     axios.get('http://localhost:8080/guide/list')
+     axios.get('http://localhost:8081/api/v1/allStore')
         .then((response) => {
           this.listData = response.data;
           console.log(this.listData.length);
@@ -168,7 +177,7 @@ export default {
                 alert("내용을 입력해주세요")
                 return
             }
-            axios.get(`http://localhost:8080/guide/` + search)
+            axios.get(`http://localhost:8081/api/v1/search/` + search)
                 .then((response) => {
                   this.listData = response.data;
                   console.log(this.listData.length);

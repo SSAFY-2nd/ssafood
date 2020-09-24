@@ -6,7 +6,7 @@
             <img src="../assets/img/food.png" width="300" height="300"> 
             </div>
             <div class="content">
-            <h1 class="rest-title">음식점 이름 들어갈 곳</h1>
+            <h1 class="rest-title">{{restaurant.name}}</h1>
             <br>
             <v-icon slot="append" >mdi-eye</v-icon>조회수
             <v-icon slot="append" >mdi-pencil</v-icon>리뷰수
@@ -14,21 +14,38 @@
             <hr>
                 <table class = "story">
                     <tr>
-                        <td>주소</td>
-                        <td><div style="margin-left:150px">음식점 주소(address)</div></td>
+                        <td>주소<hr></td>
+                        <td><div style="margin-left:150px">{{restaurant.address}}<hr></div></td>
                     </tr>
                      <div style="margin-top:10px"></div>
                      <tr>
-                        <td>전화번호</td>
-                        <td><div style="margin-left:150px">음식점 전화번호(tel)</div></td>
+                        <td>체인명<hr></td>
+                        <td><div style="margin-left:150px">{{restaurant.branch}}<hr></div></td>
                     </tr>
                      <div style="margin-top:10px"></div>
                      <tr>
-                        <td>음식 종류</td>
-                        <td><div style="margin-left:150px">음식점 음식 종류(category_list)</div></td>
+                        <td>지역분류<hr></td>
+                        <td><div style="margin-left:150px">{{restaurant.area}}<hr></div></td>
                     </tr>
                      <div style="margin-top:10px"></div>
                      <tr>
+                        <td>전화번호<hr></td>
+                        <td><div style="margin-left:150px">{{restaurant.tel}}<hr></div></td>
+                    </tr>
+                     <div style="margin-top:10px"></div>
+                     <tr>
+                        <td>음식 종류<hr></td>
+                        
+                        <td><div style="margin-left:150px">
+                            <li v-for="(kind,index) in restaurant.category" :key="index">
+                            {{kind}}
+                            </li>
+                            <hr></div></td>
+                        
+                    </tr>
+                     <div style="margin-top:10px"></div>
+                     
+                     <!-- <tr>
                         <td>가격대</td>
                         <td><div style="margin-left:150px">음식점 가격대</div></td>
                     </tr>
@@ -52,16 +69,12 @@
                         <td>웹사이트</td>
                         <td><div style="margin-left:150px">식당 홈페이지로 가기</div></td>
                     </tr>
-                    <div style="margin-top:10px"></div>
+                    <div style="margin-top:10px"></div> -->
                      <tr>
-                        <td rowspan=3>메뉴</td>
-                        <td><div style="margin-left:150px">메뉴1 가격(menu_list)</div></td>
-                    </tr>
-                    <tr>
-                        <div style="margin-left:150px">메뉴2 가격</div>
-                    </tr>
-                    <tr>
-                        <div style="margin-left:150px">메뉴3 가격</div>
+                        <td rowspan=3>메뉴<hr></td>
+                        <td><div style="margin-left:150px"><li v-for="(menu,index) in restaurant.menu" :key="index">
+                            {{menu}}</li>
+                            <hr></div></td>
                     </tr>
                    
                 </table>
@@ -102,7 +115,7 @@
 
 <script>
 import Navbar from '../components/Navbar.vue'
-
+import axios from 'axios'
 //import axios from 'axios'
 export default {
     name: 'detail',
@@ -111,18 +124,30 @@ export default {
     },
     data(){
         return{
-            restraunt:{
+            restaurant:{
             id:'',
             name:'',
             branch:'',
             area:'',
             tel:'',
-            category_list:[],
-            menu_list:[],
+            address:'',
+            latitude:'',
+            longtitude:'',
+            category:[],
+            menu:[],
             bhour_list:[],
             review_cnt:''
+            
             }
         }
+    },
+    created() {
+     axios.get('http://localhost:8081/api/v1/detail/'+this.$route.params.store_id)
+        .then((response) => {
+          this.restaurant = response.data;
+          console.log(this.restaurant.length);
+        });
+         //this.listData = testData
     },
      mounted() {
         if (window.kakao && window.kakao.maps) {
@@ -139,7 +164,7 @@ export default {
         initMap() {
         var mapContainer = document.getElementById('map'),  
         mapOption = {
-        center: new kakao.maps.LatLng(33.450701, 126.570667), 
+        center: new kakao.maps.LatLng(this.restaurant.latitude, this.restaurant.longtitude), 
         level: 3 
         };     
         var map = new kakao.maps.Map(mapContainer, mapOption); 
@@ -160,6 +185,8 @@ export default {
             });
             var infowindow = new kakao.maps.InfoWindow({
                 content: '<div style="width:150px;text-align:center;padding:6px 0;">음식점 이름</div>'
+                // content: this.restaurant.name
+                
             });
             infowindow.open(map, marker);
             map.setCenter(coords);
