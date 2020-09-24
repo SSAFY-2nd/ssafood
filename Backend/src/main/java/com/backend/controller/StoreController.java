@@ -35,6 +35,17 @@ public class StoreController {
     @Autowired
     ReviewService reviewService;
 
+    /**
+     * @param 
+     * @return 상점 100개 List 조회 없으면 null
+     */
+    @ApiOperation(value = "검색 : None", notes = "상점 100개 List 조회 ")
+    @GetMapping("/api/v1/allStore")
+    public List<Store> AllStore() {
+
+        return storeService.findAllStore();
+    }
+
 
     /**
      * @param id : 음식점 고유 번호로 음식점리스트 검색( 음식점 이름과 주소 )
