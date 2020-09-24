@@ -168,4 +168,17 @@ public class StoreController {
         return details;
     }
 
+    /**
+     * @param keyword : 지역명(위치), 음식점명, 음식이름으로 음식점리스트 검색( 음식점 이름과 주소 )
+     * @return 상점 List 검색 없으면 null
+     */
+    @ApiOperation(value = "검색 : 지역, 음식점명, 음식", notes = "지역, 음식점명, 음식이름 검색")
+    @GetMapping("/api/v1/search/{keyword}")
+    public List<Store> findListByKeyword(@PathVariable String keyword) {
+
+        List<Store> storeList = storeList = storeService.findByKeyword(keyword);
+
+        return storeList;
+    }
+
 }

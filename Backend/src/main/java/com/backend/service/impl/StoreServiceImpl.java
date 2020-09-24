@@ -20,7 +20,8 @@ public class StoreServiceImpl implements StoreService {
     }
 
     @Override
-    public List<Store> findByIds(int[] id) {
-        return dao.findByIds(id);
+    public List<Store> findByKeyword(String keyword) {
+        return dao.findByKeyword(keyword);
     }
+
 }
