@@ -136,8 +136,8 @@
               </td>
               <td>
                 <div id="demo" >
-                <input type="radio" name="test_id" @change="onChange($event)" value=0 v-model="user.gender"> Male
-                <input type="radio" name="test_id" @change="onChange($event)" value=1 v-model="user.gender"> Female
+                <input type="radio" name="gender" @change="onChange($event)" value=0 v-model="user.gender"> Male
+                <input type="radio" name="gender" @change="onChange($event)" value=1 v-model="user.gender"> Female
                 </div>
                 <div
                   class="warn" v-if="submitted && errors.has('gender')">
