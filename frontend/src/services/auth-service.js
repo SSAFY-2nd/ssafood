@@ -61,6 +61,8 @@ class AuthService {
             nickname: user.username,
             email: user.email,
             password: user.password,
+            age: user.age,
+            sex: user.sex
         })
     }
     // R: User
