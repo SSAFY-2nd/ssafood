@@ -135,12 +135,12 @@
                 <v-icon>mdi-gender-male-female</v-icon>성별
               </td>
               <td>
-                <div id="demo">
+                <div id="demo" >
                 <input type="radio" name="test_id" @change="onChange($event)" value="male"> Male
                 <input type="radio" name="test_id" @change="onChange($event)" value="female"> Female
                 </div>
                 <div
-                  class="warn" v-if="submitted && errors.has('age')">
+                  class="warn" v-if="submitted && errors.has('gender')">
                 </div>
               </td>
             </tr>
