@@ -35,16 +35,4 @@ public class UserServiceImpl implements UserService {
     public void update(User c) {
         dao.update(c);
     }
-
-    @Override
-    public User signin(String email, String password) {
-        // 이메일과 패스워드 DB와 비교.
-        User user = dao.signin(email, password);
-
-        if (user != null) {
-            return dao.signin(email, password);
-        } else {
-            throw new RuntimeException("그런 사람은 없어요.");
-        }
-    }
 }
