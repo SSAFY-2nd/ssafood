@@ -24,4 +24,9 @@ public class StoreServiceImpl implements StoreService {
         return dao.findByKeyword(keyword);
     }
 
+    @Override
+    public List<Store> findAllStore() {
+        return dao.findAllStore();
+    }
+
 }
