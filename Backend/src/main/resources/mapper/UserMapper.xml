@@ -11,10 +11,9 @@
         관리자는 False로 지정
     -->
     <insert id="save" parameterType="User">
-        insert into user (email, nickname, password, age, sex, admin)
-        values ( #{email}, #{nickname}, #{password}, #{age}, #{sex}, false)
+        insert into user (email, nickname, password, age, sex)
+        values ( #{email}, #{nickname}, #{password}, #{age}, #{sex})
     </insert>
-
     <!-- 회원 탈퇴 Query
        uid를 기준으로 탈퇴
        -->
