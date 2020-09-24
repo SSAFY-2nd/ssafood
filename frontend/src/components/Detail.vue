@@ -165,7 +165,7 @@ export default {
 .content {
     width:900px;
     float:left;
-    height:700px;
+    height:800px;
 }
 .header{
     padding :0 0 0 200px;
@@ -196,7 +196,7 @@ export default {
 .right-side{
     width : 300px;
     float:left;
-    height:700px;
+    height:800px;
 }
 .td-header{
   font-family: 'NanumSquare','나눔스퀘어','Noto Sans','Apple SD Gothic',sans-serif;
