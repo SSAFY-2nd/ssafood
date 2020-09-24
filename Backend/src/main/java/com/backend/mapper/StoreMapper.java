@@ -13,4 +13,6 @@ public interface StoreMapper {
 
     public List<Store> findByKeyword(String keyword); // keyword로  검색
 
+    public List<Store> findAllStore(); // 100개 음식점 검색
+
 }

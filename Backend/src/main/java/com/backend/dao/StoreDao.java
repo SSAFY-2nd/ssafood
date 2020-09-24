@@ -12,4 +12,6 @@ public interface StoreDao {
 
     public List<Store> findByKeyword(String keyword); // keyword로 지역, 음식점이름, 음식명 검색
 
+    public List<Store> findAllStore(); // 100개 음식점 검색
+
 }
