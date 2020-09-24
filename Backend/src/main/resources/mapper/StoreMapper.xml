@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.backend.mapper.StoreMapper">
+
+    <!--  음식점 id를 기준으로 음식점 정보 확인 -->
+    <select id="findById" resultType="Store">
+        select * from store where store_id = #{id}
+    </select>
+
+</mapper>
