@@ -203,7 +203,7 @@ export default {
   created() {
      if (navigator.geolocation) { // GPS를 지원하면
         navigator.geolocation.getCurrentPosition(function(position) {
-      alert(position.coords.latitude + ' ' + position.coords.longitude);
+      console.log(position.coords.latitude + ' ' + position.coords.longitude);
     }, function(error) {
       console.error(error);
     }, {
