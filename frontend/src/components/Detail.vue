@@ -2,10 +2,8 @@
     <div>
         <Navbar></Navbar>
         <div class="detail">
-            <div calss="header">
-            <img src="../assets/img/food.png" width="300" height="300"> 
-            </div>
             <div class="content">
+            <img src="../assets/img/food.png" width="300" height="300"> 
             <h1 class="rest-title">{{restaurant.name}}</h1>
             <br>
             <v-icon slot="append" >mdi-eye</v-icon>조회수
@@ -164,35 +162,34 @@ export default {
         initMap() {
         var mapContainer = document.getElementById('map'),  
         mapOption = {
-        center: new kakao.maps.LatLng(this.restaurant.latitude, this.restaurant.longtitude), 
-        level: 3 
+            //center: new kakao.maps.LatLng(37, 123), 
+             center: new kakao.maps.LatLng(this.restaurant.latitude, this.restaurant.longtitude), 
+            level: 3 
         };     
         var map = new kakao.maps.Map(mapContainer, mapOption); 
-        var geocoder = new kakao.maps.services.Geocoder();
+        // var geocoder = new kakao.maps.services.Geocoder();
         // var address = this.address
-        geocoder.addressSearch('경기도 고양시 일산동구 강석로 152', function(result, status) {
-            if (status === kakao.maps.services.Status.OK) {
-                var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-                var imageSrc = 'https://ifh.cc/g/PIvBP3.png',    
-                imageSize = new kakao.maps.Size(64, 69), 
-                imageOption = {offset: new kakao.maps.Point(27, 69)
-                }; 
-            var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption)
-            var marker = new kakao.maps.Marker({
-            map: map,
-            image: markerImage,
-            position: coords
+        // var coords = new kakao.maps.LatLng(this.restaurant.latitude, this.restaurant.longtitude);
+        var imageSrc = 'https://ifh.cc/g/PIvBP3.png',    
+            imageSize = new kakao.maps.Size(64, 69), 
+            imageOption = {offset: new kakao.maps.Point(27, 69)}; 
+      
+        var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption),
+            markerPosition = new kakao.maps.LatLng(this.restaurant.latitude, this.restaurant.longtitude); 
+            //markerPosition = new kakao.maps.LatLng(37, 123); 
+
+        var marker = new kakao.maps.Marker({
+            position: markerPosition, 
+            image: markerImage // 마커이미지 설정 
             });
-            var infowindow = new kakao.maps.InfoWindow({
-                content: '<div style="width:150px;text-align:center;padding:6px 0;">음식점 이름</div>'
-                // content: this.restaurant.name
-                
+
+        marker.setMap(map);  
+        var infowindow = new kakao.maps.InfoWindow({
+            content: '<div style="width:150px;text-align:center;padding:6px 0;">{{restaurant.name}}</div>'
+            // content: this.restaurant.name  
             });
             infowindow.open(map, marker);
-            map.setCenter(coords);
-        } 
-        });    
-         }
+        }
     }
 }
 </script>
@@ -217,10 +214,11 @@ export default {
 .content {
     width:900px;
     float:left;
-    height:800px;
+    height:1500px;
 }
 .header{
-    padding :0 0 0 200px;
+    width:900px;
+    float:left;
 }
 .rest-title {
   font-family: 'NanumSquare','나눔스퀘어','Noto Sans','Apple SD Gothic',sans-serif;
@@ -235,12 +233,6 @@ export default {
 }
 .eye{
     size : 100px;
-}
-.div-pad{
-    margin : 0 40px 0 0;
-}
-.left-pad{
-    margin : 0 20px 0 0;
 }
 .footer{
     height:300px;
