@@ -44,9 +44,6 @@
       <!-- <div v-if="isLogin" class="info_blog">
         <v-icon small color="black" class="icon">fas fa-bell</v-icon>
       </div> -->
-      <div v-if="isLogin" class="newpost">
-        <!-- <router-link to="/texteditor"><v-btn rounded outlined depressed color="#6e8af8">새 글 작성</v-btn></router-link> -->
-      </div>
       <div v-if="isLogin" class="info_blog"> 
         <div @click="profileshow">
             <img v-bind:src=profileImage class="thumb_profile" alt>
