@@ -184,11 +184,14 @@ export default {
             });
 
         marker.setMap(map);  
+        /*var resname = this.restaurant.name;
+        var jwcontent='<div style="width:150px;text-align:center;padding:6px 0;">'+resname +'</div>';
         var infowindow = new kakao.maps.InfoWindow({
-            content: '<div style="width:150px;text-align:center;padding:6px 0;">{{restaurant.name}}</div>'
+            content: jwcontent
             // content: this.restaurant.name  
             });
-            infowindow.open(map, marker);
+        infowindow.open(map, marker);
+        */
         }
     }
 }
