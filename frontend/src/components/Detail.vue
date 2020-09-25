@@ -105,7 +105,7 @@
                 </table>
             </div>
             <div class="footer">
-            <h1 class="rest-foot">리뷰(32)</h1>
+                <h1 class="rest-foot">리뷰(32)</h1>
             </div>    
         </div>
     </div>
@@ -162,8 +162,8 @@ export default {
         initMap() {
         var mapContainer = document.getElementById('map'),  
         mapOption = {
-            center: new kakao.maps.LatLng(37.556862, 126.926666), 
-             //center: new kakao.maps.LatLng(this.restaurant.latitude, this.restaurant.longtitude), 
+            center: new kakao.maps.LatLng(37, 123), 
+            // center: new kakao.maps.LatLng(this.restaurant.latitude, this.restaurant.longtitude), 
             level: 3 
         };     
         var map = new kakao.maps.Map(mapContainer, mapOption); 
@@ -175,8 +175,8 @@ export default {
             imageOption = {offset: new kakao.maps.Point(27, 69)}; 
       
         var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption),
-            markerPosition = new kakao.maps.LatLng(37.556862, 126.926666); 
-            //markerPosition = new kakao.maps.LatLng(37, 123); 
+            //markerPosition = new kakao.maps.LatLng(this.restaurant.latitude, this.restaurant.longtitude); 
+            markerPosition = new kakao.maps.LatLng(37, 123); 
 
         var marker = new kakao.maps.Marker({
             position: markerPosition, 
@@ -184,13 +184,14 @@ export default {
             });
 
         marker.setMap(map);  
-        var resname = this.restaurant.name;
+        /*var resname = this.restaurant.name;
         var jwcontent='<div style="width:150px;text-align:center;padding:6px 0;">'+resname +'</div>';
         var infowindow = new kakao.maps.InfoWindow({
-            //content: '<div style="width:150px;text-align:center;padding:6px 0;">this.restaurant.name</div>'
-            content: jwcontent 
+            content: jwcontent
+            // content: this.restaurant.name  
             });
-            infowindow.open(map, marker);
+        infowindow.open(map, marker);
+        */
         }
     }
 }
@@ -216,7 +217,7 @@ export default {
 .content {
     width:900px;
     float:left;
-    height:1500px;
+    height:800px;
 }
 .header{
     width:900px;
