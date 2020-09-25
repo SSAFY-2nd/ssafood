@@ -108,8 +108,8 @@ import StoreListCard from "@/components/StoreListCard";
 
 AOS.init();
 
-// const API_URL = 'http://i3a507.p.ssafy.io:8081/'
- const API_URL = 'http://localhost:8080/'
+// const API_URL = 'http://j3a407.p.ssafy.io:8081/'
+ const API_URL = 'http://localhost:8081/'
 // const storage = window.sessionStorage
 
 export default {
@@ -138,7 +138,7 @@ export default {
     }
   },
   created() {
-     axios.get('http://localhost:8081/api/v1/allStore')
+     axios.get(API_URL+'api/v1/allStore')
         .then((response) => {
           this.listData = response.data;
           console.log(this.listData.length);
@@ -177,7 +177,7 @@ export default {
                 alert("내용을 입력해주세요")
                 return
             }
-            axios.get(`http://localhost:8081/api/v1/search/` + search)
+            axios.get(API_URL+`api/v1/search/` + search)
                 .then((response) => {
                   this.listData = response.data;
                   console.log(this.listData.length);
