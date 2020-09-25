@@ -144,11 +144,8 @@ export default {
         .then((response) => {
           this.restaurant = response.data;
           console.log(this.restaurant.length);
-        });
-         //this.listData = testData
-    },
-     mounted() {
-        if (window.kakao && window.kakao.maps) {
+          
+          if (window.kakao && window.kakao.maps) {
             this.initMap();
         } else {
             const script = document.createElement('script');
@@ -157,13 +154,18 @@ export default {
             script.src = 'http://dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=YOUR_APPKEY';
             document.head.appendChild(script);
         }
+        });
+         //this.listData = testData
+    },
+     mounted() {
+        
     },
     methods: {
-        initMap() {
+       initMap() {
         var mapContainer = document.getElementById('map'),  
         mapOption = {
-            center: new kakao.maps.LatLng(37, 123), 
-            // center: new kakao.maps.LatLng(this.restaurant.latitude, this.restaurant.longtitude), 
+            //center: new kakao.maps.LatLng(37.556862, 126.926666), 
+             center: new kakao.maps.LatLng(this.restaurant.latitude, this.restaurant.longtitude), 
             level: 3 
         };     
         var map = new kakao.maps.Map(mapContainer, mapOption); 
@@ -175,8 +177,8 @@ export default {
             imageOption = {offset: new kakao.maps.Point(27, 69)}; 
       
         var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption),
-            //markerPosition = new kakao.maps.LatLng(this.restaurant.latitude, this.restaurant.longtitude); 
-            markerPosition = new kakao.maps.LatLng(37, 123); 
+            markerPosition = new kakao.maps.LatLng(this.restaurant.latitude, this.restaurant.longtitude); 
+            //markerPosition = new kakao.maps.LatLng(37, 123); 
 
         var marker = new kakao.maps.Marker({
             position: markerPosition, 
@@ -184,14 +186,15 @@ export default {
             });
 
         marker.setMap(map);  
-        /*var resname = this.restaurant.name;
+        var resname = this.restaurant.name;
         var jwcontent='<div style="width:150px;text-align:center;padding:6px 0;">'+resname +'</div>';
         var infowindow = new kakao.maps.InfoWindow({
             content: jwcontent
             // content: this.restaurant.name  
             });
         infowindow.open(map, marker);
-        */
+
+        
         }
     }
 }
