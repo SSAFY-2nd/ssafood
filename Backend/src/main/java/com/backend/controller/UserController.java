@@ -29,7 +29,9 @@ public class UserController {
     @Autowired
     private JwtService jwtService;
 
-    private final String DEFAULT_PROFILE_IMAGE_URL = "https://lh3.googleusercontent.com/proxy/5Ryjk2vvLRidpN292xq0OLRYGOw6egfRpEkTF8-ZYaM7sUONOg1BOGWmVq4TuDGw0qTRsmN8muPb5L7SavG9FmRSzpw6aSCMkJc4yTTSE17FFftv8ds6PSr70U2sHZoxQk_beal1SGHvk6H84P3-KfiKH483nsV5BoWj4RZFXOxbgdw6_YMSOqga4g4QVBBnqDqDnBEhGTx6jFQW1IRhWb4DBFhMLsxXKEkBgMTgvu7yAVFJ-2vG4xyEO30auFgbIenT3zuw_LMxIfeqybakkWKLga8xM59HgWYKLax63vQsJeQdO6JAAiyWhw_eXurt7AtobB10Jq4SNrKps3a6LfHMAgS7nW3juhtG7c9X1Q";
+
+
+    private final String DEFAULT_PROFILE = "https://lh3.googleusercontent.com/proxy/G6E2A7-Wz84xXZgPEim_RvVolPgdM4hCYtfuuMQxybF8o5kkIH8cIvtPLMfEWvxHJUwhPunxzMO6z9GFQPzGNs7ZtwQCkGKD9pbVXXIY8Rsd7WSA2CQB5B9ESQ";
 
     @PostMapping("/googlelogin")
     public Object googleLogin(@RequestHeader final HttpHeaders header) throws Exception {
@@ -62,7 +64,6 @@ public class UserController {
             newUser.setProfileImage(picture);
             newUser.setPassword(subPassword);
             newUser.setNickname(nickname);
-            newUser.setProfileImage(DEFAULT_PROFILE_IMAGE_URL);
             signup(newUser); // 회원가입
 
         }else if(memberVo != null){ // google 계정 로그인
@@ -151,7 +152,7 @@ public class UserController {
     {
 
         try{
-            System.out.println(user);
+            user.setProfileImage(DEFAULT_PROFILE);
             service.save(user);
             return new ResponseEntity<>("회원가입 완료", HttpStatus.OK);
         }catch(Exception err){
