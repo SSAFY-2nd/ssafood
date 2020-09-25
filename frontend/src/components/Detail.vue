@@ -162,8 +162,8 @@ export default {
         initMap() {
         var mapContainer = document.getElementById('map'),  
         mapOption = {
-            center: new kakao.maps.LatLng(37, 123), 
-            // center: new kakao.maps.LatLng(this.restaurant.latitude, this.restaurant.longtitude), 
+            //center: new kakao.maps.LatLng(37, 123), 
+            center: new kakao.maps.LatLng(this.restaurant.latitude, this.restaurant.longtitude), 
             level: 3 
         };     
         var map = new kakao.maps.Map(mapContainer, mapOption); 
@@ -175,8 +175,8 @@ export default {
             imageOption = {offset: new kakao.maps.Point(27, 69)}; 
       
         var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption),
-            //markerPosition = new kakao.maps.LatLng(this.restaurant.latitude, this.restaurant.longtitude); 
-            markerPosition = new kakao.maps.LatLng(37, 123); 
+            markerPosition = new kakao.maps.LatLng(this.restaurant.latitude, this.restaurant.longtitude); 
+            //markerPosition = new kakao.maps.LatLng(37, 123); 
 
         var marker = new kakao.maps.Marker({
             position: markerPosition, 
