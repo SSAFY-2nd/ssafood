@@ -43,4 +43,9 @@
         profileImage=#{profileImage},qrImage=#{qrImage} where uid = #{uid};
     </update>
 
+    <select id="signin" resultType="User" parameterType="String">
+        select * from user where email like #{email} and password like #{password}
+    </select>
+
+
 </mapper>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.backend.mapper.ReviewMapper">
+    <!--
+        Review 작성 SQL문
+    -->
+    <insert id="save" parameterType="Review">
+      insert into review_info (store_id, writer_id, gender, born_year, total_score, content)
+      values(#{store_id}, #{writer_id}, #{gender}, #{born_year}, #{total_score}, #{content});
+    </insert>
+
+    <!--
+        Review 삭제 SQL문
+       -->
+    <delete id="delete" parameterType="Long">
+        delete from review_info where review_id = #{pid}
+    </delete>
+
+    <!--
+        Review 확인 SQL문
+       -->
+    <select id="findById" resultType="com.backend.dto.review.Review" parameterType="Long">
+        select * from review_info where store_id = #{id}
+    </select>
+    <!--
+        Review 수정 SQL문
+       -->
+    <update id="update" parameterType="Review">
+        update review_info set total_score=#{total_score}, content=#{content} where review_id=#{review_id};
+    </update>
+
+
+
+</mapper>
