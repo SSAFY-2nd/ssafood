@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -28,7 +29,9 @@ public class UserController {
     @Autowired
     private JwtService jwtService;
 
-    private final String DEFAULT_PROFILE_IMAGE_URL = "https://lh3.googleusercontent.com/proxy/5Ryjk2vvLRidpN292xq0OLRYGOw6egfRpEkTF8-ZYaM7sUONOg1BOGWmVq4TuDGw0qTRsmN8muPb5L7SavG9FmRSzpw6aSCMkJc4yTTSE17FFftv8ds6PSr70U2sHZoxQk_beal1SGHvk6H84P3-KfiKH483nsV5BoWj4RZFXOxbgdw6_YMSOqga4g4QVBBnqDqDnBEhGTx6jFQW1IRhWb4DBFhMLsxXKEkBgMTgvu7yAVFJ-2vG4xyEO30auFgbIenT3zuw_LMxIfeqybakkWKLga8xM59HgWYKLax63vQsJeQdO6JAAiyWhw_eXurt7AtobB10Jq4SNrKps3a6LfHMAgS7nW3juhtG7c9X1Q";
+
+
+    private final String DEFAULT_PROFILE = "https://lh3.googleusercontent.com/proxy/G6E2A7-Wz84xXZgPEim_RvVolPgdM4hCYtfuuMQxybF8o5kkIH8cIvtPLMfEWvxHJUwhPunxzMO6z9GFQPzGNs7ZtwQCkGKD9pbVXXIY8Rsd7WSA2CQB5B9ESQ";
 
     @PostMapping("/googlelogin")
     public Object googleLogin(@RequestHeader final HttpHeaders header) throws Exception {
@@ -61,7 +64,6 @@ public class UserController {
             newUser.setProfileImage(picture);
             newUser.setPassword(subPassword);
             newUser.setNickname(nickname);
-            newUser.setProfileImage(DEFAULT_PROFILE_IMAGE_URL);
             signup(newUser); // 회원가입
 
         }else if(memberVo != null){ // google 계정 로그인
@@ -91,34 +93,31 @@ public class UserController {
 
     }
 
-    /**
-     * 
-     * @param loginVo
-     * @return memberVo( 유저 정보 )
-     */
     @PostMapping("/api/signin")
-    public User login (@RequestBody User loginVo) {    //HTTP요청의 내용을 객체에 매핑하기 위해 @RequestBody 를 설정.
-        // @Controller인 경우 @ResponseBody를 적어야한다.
+    public ResponseEntity<Map<String, Object>> signin(@RequestBody User user, HttpServletResponse res){
+        Map<String, Object> resultMap = new HashMap<>();
+        HttpStatus status = null;
+        System.out.println("USER:" +user);
+        try{
 
-        String in_email = loginVo.getEmail();
-        String in_password = loginVo.getPassword();
-        User memberVo = service.findByEmail(in_email);    //UserID로 user가 존재하는지 확인.
-        if (memberVo != null) {
-            String pw = memberVo.getPassword();    //UserID로 DB에 저장된 인코딩된 비밀번호를 가져옴.
-            if (in_password.equals(pw)) {    //디코딩해서 확인
-                System.out.println("비밀번호가 일치합니다.");
-            }
-            else {
-                System.out.println("비밀번호가 불일치합니다.");
-                return null;
-            }
-        }else{
-            System.out.println("존재하지 않는 아이디입니다.");
-            return null;
+            User loginUser = service.signin(user.getEmail(), user.getPassword());
+
+
+            // 로그인 성공했다면 토큰을 생성한다.
+            String token = jwtService.create(loginUser);
+            // 토큰 정보는 request의 헤더로 보내고 나머지는 Map에 담아둔다.
+            resultMap.put("jwt-auth-token", token);
+            resultMap.put("status", true);
+            resultMap.put("request_body", loginUser);
+            status = HttpStatus.ACCEPTED;
+        } catch(RuntimeException e){
+            log.error("정보조회 실패", e);
+            resultMap.put("message", e.getMessage());
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
         }
-
-        return memberVo;
+        return new ResponseEntity<Map<String, Object>>(resultMap, status);
     }
+
 
     /**
      *
@@ -153,6 +152,7 @@ public class UserController {
     {
 
         try{
+            user.setProfileImage(DEFAULT_PROFILE);
             service.save(user);
             return new ResponseEntity<>("회원가입 완료", HttpStatus.OK);
         }catch(Exception err){
