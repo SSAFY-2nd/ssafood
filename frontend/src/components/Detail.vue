@@ -115,6 +115,9 @@
 import Navbar from '../components/Navbar.vue'
 import axios from 'axios'
 //import axios from 'axios'
+
+const API_URL = 'http://localhost:8081/'
+
 export default {
     name: 'detail',
     components:{
@@ -140,7 +143,7 @@ export default {
         }
     },
     created() {
-     axios.get('http://localhost:8081/api/v1/detail/'+this.$route.params.store_id)
+     axios.get(API_URL+'api/v1/detail/'+this.$route.params.store_id)
         .then((response) => {
           this.restaurant = response.data;
           console.log(this.restaurant.length);
