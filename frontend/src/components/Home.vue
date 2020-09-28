@@ -83,7 +83,7 @@
           <div class="row">
             <div class="col-sm-4">
               <div class="col" style="right:30px">
-                <v-icon size="100" >mdi-kabaddi</v-icon>
+                <v-icon size="100" >mdi-food</v-icon>
               </div>
               <h2 class="h3"> 맛집 추천</h2>
               <p>카테고리 별로 맛집을 추천해줍니다.</p>
