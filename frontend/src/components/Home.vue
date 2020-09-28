@@ -164,7 +164,6 @@
 <script>
 import Navbar from '../components/Navbar.vue'
 
-// import axios from 'axios'
 import AOS from 'aos'
 import 'aos/dist/aos.css'
 // import InfiniteLoading from 'vue-infinite-loading';
@@ -214,12 +213,6 @@ export default {
   } else {
     alert('GPS를 지원하지 않습니다');
   }
-    //  axios.get('http://localhost:8080/guide/list')
-    //     .then((response) => {
-    //       this.listData = response.data;
-    //       console.log(this.listData.length);
-    //     });
-    //this.listData = testData  
   },
   components: {
     // InfiniteLoading,
@@ -268,11 +261,6 @@ export default {
                 alert("내용을 입력해주세요")
                 return
             }
-            // axios.get(`http://localhost:8080/guide/` + search)
-            //     .then((response) => {
-            //       this.listData = response.data;
-            //       console.log(this.listData.length);
-            //     });
         },
   }
 }
