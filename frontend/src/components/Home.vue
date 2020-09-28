@@ -114,19 +114,22 @@
               <img class="center-block" src="../assets/img/순대국.png" alt="By Håkon Sataøen" /><br>
               <v-icon size="20">mdi-account-circle</v-icon> 순대천국 <br>
               <v-icon size="20">mdi-badge-account-horizontal </v-icon> 서울시 노원구 <br>
-              <v-icon size="20">mdi-cellphone-iphone</v-icon> 010 1357 2468           
+              <v-icon size="20">mdi-cellphone-iphone</v-icon> 010 1357 2468<br>   
+              <div class = "score"><v-icon size="20">mdi-sort-numeric-descending</v-icon> 4.8</div>        
             </div>
             <div class="col-md-4">
               <img class="center-block" src="../assets/img/육회.png" alt="By Samuel Zeller" /><br>
                <v-icon size="20">mdi-account-circle</v-icon> 육회천국 <br>
               <v-icon size="20">mdi-badge-account-horizontal </v-icon> 서울시 노원구 <br>
-              <v-icon size="20">mdi-cellphone-iphone</v-icon> 010 1357 2468      
+              <v-icon size="20">mdi-cellphone-iphone</v-icon> 010 1357 2468<br>
+               <div class = "score"><v-icon size="20">mdi-sort-numeric-descending</v-icon> 4.7</div>      
             </div>
             <div class="col-md-4">
               <img class="center-block" src="../assets/img/조각케이크.png" alt="By Scott Webb" /><br>
                <v-icon size="20">mdi-account-circle</v-icon> 케이크천국 <br>
               <v-icon size="20">mdi-badge-account-horizontal </v-icon> 서울시 노원구 <br>
-              <v-icon size="20">mdi-cellphone-iphone</v-icon> 010 1357 2468   
+              <v-icon size="20">mdi-cellphone-iphone</v-icon> 010 1357 2468<br>
+               <div class = "score"><v-icon size="20">mdi-sort-numeric-descending</v-icon> 4.6</div>   
             </div>
           </div>
 
@@ -135,19 +138,22 @@
               <img class="center-block" src="../assets/img/조각피자.png" alt="By Daniel Lozano Valdés" /><br>
               <v-icon size="20">mdi-account-circle</v-icon> 피자공주 <br>
               <v-icon size="20">mdi-badge-account-horizontal </v-icon> 서울시 노원구 <br>
-              <v-icon size="20">mdi-cellphone-iphone</v-icon> 010 1357 2468   
+              <v-icon size="20">mdi-cellphone-iphone</v-icon> 010 1357 2468<br>
+               <div class = "score"><v-icon size="20">mdi-sort-numeric-descending</v-icon> 4.4</div>   
             </div>
             <div class="col-md-4">
               <img class="center-block" src="../assets/img/치킨.png" alt="By Scott Webb" /><br>
                <v-icon size="20">mdi-account-circle</v-icon> 치킨나라 <br>
               <v-icon size="20">mdi-badge-account-horizontal </v-icon> 서울시 노원구 <br>
-              <v-icon size="20">mdi-cellphone-iphone</v-icon> 010 1357 2468    
+              <v-icon size="20">mdi-cellphone-iphone</v-icon> 010 1357 2468<br>
+               <div class = "score"><v-icon size="20">mdi-sort-numeric-descending</v-icon> 3.8</div>    
             </div>
             <div class="col-md-4">
               <img class="center-block" src="../assets/img/햄버거.png" alt="By Daniel Lozano Valdés" /><br>
                <v-icon size="20">mdi-account-circle</v-icon> 햄버거파티 <br>
               <v-icon size="20">mdi-badge-account-horizontal </v-icon> 서울시 노원구 <br>
-              <v-icon size="20">mdi-cellphone-iphone</v-icon> 010 1357 2468   
+              <v-icon size="20">mdi-cellphone-iphone</v-icon> 010 1357 2468<br>
+               <div class = "score"><v-icon size="20">mdi-sort-numeric-descending</v-icon> 3.5</div>   
             </div>
           </div>
         </div>
@@ -543,4 +549,9 @@ body {
   max-width: 100%;
 }
 
+.score {
+  font-size : 20px;
+  color : orange;
+  font-weight: bold;
+}
 </style>
