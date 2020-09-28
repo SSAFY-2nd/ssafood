@@ -164,7 +164,7 @@
 <script>
 import Navbar from '../components/Navbar.vue'
 
-import axios from 'axios'
+// import axios from 'axios'
 import AOS from 'aos'
 import 'aos/dist/aos.css'
 // import InfiniteLoading from 'vue-infinite-loading';
