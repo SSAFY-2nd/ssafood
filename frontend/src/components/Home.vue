@@ -214,12 +214,12 @@ export default {
   } else {
     alert('GPS를 지원하지 않습니다');
   }
-     axios.get('http://localhost:8080/guide/list')
-        .then((response) => {
-          this.listData = response.data;
-          console.log(this.listData.length);
-        });
-         //this.listData = testData
+    //  axios.get('http://localhost:8080/guide/list')
+    //     .then((response) => {
+    //       this.listData = response.data;
+    //       console.log(this.listData.length);
+    //     });
+    //this.listData = testData  
   },
   components: {
     // InfiniteLoading,
@@ -268,11 +268,11 @@ export default {
                 alert("내용을 입력해주세요")
                 return
             }
-            axios.get(`http://localhost:8080/guide/` + search)
-                .then((response) => {
-                  this.listData = response.data;
-                  console.log(this.listData.length);
-                });
+            // axios.get(`http://localhost:8080/guide/` + search)
+            //     .then((response) => {
+            //       this.listData = response.data;
+            //       console.log(this.listData.length);
+            //     });
         },
   }
 }
