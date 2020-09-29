@@ -26,12 +26,19 @@ public class ReviewDaoImpl implements ReviewDao {
     }
 
     @Override
+    public Review read(Long id) {
+        return mapper.read(id);
+    }
+
+    @Override
     public void update(Review review) {
+        mapper.update(review);
         return ;
     }
 
     @Override
-    public void delete(Long pid) {
+    public void delete(Long review_id) {
+        mapper.delete(review_id);
         return ;
     }
 }

@@ -24,12 +24,19 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
-    public void update(Review review) {
-        return ;
+    public Review read(Long id) {
+        return dao.read(id);
     }
 
     @Override
-    public void delete(Long pid) {
+    public void update(Review review) {
+        dao.update(review);
+        return;
+    }
+
+    @Override
+    public void delete(Long review_id) {
+        dao.delete(review_id);
         return ;
     }
 }
