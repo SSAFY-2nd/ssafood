@@ -8,15 +8,15 @@
         Review 작성 SQL문
     -->
     <insert id="save" parameterType="Review">
-      insert into review_info (store_id, writer_id, gender, born_year, total_score, content)
-      values(#{store_id}, #{writer_id}, #{gender}, #{born_year}, #{total_score}, #{content});
+      insert into review_info (store_id, writer_id, gender, total_score, content)
+      values(#{store_id}, #{writer_id}, #{gender}, #{total_score}, #{content});
     </insert>
 
     <!--
         Review 삭제 SQL문
        -->
     <delete id="delete" parameterType="Long">
-        delete from review_info where review_id = #{pid}
+        delete from review_info where review_id = #{review_id}
     </delete>
 
     <!--
@@ -25,6 +25,15 @@
     <select id="findById" resultType="com.backend.dto.review.Review" parameterType="Long">
         select * from review_info where store_id = #{id}
     </select>
+
+    <!--
+       Review_id로 리뷰 조회 SQL문
+      -->
+    <select id="read" resultType="com.backend.dto.review.Review" parameterType="Long">
+        select * from review_info where review_id = #{id}
+    </select>
+
+
     <!--
         Review 수정 SQL문
        -->
