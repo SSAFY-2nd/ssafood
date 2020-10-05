@@ -26,8 +26,16 @@
 
 
     <!-- 주변 위치 음식점 모두 찾기  -->
-    <select id="findNearLocation" resultType="com.backend.dto.store.Store">
-        select * from store where address LIKE CONCAT('%', #{address}, '%');
+    <select id="findNearLocation" resultType="com.backend.dto.store.StoreLength">
+        SELECT *,
+        ROUND((6371*acos(cos(radians(37.481571))*cos(radians(latitude))*cos(radians(longtitude)
+        -radians(126.958650))+sin(radians(37.481571))*sin(radians(latitude))))*1000,0)
+        AS distance
+        FROM store
+        WHERE store.latitude is not NULL
+        HAVING distance <![CDATA[ <= ]]> 1000
+        ORDER BY distance
+        limit 100
     </select>
 
 <!--    select review_info.store_id, name, branch, area, tel, address, latitude, longtitude, category, menu-->

@@ -2,6 +2,7 @@ package com.backend.service.impl;
 
 import com.backend.dao.StoreDao;
 import com.backend.dto.store.Store;
+import com.backend.dto.store.StoreLength;
 import com.backend.service.StoreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,8 +31,8 @@ public class StoreServiceImpl implements StoreService {
     }
 
     @Override
-    public List<Store> findNearLocation(String address) {
-        return dao.findNearLocation(address);
+    public List<StoreLength> findNearLocation(float latitude, float longitude) {
+        return dao.findNearLocation(latitude, longitude);
     }
 
     @Override
