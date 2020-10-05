@@ -73,9 +73,88 @@
                         <td><div style="margin-left:150px"><li v-for="(menu,index) in restaurant.menu" :key="index">
                             {{menu}}</li>
                             <hr></div></td>
-                    </tr>
-                   
+                    </tr> 
                 </table>
+                <br><br>
+                <div class="review">
+                    <h1>리뷰({{restaurant.reviewList.length}})</h1>
+                    <div class="link">
+                      <router-link :to="{name:'reviewinsert',params:{store_id : $route.params.store_id}}">
+                       <v-btn color = "warning" elevation="9" x-large @click="checkLogin()" >
+                          리뷰 쓰기
+                        </v-btn>
+                      </router-link>
+                </div>
+                </div>
+                
+                
+                <br> 
+                <hr>
+                <br>
+
+
+
+
+          <div v-for="(reviewList,index) in restaurant.reviewList" :key="index">
+          <v-card class="mx-auto mb-3" max-width="1000" color="#FB8C00" dark>
+          <v-card-subtitle>
+            <span class="font-weight-black">
+             {{reviewList.reg_time}}
+            </span>
+            <v-btn icon class="mr-4">
+              <img class="gender" src="../assets/img/pen.png"/>
+            </v-btn>
+            
+             <v-btn icon class="mr-4">
+              <img class="gender" src="../assets/img/garbage.png"/>
+            </v-btn>
+            <span class="font-italic">
+              
+            </span>
+          </v-card-subtitle>
+          <v-card-text class="title white--text">
+            <v-row align="start" justify="start" no-gutters>
+              <v-col cols="2">
+                <v-avatar color="grey">
+                  <span class="white--text headline">{{reviewList.writer_id}}</span>
+                </v-avatar>
+              </v-col>
+              <v-col>
+               {{reviewList.content}}
+              </v-col>
+            </v-row>
+          </v-card-text>
+          <v-card-actions>
+            <v-btn icon class="mr-1">
+              <v-icon>mdi-heart</v-icon>
+            </v-btn>
+            <span class="subheading mr-3"></span>
+            <v-btn icon class="mr-1">
+              <v-icon>mdi-share-variant</v-icon>
+            </v-btn>
+            <div v-if ="reviewList.gender===0">
+            <v-btn icon class="mr-3">
+              <img class="gender" src="../assets/img/man.png"/>
+            </v-btn>
+            </div>
+            <div v-if ="reviewList.gender===1">
+            <v-btn icon class="mr-3">
+              <img class="gender" src="../assets/img/woman.png"/>
+            </v-btn>
+            </div>
+            <v-btn icon class="mr-2">
+              <v-icon color = "yellow">mdi-star</v-icon> {{reviewList.total_score}}
+            </v-btn>
+            
+            
+            
+            <span class="subheading mr-3"></span>
+          </v-card-actions>
+        </v-card>
+    
+          
+        </div>   
+                
             </div>
             <div class = "right-side">
                <div id="map"></div>
@@ -104,11 +183,11 @@
                     <tr><div style="margin-left:20px">bye</div></tr>
                 </table>
             </div>
-            <div class="footer">
-                <h1 class="rest-foot">리뷰(32)</h1>
-            </div>    
+           
         </div>
+        
     </div>
+    
 </template>
 
 <script>
@@ -136,6 +215,7 @@ export default {
             longtitude:'',
             category:[],
             menu:[],
+            reviewList:[],
             bhour_list:[],
             review_cnt:''
             
@@ -148,7 +228,7 @@ export default {
           this.restaurant = response.data;
           console.log(this.restaurant.length);
           
-          if (window.kakao && window.kakao.maps) {
+        if (window.kakao && window.kakao.maps) {
             this.initMap();
         } else {
             const script = document.createElement('script');
@@ -198,7 +278,15 @@ export default {
         infowindow.open(map, marker);
 
         
-        }
+        },
+      //   checkLogin(){
+      //     if(this.$store.state.isLoggedIn){
+
+      //     } else {
+      //   alert('로그인이 필요합니다.')
+      // }
+      //   }
+        
     }
 }
 </script>
@@ -260,5 +348,76 @@ export default {
   font-family: 'NanumSquare','나눔스퀘어','Noto Sans','Apple SD Gothic',sans-serif;
   font-size: 26px;
   font-weight: 800;
+}
+.all {
+  
+}
+
+.shadow-1:before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: inherit;
+  height: inherit;
+  z-index: -2;
+  box-sizing: border-box;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.13);
+}
+
+.shadow-1:after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: inherit;
+  height: inherit;
+  z-index: -2;
+  box-sizing: border-box;
+  box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.08);
+}
+
+.card {
+  position: relative;
+  height: 100px;
+  background: #fcfcfc;
+  margin: 20px 40px;
+  transition: 0.4s all;
+}
+
+.card.open {
+  height: 200px;
+  background: #ffffff;
+}
+.mr-1{
+  font-size: large;
+}
+.mr-2{
+ width: 40px;
+ height: 40px;
+ left: 700px;
+ font-size: x-large;
+}
+.mr-3{
+ left : 10px;
+}
+.mr-4{
+ left: 620px;
+ 
+}
+.gender{
+  -webkit-filter:opacity(0.5) drop-shadow(0 0 0 grey);
+  filter: opacity(0.5) drop-shadow(0 0 0 grey);
+  width : 25px;
+  height : 25px;
+}
+.link{
+  position: relative;
+  float : right;
+  bottom : 50px;
 }
 </style>
