@@ -80,10 +80,11 @@
                     <h1>리뷰({{restaurant.reviewList.length}})</h1>
                     <div class="link">
                       <router-link :to="{name:'reviewinsert',params:{store_id : $route.params.store_id}}">
-                       <v-btn color = "warning" elevation="9" x-large @click="checkLogin()" >
+                       <v-btn color = "warning" elevation="9" x-large @click="checkLogin()"  >
                           리뷰 쓰기
                         </v-btn>
                       </router-link>
+            
                 </div>
                 </div>
                 
@@ -196,7 +197,7 @@ import axios from 'axios'
 //import axios from 'axios'
 
 const API_URL = 'http://localhost:8081/'
-
+const storage = window.sessionStorage
 export default {
     name: 'detail',
     components:{
@@ -247,6 +248,14 @@ export default {
     },
      mounted() {
         
+    },
+    checkLogin(){
+      if(storage.getItem("jwt-auth-token")==="")
+      {
+        this.message = storage.getItem("login_user") + "님이 리뷰를 작성합니다."
+      }else{
+         alert('로그인이 필요합니다.')
+      }
     },
     methods: {
        initMap() {
