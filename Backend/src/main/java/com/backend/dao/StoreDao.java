@@ -1,6 +1,7 @@
 package com.backend.dao;
 
 import com.backend.dto.store.Store;
+import com.backend.dto.store.StoreLength;
 
 import java.util.List;
 
@@ -13,5 +14,9 @@ public interface StoreDao {
     public List<Store> findByKeyword(String keyword); // keyword로 지역, 음식점이름, 음식명 검색
 
     public List<Store> findAllStore(); // 100개 음식점 검색
+
+    public List<StoreLength> findNearLocation(float lat, float lng); // address : 도로명 주소
+
+    public List<Store> findPopularLocation(String address); // address : 도로명 주소, 주변 인기 맛집 추천
 
 }

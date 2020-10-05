@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.backend.mapper.LiketoMapper">
+
+    <!--
+       좋아요 상태 값 반환
+      -->
+    <select id="findStatus" resultType="com.backend.dto.liketo.Liketo" parameterType="Liketo">
+        select * from liketo where uid = #{uid} and store_id = #{store_id}
+    </select>
+
+
+    <!--
+        좋아요 상태 1 -> 0 / 0 -> 1 수정 SQL문
+       -->
+    <update id="likeFlag" parameterType="Liketo">
+        update liketo set isLike=#{isLike} where uid=#{uid} and store_id=#{store_id};
+    </update>
+
+    <!--
+      회원의 고유 id를 활용해서 Liked된 음식점 리스트 조회
+     -->
+    <select id="findLikedList" resultType="com.backend.dto.store.Store" parameterType="int">
+        select * from store
+        where store_id
+        IN( select store_id from liketo where uid=#{uid} and isLike=1);
+    </select>
+</mapper>
