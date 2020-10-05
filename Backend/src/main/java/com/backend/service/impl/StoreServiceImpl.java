@@ -29,4 +29,14 @@ public class StoreServiceImpl implements StoreService {
         return dao.findAllStore();
     }
 
+    @Override
+    public List<Store> findNearLocation(String address) {
+        return dao.findNearLocation(address);
+    }
+
+    @Override
+    public List<Store> findPopularLocation(String address) {
+        return dao.findPopularLocation(address);
+    }
+
 }
