@@ -139,7 +139,10 @@ export default {
             bhour_list:[],
             review_cnt:''
             
-            }
+            },
+            address:'',
+            arount_list:[]
+
         }
     },
     created() {
@@ -150,6 +153,8 @@ export default {
           
           if (window.kakao && window.kakao.maps) {
             this.initMap();
+            this.init();
+            this.list_get();
         } else {
             const script = document.createElement('script');
             /* global kakao */
@@ -196,9 +201,16 @@ export default {
             // content: this.restaurant.name  
             });
         infowindow.open(map, marker);
-
-        
-        }
+        },
+        init(){
+            axios.post(API_URL+'/api/v1/search/popular',
+            {
+               address : this.restaurant.address
+            }).then((response) => {
+                this.arount_list = response.data;
+                console.log(this.restaurant.length);
+            });
+        },
     }
 }
 </script>
