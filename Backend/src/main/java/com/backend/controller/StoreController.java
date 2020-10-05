@@ -5,21 +5,19 @@ import com.backend.dto.bhour.Bhour;
 import com.backend.dto.review.Review;
 import com.backend.dto.store.Store;
 import com.backend.dto.store.StoreDetail;
+import com.backend.dto.user.User;
 import com.backend.service.BhourService;
 import com.backend.service.ReviewService;
 import com.backend.service.StoreService;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import javax.servlet.http.HttpServletResponse;
+import java.util.*;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -190,6 +188,23 @@ public class StoreController {
         List<Store> storeList = storeList = storeService.findByKeyword(keyword);
 
         return storeList;
+    }
+
+    /**
+     * @param address, -> 도로명 주소
+     * @param latitude, -> 위도
+     * @param longitude, -> 경도
+     * @return 상점 List 검색 없으면 null
+     */
+    @ApiOperation(value = "검색 : 도로명 주소, 위도, 경도", notes = "주변 인기 식당 검색")
+    @PostMapping("/api/v1/search/popular")
+    public List<Store> popularNearLocation(@RequestBody String address, String latitude, String longitude){
+        // 같은 지역에 위치한 상점 리스트 불러오기
+        List<Store> storeList = storeService.findPopularLocation(address);
+
+        
+        return storeList;
+
     }
 
 }
