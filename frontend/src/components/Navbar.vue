@@ -11,11 +11,8 @@
     <v-toolbar-items style="align-items: center">
       <router-link to="/introduce">소개</router-link>
     </v-toolbar-items>
-    <v-toolbar-items style="align-items: center">
-      <router-link to="/forum">다이어리</router-link>
-    </v-toolbar-items>
     <!-- <v-toolbar-items style="align-items: center">
-      <router-link to="/feed">피드</router-link>
+      <router-link to="/diary">다이어리</router-link>
     </v-toolbar-items> -->
 
     <!-- 공지사항 -->
