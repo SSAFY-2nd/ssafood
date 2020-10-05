@@ -175,7 +175,8 @@ import 'aos/dist/aos.css'
 // import InfiniteLoading from 'vue-infinite-loading';
 import Card from "@/components/Card";
 import StoreListCard from "@/components/StoreListCard";
-
+import axios from 'axios'
+const API_URL = 'http://localhost:8081/'
 AOS.init();
 
 // const API_URL = 'http://j3a407.p.ssafy.io:8081/'
@@ -208,7 +209,8 @@ export default {
   created() {
      if (navigator.geolocation) { // GPS를 지원하면
         navigator.geolocation.getCurrentPosition(function(position) {
-      console.log(position.coords.latitude + ' ' + position.coords.longitude);
+        console.log(position.coords.latitude + ' ' + position.coords.longitude);
+        this.push();
     }, function(error) {
       console.error(error);
     }, {
@@ -268,6 +270,16 @@ export default {
                 return
             }
         },
+        push(){
+          axios.post(API_URL+'/api/v1/search/near',
+            {
+                lat : this.position.coords.latitude,
+                lng : this.position.coords.longtitude
+            }) .then((response) => {
+                  this.listData = response.data;
+                  console.log(this.listData.length);
+                });
+        }
   }
 }
 </script>
