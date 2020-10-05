@@ -5,6 +5,7 @@ import com.backend.dto.bhour.Bhour;
 import com.backend.dto.review.Review;
 import com.backend.dto.store.Store;
 import com.backend.dto.store.StoreDetail;
+import com.backend.dto.store.StoreLength;
 import com.backend.dto.user.User;
 import com.backend.service.BhourService;
 import com.backend.service.ReviewService;
@@ -87,8 +88,8 @@ public class StoreController {
         details.setArea(store.getArea());
         details.setTel(store.getTel());
         details.setAddress(store.getAddress());
-        details.setLatitude(store.getLatitude());
-        details.setLongtitude(store.getLongtitude());
+        details.setLatitude(store.getLat());
+        details.setLongtitude(store.getLng());
 
         // 카테고리 문자열처리
         String category = store.getCategory();
@@ -192,19 +193,29 @@ public class StoreController {
 
     /**
      * @param address, -> 도로명 주소
-     * @param latitude, -> 위도
-     * @param longitude, -> 경도
      * @return 상점 List 검색 없으면 null
      */
-    @ApiOperation(value = "검색 : 도로명 주소, 위도, 경도", notes = "주변 인기 식당 검색")
+    @ApiOperation(value = "검색 : 도로명 주소", notes = "주변 인기 식당 검색")
     @PostMapping("/api/v1/search/popular")
-    public List<Store> popularNearLocation(@RequestBody String address, String latitude, String longitude){
+    public List<Store> popularNearLocation(@RequestBody String address){
         // 같은 지역에 위치한 상점 리스트 불러오기
         List<Store> storeList = storeService.findPopularLocation(address);
-
-        
         return storeList;
-
     }
+
+    /**
+     * @param location, -> 위도/경도
+     * @return 상점 List 검색 없으면 null
+     */
+    @ApiOperation(value = "검색 : 위도, 경도", notes = "거리별 근처 식당 검색")
+    @PostMapping("/api/v1/search/near")
+    public List<StoreLength> NearLocation(@RequestBody Store location){
+        // 같은 지역에 위치한 상점 리스트 불러오기
+        // 거리 비교해서 1km이내 가장 가까운 상점 리스트 반환
+        List<StoreLength> storeList = storeService.findNearLocation(location.getLat(), location.getLng());
+
+        return storeList;
+    }
+
 
 }
