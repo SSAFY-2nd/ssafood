@@ -101,7 +101,12 @@ public class UserController {
         try{
 
             User loginUser = service.signin(user.getEmail(), user.getPassword());
-
+            // 로그인 실패할 경우, 토큰발행x
+            if(loginUser == null){
+                resultMap.put("message", "아이디 및 패스워드를 확인해주세요");
+                status = HttpStatus.ACCEPTED;
+                return new ResponseEntity<Map<String, Object>>(resultMap, status);
+            }
 
             // 로그인 성공했다면 토큰을 생성한다.
             String token = jwtService.create(loginUser);
@@ -110,8 +115,9 @@ public class UserController {
             resultMap.put("status", true);
             resultMap.put("request_body", loginUser);
             status = HttpStatus.ACCEPTED;
+
         } catch(RuntimeException e){
-            log.error("정보조회 실패", e);
+            log.error("로그인 실패", e);
             resultMap.put("message", e.getMessage());
             status = HttpStatus.INTERNAL_SERVER_ERROR;
         }
