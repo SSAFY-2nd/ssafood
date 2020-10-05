@@ -3,16 +3,12 @@ package com.backend.dto.store;
 
 import lombok.*;
 
-import java.util.List;
-
 @ToString
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-
-public class Store {
-
+public class StoreLength {
     private int store_id; // 음식점 고유 식별 번호
     private String name; // 식당명
     private String branch; // 지점명
@@ -24,10 +20,5 @@ public class Store {
 
     private String category; // 카테고리 목록
     private String menu; // 메뉴 목록
-
-    public Store(String name, String address) {
-        this.name = name;
-        this.address = address;
-    }
-
+    private String distance; // 거리
 }
