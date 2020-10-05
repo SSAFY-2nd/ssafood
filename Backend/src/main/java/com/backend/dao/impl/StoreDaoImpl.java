@@ -29,4 +29,14 @@ public class StoreDaoImpl implements StoreDao {
     public List<Store> findAllStore() {
         return mapper.findAllStore();
     }
+
+    @Override
+    public List<Store> findNearLocation(String address) {
+        return mapper.findNearLocation(address);
+    }
+
+    @Override
+    public List<Store> findPopularLocation(String address) {
+        return mapper.findPopularLocation(address);
+    }
 }

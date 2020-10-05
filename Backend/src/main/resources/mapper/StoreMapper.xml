@@ -25,4 +25,23 @@
     </select>
 
 
+    <!-- 주변 위치 음식점 모두 찾기  -->
+    <select id="findNearLocation" resultType="com.backend.dto.store.Store">
+        select * from store where address LIKE CONCAT('%', #{address}, '%');
+    </select>
+
+<!--    select review_info.store_id, name, branch, area, tel, address, latitude, longtitude, category, menu-->
+<!--    from review_info, (select * from store where address like '%마포구 동교동%') as subquery1-->
+<!--    where review_info.store_id = subquery1.store_id-->
+<!--    group by review_info.store_id order by avg(total_score) DESC-->
+<!--    limit 20;-->
+    <!-- 주변 인기 음식점 20개 찾기   -->
+    <select id="findPopularLocation" resultType="com.backend.dto.store.Store">
+        select review_info.store_id, name, branch, area, tel, address, latitude, longtitude, category, menu
+        from review_info, (select * from store where address LIKE CONCAT('%', #{address}, '%')) as subquery1
+        where review_info.store_id = subquery1.store_id
+        group by review_info.store_id order by avg(total_score) DESC
+        limit 20;
+    </select>
+
 </mapper>
