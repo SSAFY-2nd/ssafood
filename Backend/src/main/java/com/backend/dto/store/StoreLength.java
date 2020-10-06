@@ -15,8 +15,8 @@ public class StoreLength {
     private String area; // 지역명
     private String tel; // 전화번호
     private String address; // 주소
-    private float lat; // 위도
-    private float lng; // 경도
+    private float latitude; // 위도
+    private float longtitude; // 경도
 
     private String category; // 카테고리 목록
     private String menu; // 메뉴 목록
