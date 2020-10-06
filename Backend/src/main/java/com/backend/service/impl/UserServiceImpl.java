@@ -44,7 +44,7 @@ public class UserServiceImpl implements UserService {
         if (user != null) {
             return dao.signin(email, password);
         } else {
-            throw new RuntimeException("그런 사람은 없어요.");
+            return null;
         }
     }
 }
