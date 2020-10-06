@@ -27,6 +27,7 @@
     <select id="findByUid" resultType="User" parameterType="String">
         select * from user where uid = #{uid}
     </select>
+
     <!--  회원 정보 확인
        email을 기준으로 회원정보 확인
        -->

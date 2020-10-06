@@ -199,10 +199,14 @@ public class StoreController {
     @PostMapping("/api/v1/search/popular")
     public List<Store> popularNearLocation(@RequestBody String address){
         // 같은 지역에 위치한 상점 리스트 불러오기
-//        울산광역시 남구 무거동 628-26
-//        address
 
-        List<Store> storeList = storeService.findPopularLocation(address);
+        String inputAddr = address.substring(0,address.lastIndexOf("동")+1);
+        if(inputAddr.equals("")){
+            inputAddr = address.substring(0, address.lastIndexOf("구")+1);
+        }
+        System.out.println(inputAddr);
+
+        List<Store> storeList = storeService.findPopularLocation(inputAddr);
         return storeList;
     }
 
