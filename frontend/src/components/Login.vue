@@ -92,6 +92,7 @@ export default {
       password: "",
       loading: false,
       message: "",
+      sex:0,
       renderComponent: true,
       params :{
         client_id : '464615746303-dj9932cqlcukr92o1ig3eci1ubc5vlui.apps.googleusercontent.com',
@@ -107,6 +108,7 @@ export default {
         storage.setItem("email", "")
         storage.setItem("uid", "")
         storage.setItem("google_login", "")
+        storage.setItem("sex", "")
         storage.setItem("profileImage", "")
         axios.post(API_URL+'api/signin', {
           email: this.email,
@@ -119,6 +121,7 @@ export default {
               storage.setItem("email", res.data.request_body.email)
               storage.setItem("uid", res.data.request_body.uid)
               storage.setItem("google_login", false)
+              storage.setItem("sex", res.data.request_body.sex)
               storage.setItem("profileImage", res.data.request_body.profileImage)
               this.$router.push('/')
             } else {

@@ -79,11 +79,11 @@
                 <div class="review">
                     <h1>리뷰({{restaurant.reviewList.length}})</h1>
                     <div class="link">
-                      <router-link :to="{name:'reviewinsert',params:{store_id : $route.params.store_id}}">
+                      <!-- <router-link :to="{name:'reviewinsert',params:{store_id : $route.params.store_id}}"> -->
                        <v-btn color = "warning" elevation="9" x-large @click="checkLogin()"  >
                           리뷰 쓰기
                         </v-btn>
-                      </router-link>
+                      <!-- </router-link> -->
             
                 </div>
                 </div>
@@ -249,15 +249,21 @@ export default {
      mounted() {
         
     },
-    checkLogin(){
-      if(storage.getItem("jwt-auth-token")==="")
+   
+    methods: {
+      checkLogin(){
+      console.log("클릭확인")
+      
+      if(storage.getItem("login_user")!=="")
       {
-        this.message = storage.getItem("login_user") + "님이 리뷰를 작성합니다."
+        this.$router.push("/detail/reviewinsert/"+this.$route.params.store_id);
+        
+       
       }else{
          alert('로그인이 필요합니다.')
+         this.$router.push("/detail/"+this.$route.params.store_id);
       }
     },
-    methods: {
        initMap() {
         var mapContainer = document.getElementById('map'),  
         mapOption = {

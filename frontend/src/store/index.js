@@ -7,6 +7,7 @@ Vue.use(Vuex)
 
 const storage = window.sessionStorage
 
+
 export default new Vuex.Store({
   state: {
     isLoggedIn: false,
