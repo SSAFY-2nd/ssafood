@@ -11,10 +11,9 @@
         관리자는 False로 지정
     -->
     <insert id="save" parameterType="User">
-        insert into user (nickname,email,password,profileImage,qrImage,admin)
-        values (#{nickname}, #{email}, #{password}, #{profileImage}, default, false)
+        insert into user (email, nickname, password, profileImage, age, sex)
+        values ( #{email}, #{nickname}, #{password}, #{profileImage}, #{age}, #{sex})
     </insert>
-
     <!-- 회원 탈퇴 Query
        uid를 기준으로 탈퇴
        -->
@@ -32,49 +31,20 @@
        email을 기준으로 회원정보 확인
        -->
     <select id="findByEmail" resultType="User" parameterType="String">
-        select * from user where email like #{email}
+        select * from user where email = #{email}
     </select>
 
     <!-- 회원 정보 수정
        uid를 기준으로 nickname,email,password,profileImage,qrImage 변경
       -->
-    <update id="updateIntroduce" parameterType="User">
-        update user set nickname=#{nickname}, introduce=#{introduce} where email = #{email}
+    <update id="update" parameterType="User">
+        update user set nickname=#{nickname},email=#{email},password=#{password},
+        profileImage=#{profileImage},qrImage=#{qrImage} where uid = #{uid};
     </update>
-
-    <update id="updateSNS" parameterType="User">
-        update user set email=#{email}, facebook=#{facebook},
-        github=#{github}, instagram=#{instagram}
-        where email = #{email};
-    </update>
-
-
-
-    <update id="updateProfileImage" parameterType="String">
-        update user set profileImage = #{url} where uid = #{uid}
-    </update>
-
-    <update id="updateQRImage" parameterType="String">
-        update user set qrImage = #{url} where uid = #{uid}
-    </update>
-
-    <!-- -->
-
-    <update id="updateDefaultProfile" parameterType="String">
-        update user set profileImage = #{url} where uid = #{uid}
-    </update>
-
-    <update id="updateDefaultQR" parameterType="String">
-        update user set qrImage = #{url} where uid = #{uid}
-    </update>
-
 
     <select id="signin" resultType="User" parameterType="String">
         select * from user where email like #{email} and password like #{password}
     </select>
 
-    <!-- 닉네임 변경시 전체 게시글의 닉네임도 변경됨 -->
-    <update id="updateAllPostsNickName">
-        update post set author = #{nickname} where uid = #{uid}
-    </update>
+
 </mapper>
