@@ -196,8 +196,8 @@ public class StoreController {
      * @return 상점 List 검색 없으면 null
      */
     @ApiOperation(value = "검색 : 도로명 주소", notes = "주변 인기 식당 검색")
-    @PostMapping("/api/v1/search/popular")
-    public List<Store> popularNearLocation(@RequestBody String address){
+    @PostMapping("/api/v1/search/popular/{address}")
+    public List<Store> popularNearLocation(@PathVariable String address){
         // 같은 지역에 위치한 상점 리스트 불러오기
 
         String inputAddr = address.substring(0,address.lastIndexOf("동")+1);
