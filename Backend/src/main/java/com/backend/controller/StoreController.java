@@ -199,7 +199,14 @@ public class StoreController {
     @PostMapping("/api/v1/search/popular")
     public List<Store> popularNearLocation(@RequestBody String address){
         // 같은 지역에 위치한 상점 리스트 불러오기
-        List<Store> storeList = storeService.findPopularLocation(address);
+
+        String inputAddr = address.substring(0,address.lastIndexOf("동")+1);
+        if(inputAddr.equals("")){
+            inputAddr = address.substring(0, address.lastIndexOf("구")+1);
+        }
+        System.out.println(inputAddr);
+
+        List<Store> storeList = storeService.findPopularLocation(inputAddr);
         return storeList;
     }
 
