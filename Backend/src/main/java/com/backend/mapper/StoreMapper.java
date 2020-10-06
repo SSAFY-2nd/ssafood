@@ -16,7 +16,7 @@ public interface StoreMapper {
 
     public List<Store> findAllStore(); // 100개 음식점 검색
 
-    public List<StoreLength> findNearLocation(float lat, float lng); // address : 도로명 주소
+    public List<StoreLength> findNearLocation(float latitude, float longtitude); // address : 도로명 주소
 
     public List<Store> findPopularLocation(String address); // address : 도로명 주소, 주변 인기 맛집 추천
 

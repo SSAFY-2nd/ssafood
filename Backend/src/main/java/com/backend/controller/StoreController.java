@@ -217,10 +217,13 @@ public class StoreController {
      */
     @ApiOperation(value = "검색 : 위도, 경도", notes = "거리별 근처 식당 검색")
     @PostMapping("/api/v1/search/near")
-    public List<StoreLength> NearLocation(@RequestBody Store location){
+    public List<StoreLength> NearLocation(@RequestBody Map<String,String> param){
         // 같은 지역에 위치한 상점 리스트 불러오기
         // 거리 비교해서 1km이내 가장 가까운 상점 리스트 반환
-        List<StoreLength> storeList = storeService.findNearLocation(location.getLatitude(), location.getLongtitude());
+        float lat = Float.parseFloat(param.get("lat"));
+        float lng = Float.parseFloat(param.get("lng"));
+        System.out.println(lat + " : "+ lng);
+        List<StoreLength> storeList = storeService.findNearLocation(lat, lng);
 
         return storeList;
     }
