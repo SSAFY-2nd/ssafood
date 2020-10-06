@@ -42,7 +42,7 @@ public class UserServiceImpl implements UserService {
         User user = dao.signin(email, password);
 
         if (user != null) {
-            return dao.signin(email, password);
+            return user;
         } else {
             return null;
         }

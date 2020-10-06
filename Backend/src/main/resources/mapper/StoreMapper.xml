@@ -35,7 +35,7 @@
         WHERE store.latitude is not NULL
         HAVING distance <![CDATA[ <= ]]> 1000
         ORDER BY distance
-        limit 100
+        limit 8
     </select>
 
 <!--    select review_info.store_id, name, branch, area, tel, address, latitude, longtitude, category, menu-->
@@ -49,7 +49,7 @@
         from review_info, (select * from store where address LIKE CONCAT('%', #{address}, '%')) as subquery1
         where review_info.store_id = subquery1.store_id
         group by review_info.store_id order by avg(total_score) DESC
-        limit 20;
+        limit 4;
     </select>
 
 </mapper>
