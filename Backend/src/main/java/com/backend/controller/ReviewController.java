@@ -34,7 +34,7 @@ public class ReviewController {
      */
     @ApiOperation(value = "review", notes = "Review 작성")
     @PostMapping("/api/v1/review")
-    public void saveReview(Review review) {
+    public void saveReview(@RequestBody Review review) {
         try{
             reviewService.save(review);
         }catch(Exception e){
@@ -68,7 +68,7 @@ public class ReviewController {
      */
     @ApiOperation(value = "review", notes = "Review 수정")
     @PutMapping("/api/v1/review")
-    public void updateReview(Review review) {
+    public void updateReview(@RequestBody Review review) {
         try{
             reviewService.update(review);
         }catch(Exception e){
