@@ -50,10 +50,11 @@ public class ReviewController {
      */
     @ApiOperation(value = "review", notes = "Review 읽기")
     @GetMapping("/api/v1/review/{id}")
-    public Review readReview(@PathVariable Long id) {
+    public Review readReview(@PathVariable String id) {
         Review review = null;
+        Long input_id = Long.parseLong(id);
         try{
-            review = reviewService.read(id);
+            review = reviewService.read(input_id);
         }catch(Exception e){
             e.printStackTrace();
             throw e;
@@ -84,10 +85,11 @@ public class ReviewController {
      */
     @ApiOperation(value = "review_id", notes = "Review 삭제")
     @DeleteMapping("/api/v1/review/{review_id}")
-    public void deleteReview(@PathVariable Long review_id) {
+    public void deleteReview(@PathVariable String review_id) {
+        Long input_id = Long.parseLong(review_id);
         try{
-            System.out.println(review_id);
-            reviewService.delete(review_id);
+            System.out.println(input_id);
+            reviewService.delete(input_id);
         }catch(Exception e){
             e.printStackTrace();
             throw e;
