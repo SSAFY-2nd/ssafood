@@ -34,7 +34,7 @@ def import_data(data_path=DATA_FILE):
         
         else :
             print(d["name"])
-            plusUrl = d["name"]
+            plusUrl = "음식점" + d["name"]
             crawl_num = 3
             
             url = baseUrl + quote_plus(plusUrl) # 한글 검색 자동 변환
@@ -47,7 +47,7 @@ def import_data(data_path=DATA_FILE):
                 print(n)
                 imgUrl = i['data-source']
                 with urlopen(imgUrl) as f:
-                    with open('./images/'+d["name"] + str(n)+'.jpg','wb') as h: # w - write b - binary
+                    with open('./images/'+ str(d["id"]) + '_' + str(n)+'.jpg','wb') as h: # w - write b - binary
                         img = f.read()
                         h.write(img)
                 n += 1
@@ -55,7 +55,7 @@ def import_data(data_path=DATA_FILE):
                     break
 
             count = count +1
-            if count == 2 :
+            if count == 10000 :
                 break
 
 if __name__ == "__main__":
