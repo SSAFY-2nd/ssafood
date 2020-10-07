@@ -3,9 +3,9 @@
         <Navbar></Navbar>
         <div class="detail">
             <div class="content">
-                  <img :src="require(`@/assets/img/${restaurant.store_id}_1.jpg`)" width="250" height="300" >
-                  <img :src="require(`@/assets/img/${restaurant.store_id}_2.jpg`)" width="250" height="300" > 
-                  <img :src="require(`@/assets/img/${restaurant.store_id}_3.jpg`)" width="250" height="300" >
+              <div class="header-image">
+                  <img :src="require(`@/assets/img/${restaurant.store_id}_1.jpg`)" width="500" height="300" >
+              </div>
             <h1 class="rest-title">{{restaurant.name}}</h1>
             <br>
             <v-icon slot="append" >mdi-eye</v-icon>조회수
@@ -460,5 +460,8 @@ export default {
   position: relative;
   float : right;
   bottom : 50px;
+}
+.header-image{
+  margin-left:150px;
 }
 </style>
