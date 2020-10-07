@@ -1,7 +1,8 @@
 package com.backend.dto.user;
 
+
 import lombok.*;
-@Data
+
 @ToString
 @Getter @Setter
 @AllArgsConstructor
@@ -12,28 +13,15 @@ public class User {
     private String nickname;       // 회원 닉네임
     private String email;          // (UN) 이메일
     private String password;       // 비밀번호
+    private String age; // 나이
+    private String sex; // 성별 남자 : 0, 여자 : 1
     private String profileImage;   // 프로필 이미지
-    private String qrImage;        // QR코드 이미지
-    private Boolean admin;         // 관리자이면 True, 아니면 False
-    private String facebook;       // facebook 주소
-    private String instagram;      // instagram 주소
-    private String github;         // github 주소
-    private String introduce;      // 프로필 소개
-    private String updateType;     // 업데이트 타입
 
-    public User(String email, String password) {
+    public User(String nickname, String email, String password, String age, String sex) {
+        this.nickname = nickname;
         this.email = email;
         this.password = password;
+        this.age = age;
+        this.sex = sex;
     }
-
-    public User(String qrImage, String profileImage, String introduce,
-                String facebook, String instagram, String github) {
-        this.introduce = introduce;
-        this.qrImage = qrImage;
-        this.profileImage = profileImage;
-        this.facebook = facebook;
-        this.instagram = instagram;
-        this.github = github;
-    }
-
 }

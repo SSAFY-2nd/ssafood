@@ -2,15 +2,11 @@ package com.backend.service;
 
 
 import com.backend.dto.user.User;
-import io.jsonwebtoken.*;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
 
-import java.util.Date;
 import java.util.Map;
 
 
-public interface JwtService  {
+public interface JwtService {
 
 
     /**

@@ -38,4 +38,9 @@ public class UserDaoImpl implements UserDao {
         mapper.update(c);
     }
 
+    @Override
+    public User signin(String email, String password) {
+        return mapper.signin(email, password);
+    }
+
 }
