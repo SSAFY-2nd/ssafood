@@ -11,8 +11,9 @@ import Search from '../components/Search.vue'
 // import Feed from '../components/Feed.vue'
 // import Forum from '../components/Forum.vue'
 // import Myblog from '../components/Myblog.vue'
-import Notice from '../components/Notice.vue'
+// import Notice from '../components/Notice.vue'
 import Detail from '../components/Detail.vue'
+import ReviewInsert from '../components/ReviewInsert.vue'
 Vue.use(VueRouter)
 import store from '../router/index.js'
 
@@ -84,15 +85,20 @@ export default new VueRouter({
     //   name:'myblog',
     //   component: Myblog,
     // },
+    // {
+    //   path:'/notice',
+    //   name:'notice',
+    //   component: Notice,
+    // },
     {
-      path:'/notice',
-      name:'notice',
-      component: Notice,
-    },
-    {
-      path:'/detail',
+      path:'/detail/:store_id',
       name:'detail',
       component: Detail
+    },
+    {
+      path:'/detail/reviewinsert/:store_id',
+      name:'reviewinsert',
+      component: ReviewInsert
     }
   ]
 })
