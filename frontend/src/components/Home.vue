@@ -67,7 +67,7 @@
           <hr />
           <div class="row">
             <div v-for="(listdata,index) in listData" :key="index">
-               <img class="center-block" :src="require(`${API_URL}/images/${listdata.store_id}.jpg`)"  alt="By Scott Webb" /><br>
+               <img class="center-block" :src="require(`http://j3a407.p.ssafy.io/images/${listdata.store_id}.jpg`)"  alt="By Scott Webb" /><br>
                <v-icon size="20">mdi-account-circle</v-icon> {{listdata.name}} <br>
                <v-icon size="20">mdi-badge-account-horizontal </v-icon> {{listdata.address}} <br>
                <v-icon size="20">mdi-cellphone-iphone</v-icon> {{listdata.tel}}<br>
