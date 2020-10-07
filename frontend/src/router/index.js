@@ -14,6 +14,7 @@ import Search from '../components/Search.vue'
 // import Notice from '../components/Notice.vue'
 import Detail from '../components/Detail.vue'
 import ReviewInsert from '../components/ReviewInsert.vue'
+import ReviewUpdate from '../components/ReviewUpdate.vue'
 Vue.use(VueRouter)
 import store from '../router/index.js'
 
@@ -99,6 +100,11 @@ export default new VueRouter({
       path:'/detail/reviewinsert/:store_id',
       name:'reviewinsert',
       component: ReviewInsert
+    },
+    {
+      path:'/detail/reviewupdate/:store_id/:review_id',
+      name:'reviewupdate',
+      component: ReviewUpdate
     }
   ]
 })

@@ -102,12 +102,12 @@
             <span class="font-weight-black">
              {{reviewList.reg_time}}
             </span>
-            <v-btn icon class="mr-4">
+            <v-btn icon class="mr-4" v-if="login_user === reviewList.writer_id && login_user !==''" @click="ReviewUpdate(reviewList)">
               <img class="gender" src="../assets/img/pen.png"/>
             </v-btn>
             
-             <v-btn icon class="mr-4">
-              <img class="gender" src="../assets/img/garbage.png"/>
+             <v-btn icon class="mr-4" v-if="login_user === reviewList.writer_id && login_user !==''" @click="ReviewDelete(reviewList)">
+              <img class="gender"  src="../assets/img/garbage.png"/>
             </v-btn>
             <span class="font-italic">
               
@@ -116,8 +116,8 @@
           <v-card-text class="title white--text">
             <v-row align="start" justify="start" no-gutters>
               <v-col cols="2">
-                <v-avatar color="grey">
-                  <span class="white--text headline">{{reviewList.writer_id}}</span>
+                <v-avatar color="grey" v-model= "nickname" >
+                  <span class="white--text headline" >{{reviewList.writer_id}}</span>
                 </v-avatar>
               </v-col>
               <v-col>
@@ -222,8 +222,9 @@ export default {
             
             },
             address:'',
-            arount_list:[]
-
+            arount_list:[],
+            nickname:'',
+            login_user: storage.getItem("login_user"),
         }
     },
     created() {
@@ -254,15 +255,40 @@ export default {
       checkLogin(){
       console.log("클릭확인")
       
-      if(storage.getItem("login_user")!=="")
+      if(storage.getItem("jwt-auth-token") === 'undefined'|| storage.value === undefined)
       {
-        this.$router.push("/detail/reviewinsert/"+this.$route.params.store_id);
+         alert('로그인이 필요합니다.')
+         this.$router.push("/detail/"+this.$route.params.store_id);
+       
         
        
       }else{
-         alert('로그인이 필요합니다.')
-         this.$router.push("/detail/"+this.$route.params.store_id);
+        this.$router.push("/detail/reviewinsert/"+this.$route.params.store_id);
       }
+    },
+    ReviewUpdate(reviewList){
+      this.$router.push("/detail/reviewupdate/"+this.$route.params.store_id+"/"+reviewList.review_id);
+    },
+    ReviewDelete(reviewList){
+      console.log("삭제확인")
+      console.log(reviewList.review_id)
+      // if(storage.getItem("login_user")===this.nickname)
+      // {
+       
+        axios.delete(API_URL+'/api/v1/review/'+reviewList.review_id) 
+        .then(res => { 
+          console.log(res.data) 
+          alert("삭제에 성공하였습니다!") 
+          // this.$router.push("/detail/"+this.$route.params.store_id)
+          location.reload();
+          }).catch(err => {
+          console.log(err)
+          console.log("삭제에 실패하였습니다.")
+        })
+      // }else{
+      //   alert("본인이 쓴글 만 지울 수 있습니다.")
+      //   this.$router.push("/detail/"+this.$route.params.store_id);
+      // }
     },
        initMap() {
         var mapContainer = document.getElementById('map'),  
