@@ -75,6 +75,29 @@
           </div>
         </div>
       </section>
+      <section id="folio" class="sec-folio">
+        <div class="container">
+          <h1>추천 음식점</h1>
+          <hr />
+          <div class="row">
+            <div
+              class="col-md-4"
+              v-for="value in userBasedList"
+              v-bind:key="value"
+            >
+            <router-link :to="{name:'detail',params:{store_id : value.store_id}}">
+              <img style="height:350px;" :src="require(`@/assets/img/${value.name}.png`)">
+                <v-icon size="20">mdi-account-circle</v-icon> {{ value.name }}
+              </router-link>
+              <br />
+              <div class="score">
+                <v-icon size="20">mdi-sort-numeric-descending</v-icon>
+                {{ value.score }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
       </main>
   </div>
 </template>
@@ -89,6 +112,7 @@ import Card from "@/components/Card";
 import StoreListCard from "@/components/StoreListCard";
 import axios from 'axios'
 const API_URL = 'http://localhost:8081/'
+const P_URL = "http://127.0.0.1:5000/";
 AOS.init();
 
 // const API_URL = 'http://j3a407.p.ssafy.io:8081/'
@@ -106,6 +130,8 @@ export default {
         curPageNum: 1,
         curSelectIndex: 0,
 
+        userBasedList: [],
+
         lat : '',
         lng : '',
         
@@ -121,8 +147,8 @@ export default {
         }
     }
   },
-  mounted(){
-      if (navigator.geolocation) { // GPS를 지원하면
+  created() {
+    if (navigator.geolocation) { // GPS를 지원하면
           navigator.geolocation.getCurrentPosition(function(position) {
           console.log(position.coords.latitude + ' ' + position.coords.longitude);
           
@@ -133,10 +159,26 @@ export default {
         maximumAge: 0,
         timeout: Infinity
       });
-      this.near();
-  } else {
-    alert('GPS를 지원하지 않습니다');
-  }
+      } else {
+        alert('GPS를 지원하지 않습니다');
+      }
+    
+      
+  },
+  mounted(){
+    axios.get(P_URL + "getUserBased").then((response) => {
+        this.userBasedList = response.data;
+        for (let index = 0; index < 4; index++) {
+          let i = Math.floor(Math.random() * this.userBasedList.length);
+          this.userBasedList.splice(i, 1);
+        }
+      }).then((response) => {
+        console.log(response);
+        this.near();
+      });
+  },
+  updated() {
+    
   },
   components: {
     // InfiniteLoading,

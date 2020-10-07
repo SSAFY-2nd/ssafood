@@ -44,6 +44,8 @@ def recur_dictify(frame):
 
 
 def dic_to_train(data):
+    over_3_df = data
+    
     from surprise.model_selection import KFold
 
     bsl_options = {
@@ -57,7 +59,7 @@ def dic_to_train(data):
     ax1 = data.plot.scatter(x='store',y='user',s=1,c='score')
     print(ax1)
     
-    df_to_dict = recur_dictify(data)
+    df_to_dict = recur_dictify(over_3_df)
 
     store_list = []  # 음식점 목록을 담을 리스트
     user_set = set()  # 유저 목록을 담을 set
@@ -132,19 +134,28 @@ def train(where, k):
     print(where, "와 유사한 음식점은?")
     print(result)
     print("\n")
-
+    dataframes = pd.read_pickle("../data/dump.pkl")
+    stores_reviews = pd.merge(
+        dataframes["stores"], dataframes["reviews"], left_on="id", right_on="store"
+    )
+    stores_group = stores_reviews.groupby(["store","store_name"]).mean()
+    print(stores_group[stores_group['store'] == 149])
+    for i in result:
+        print(i)
+    return result
+    
     # 음식점에 대한 유저를 추천한다.
-    print(where, "를 평가한 당신에게 추천하는 친구:", "\n")
-    recommend_user_list = []
-    for r1 in result:
-        max_rating = data.df[data.df["store_id"] == r1]["score"].max()
-        user_id = data.df[(data.df["score"] == max_rating) & (
-            data.df["store_id"] == r1)]["user_id"].values
-
-        for user in user_id:
-            recommend_user_list.append(user_list[user])
-            # print(user_list[user])
-    return recommend_user_list
+#    print(where, "를 평가한 당신에게 추천하는 친구:", "\n")
+#    recommend_user_list = []
+#    for r1 in result:
+#        max_rating = data.df[data.df["store_id"] == r1]["score"].max()
+#        user_id = data.df[(data.df["score"] == max_rating) & (
+#            data.df["store_id"] == r1)]["user_id"].values
+#
+#        for user in user_id:
+#            recommend_user_list.append(user_list[user])
+#            # print(user_list[user])
+#    return recommend_user_list
 
 
 def main():
@@ -152,8 +163,8 @@ def main():
     # 여기부터
     print("make dump file")
     #reviews = pd.read_pickle("../data/dump.pkl")
-    #df = makestoredump(reviews)
-    #pd.to_pickle(df, "../data/10_review_stores.pkl")
+    #over_3_df = makestoredump(reviews)
+    #pd.to_pickle(over_3_df, "../data/10_review_stores.pkl")
     #print("end of make dump file")
 
     print("dic to train")
