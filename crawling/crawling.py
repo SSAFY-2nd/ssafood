@@ -35,7 +35,7 @@ def import_data(data_path=DATA_FILE):
         else :
             print(d["name"])
             plusUrl = d["name"]
-            crawl_num = 5
+            crawl_num = 3
             
             url = baseUrl + quote_plus(plusUrl) # 한글 검색 자동 변환
             html = urlopen(url)
@@ -55,7 +55,7 @@ def import_data(data_path=DATA_FILE):
                     break
 
             count = count +1
-            if count == 10000 :
+            if count == 2 :
                 break
 
 if __name__ == "__main__":
