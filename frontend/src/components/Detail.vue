@@ -3,7 +3,9 @@
         <Navbar></Navbar>
         <div class="detail">
             <div class="content">
-            <img src="../assets/img/food.png" width="300" height="300"> 
+               <img :src="require(`@/assets/img/${restaurant.name}1.jpg`)" width="250" height="300" @error="imgUrlAlt">
+               <img :src="require(`@/assets/img/${restaurant.name}2.jpg`)" width="250" height="300" @error="imgUrlAlt"> 
+               <img :src="require(`@/assets/img/${restaurant.name}3.jpg`)" width="250" height="300" @error="imgUrlAlt">
             <h1 class="rest-title">{{restaurant.name}}</h1>
             <br>
             <v-icon slot="append" >mdi-eye</v-icon>조회수
@@ -16,7 +18,7 @@
                         <td><div style="margin-left:150px">{{restaurant.address}}<hr></div></td>
                     </tr>
                      <div style="margin-top:10px"></div>
-                     <tr>
+                    <tr>
                         <td>체인명<hr></td>
                         <td><div style="margin-left:150px">{{restaurant.branch}}<hr></div></td>
                     </tr>
@@ -84,18 +86,11 @@
                           리뷰 쓰기
                         </v-btn>
                       </router-link>
-            
                 </div>
                 </div>
-                
-                
                 <br> 
                 <hr>
                 <br>
-
-
-
-
           <div v-for="(reviewList,index) in restaurant.reviewList" :key="index">
           <v-card class="mx-auto mb-3" max-width="1000" color="#FB8C00" dark>
           <v-card-subtitle>
@@ -146,47 +141,25 @@
             <v-btn icon class="mr-2">
               <v-icon color = "yellow">mdi-star</v-icon> {{reviewList.total_score}}
             </v-btn>
-            
-            
-            
+
             <span class="subheading mr-3"></span>
           </v-card-actions>
         </v-card>
-    
-          
         </div>   
-                
             </div>
             <div class = "right-side">
                <div id="map"></div>
                <br>
                 <h1 class="rest-back">주변 인기 식당</h1><br>
-                <table>
+                <table v-for="(listdata,index) in around_list" :key="index">
                     <tr>
-                        <td rowspan=3><img src="../assets/img/food.png" width="70" height="70"></td><td class="td-header"><div style="margin-left:20px">음식점1</div></td>
+                        <td rowspan=3><img :src="require(`@/assets/img/${listdata.name}1.jpg`)"  width="70" height="70"></td><td class="td-header"><div style="margin-left:20px"><v-icon size="20">mdi-account-circle</v-icon>{{listdata.name}}</div></td>
                     </tr>
-                    <tr><div style="margin-left:20px">hello</div></tr>
-                    <tr><div style="margin-left:20px">bye</div></tr>
-                     <tr>
-                        <td rowspan=3><img src="../assets/img/food2.jpg" width="70" height="70"></td><td class="td-header"><div style="margin-left:20px">음식점2</div></td>
-                    </tr>
-                    <tr><div style="margin-left:20px">hello</div></tr>
-                    <tr><div style="margin-left:20px">bye</div></tr>
-                     <tr>
-                        <td rowspan=3><img src="../assets/img/food3.jpg" width="70" height="70"></td><td class="td-header"><div style="margin-left:20px">음식점3</div></td>
-                    </tr>
-                    <tr><div style="margin-left:20px">hello</div></tr>
-                    <tr><div style="margin-left:20px">bye</div></tr>
-                     <tr>
-                        <td rowspan=3><img src="../assets/img/food4.jpg" width="70" height="70"></td><td class="td-header"><div style="margin-left:20px">음식점4</div></td>
-                    </tr>
-                    <tr><div style="margin-left:20px">hello</div></tr>
-                    <tr><div style="margin-left:20px">bye</div></tr>
+                    <tr><div style="margin-left:20px"><v-icon size="20">mdi-badge-account-horizontal </v-icon> {{listdata.address}}</div></tr>
+                    <tr><div style="margin-left:20px"><v-icon size="20">mdi-cellphone-iphone</v-icon> {{listdata.tel}}</div></tr>
                 </table>
             </div>
-           
         </div>
-        
     </div>
     
 </template>
@@ -206,23 +179,22 @@ export default {
     data(){
         return{
             restaurant:{
-            id:'',
-            name:'',
-            branch:'',
-            area:'',
-            tel:'',
-            address:'',
-            latitude:'',
-            longtitude:'',
-            category:[],
-            menu:[],
-            reviewList:[],
-            bhour_list:[],
-            review_cnt:''
-            
+              id:'',
+              name:'',
+              branch:'',
+              area:'',
+              tel:'',
+              address:'',
+              latitude:'',
+              longtitude:'',
+              category:[],
+              menu:[],
+              reviewList:[],
+              bhour_list:[],
+              review_cnt:''
             },
             address:'',
-            arount_list:[]
+            around_list:[]
 
         }
     },
@@ -230,17 +202,13 @@ export default {
      axios.get(API_URL+'api/v1/detail/'+this.$route.params.store_id)
         .then((response) => {
           this.restaurant = response.data;
-          console.log(this.restaurant.length);
-          
         if (window.kakao && window.kakao.maps) {
-            this.initMap();
             this.init();
-            this.list_get();
         } else {
             const script = document.createElement('script');
             /* global kakao */
             script.onload = () => kakao.maps.load(this.initMap);
-            script.src = 'http://dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=YOUR_APPKEY';
+            script.src = 'http://dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=55f188e963076732f3ffcc14970d59b1';
             document.head.appendChild(script);
         }
         });
@@ -248,6 +216,9 @@ export default {
     },
      mounted() {
         
+    },
+    imgUrlAlt(event) {
+        event.target.src = "..assets/img/food.png"
     },
     checkLogin(){
       if(storage.getItem("jwt-auth-token")==="")
@@ -259,47 +230,66 @@ export default {
     },
     methods: {
        initMap() {
-        var mapContainer = document.getElementById('map'),  
-        mapOption = {
-            //center: new kakao.maps.LatLng(37.556862, 126.926666), 
-             center: new kakao.maps.LatLng(this.restaurant.latitude, this.restaurant.longtitude), 
-            level: 3 
-        };     
-        var map = new kakao.maps.Map(mapContainer, mapOption); 
-        // var geocoder = new kakao.maps.services.Geocoder();
-        // var address = this.address
-        // var coords = new kakao.maps.LatLng(this.restaurant.latitude, this.restaurant.longtitude);
-        var imageSrc = 'https://ifh.cc/g/PIvBP3.png',    
-            imageSize = new kakao.maps.Size(64, 69), 
-            imageOption = {offset: new kakao.maps.Point(27, 69)}; 
-      
-        var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption),
-            markerPosition = new kakao.maps.LatLng(this.restaurant.latitude, this.restaurant.longtitude); 
-            //markerPosition = new kakao.maps.LatLng(37, 123); 
-
-        var marker = new kakao.maps.Marker({
-            position: markerPosition, 
-            image: markerImage // 마커이미지 설정 
-            });
-
-        marker.setMap(map);  
-        var resname = this.restaurant.name;
-        var jwcontent='<div style="width:150px;text-align:center;padding:6px 0;">'+resname +'</div>';
-        var infowindow = new kakao.maps.InfoWindow({
-            content: jwcontent
-            // content: this.restaurant.name  
-            });
-        infowindow.open(map, marker);
+        
         },
         init(){
-            axios.post(API_URL+'/api/v1/search/popular',
-            {
-               address : this.restaurant.address
-            }).then((response) => {
-                this.arount_list = response.data;
-                console.log(this.restaurant.length);
+            console.log(this.restaurant.address)
+            axios.post(API_URL+'api/v1/search/popular/'+this.restaurant.address,
+            ).then((response) => {
+              console.log("HIHI")
+              this.around_list = response.data;
+              var mapContainer = document.getElementById('map'),  
+              mapOption = {
+                  //center: new kakao.maps.LatLng(37.556862, 126.926666), 
+                  center: new kakao.maps.LatLng(this.restaurant.latitude, this.restaurant.longtitude), 
+                  level: 3 
+              };     
+              console.log(this.restaurant.latitude+' '+this.restaurant.longtitude)
+              var map = new kakao.maps.Map(mapContainer, mapOption); 
+              // var geocoder = new kakao.maps.services.Geocoder();
+              // var address = this.address
+              // var coords = new kakao.maps.LatLng(this.restaurant.latitude, this.restaurant.longtitude);
+              var imageSrc = 'https://ifh.cc/g/PIvBP3.png',    
+                  imageSize = new kakao.maps.Size(64, 69), 
+                  imageOption = {offset: new kakao.maps.Point(27, 69)}; 
+            
+              var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption),
+                  markerPosition = new kakao.maps.LatLng(this.restaurant.latitude, this.restaurant.longtitude); 
+                  //markerPosition = new kakao.maps.LatLng(37, 123); 
+
+              var marker = new kakao.maps.Marker({
+                  position: markerPosition, 
+                  image: markerImage // 마커이미지 설정 
+                  });
+
+              marker.setMap(map);  
+              var resname = this.restaurant.name;
+              console.log("res:"+resname);
+
+              var jwcontent='<div style="width:150px;text-align:center;padding:6px 0;">'+resname +'</div>';
+              var infowindow = new kakao.maps.InfoWindow({
+                  content: jwcontent
+                  // content: this.restaurant.name  
+                  });
+              infowindow.open(map, marker);
+              var imageSrc2 = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png"; 
+              console.log(this.around_list.length)
+                  for (var i = 0; i < this.around_list.length; i ++) {
+                              var imageSize2 = new kakao.maps.Size(24, 35); 
+                              // 마커 이미지를 생성합니다    
+                              var markerImage2 = new kakao.maps.MarkerImage(imageSrc2, imageSize2); 
+                              // 마커를 생성합니다
+                              var markerPosition2 = new kakao.maps.LatLng(this.around_list[i].latitude, this.around_list[i].longtitude)
+                              var marker2 = new kakao.maps.Marker({
+                                  map: map, // 마커를 표시할 지도
+                                  position: markerPosition2, // 마커를 표시할 위치
+                                  title : this.around_list[i].name, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
+                                  image : markerImage2 // 마커 이미지 
+                              })
+                              marker2.setMap(map);
+                        }                
             });
-        },
+        }
     }
 }
 </script>
@@ -361,9 +351,6 @@ export default {
   font-family: 'NanumSquare','나눔스퀘어','Noto Sans','Apple SD Gothic',sans-serif;
   font-size: 26px;
   font-weight: 800;
-}
-.all {
-  
 }
 
 .shadow-1:before {
