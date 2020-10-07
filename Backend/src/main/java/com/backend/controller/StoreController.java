@@ -224,6 +224,7 @@ public class StoreController {
         System.out.println(location.getLatitude() + " : "+ location.getLongtitude());
         List<StoreLength> storeList = storeService.findNearLocation(location.getLatitude(), location.getLongtitude());
 
+
         return storeList;
     }
 

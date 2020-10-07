@@ -41,9 +41,21 @@ public class LiketoController {
     @PostMapping("/api/v1/like")
     public Liketo likeStore(@RequestBody Liketo liketo) {
 
-        liketoService.likeFlag(liketo.getUid(), liketo.getStore_id(), liketo.getIsLike());
+        Liketo isExist = liketoService.findStatus(liketo.getUid(), liketo.getStore_id());
+        Liketo resultLike = liketo;
 
-        Liketo resultLike = liketoService.findStatus(liketo.getUid(), liketo.getStore_id());
+        System.out.println("resultLike: " +resultLike);
+        System.out.println("isExist: " +isExist);
+
+        if(isExist == null){
+            // insert
+            liketoService.insertLike(liketo.getUid(), liketo.getStore_id(), liketo.getIsLike());
+        }else{
+            // modify
+            liketoService.likeFlag(liketo.getUid(), liketo.getStore_id(), liketo.getIsLike());
+            resultLike = liketoService.findStatus(liketo.getUid(), liketo.getStore_id());
+
+        }
 
         return resultLike;
     }

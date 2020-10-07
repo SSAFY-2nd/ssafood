@@ -13,6 +13,11 @@
     </select>
 
 
+    <insert id="insertLike" parameterType="Liketo">
+        insert into liketo(uid, store_id, isLike) values (#{uid}, #{store_id}, 1);
+    </insert>
+
+
     <!--
         좋아요 상태 1 -> 0 / 0 -> 1 수정 SQL문
        -->

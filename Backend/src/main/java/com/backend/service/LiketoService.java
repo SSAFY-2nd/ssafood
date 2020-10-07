@@ -13,4 +13,8 @@ public interface LiketoService {
 
     List<Store> findLikedList(int uid); // 회원의 고유 id를 활용해서 Liked된 음식점 리스트 조회
 
+    Liketo findisExist(int uid, int store_id); // liketo 목록 확인
+
+    void insertLike(int uid, int store_id, int isLike); // liketo insert
+
 }
