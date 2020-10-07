@@ -108,8 +108,8 @@ import StoreListCard from "@/components/StoreListCard";
 
 AOS.init();
 
-const API_URL = 'http://j3a407.p.ssafy.io:8081/'
-//const API_URL = 'http://localhost:8081/'
+//const API_URL = 'http://j3a407.p.ssafy.io:8081/'
+const API_URL = 'http://localhost:8081/'
 // const storage = window.sessionStorage
 
 export default {
