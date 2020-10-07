@@ -6,7 +6,7 @@ import com.backend.dto.review.Review;
 import com.backend.dto.store.Store;
 import com.backend.dto.store.StoreDetail;
 import com.backend.dto.store.StoreLength;
-import com.backend.dto.store.StoreLocation;
+//import com.backend.dto.store.StoreLocation;
 import com.backend.dto.user.User;
 import com.backend.service.BhourService;
 import com.backend.service.ReviewService;
