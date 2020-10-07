@@ -8,9 +8,9 @@
                   <img :src="require(`@/assets/img/${restaurant.store_id}_3.jpg`)" width="250" height="300" >
             <h1 class="rest-title">{{restaurant.name}}</h1>
             <br>
-            <v-icon slot="append" >mdi-eye</v-icon>조회수
-            <v-icon slot="append" >mdi-pencil</v-icon>리뷰수
-            <v-icon slot="append" >mdi-star</v-icon>즐겨찾기수
+            <v-btn id="test" icon v-bind:style="{color : likeColor}">
+              <v-icon v-on:click="likeButton()">mdi-heart</v-icon>
+            </v-btn>
             <hr>
                 <table class = "story">
                     <tr>
@@ -328,6 +328,30 @@ export default {
         init(){
             
         },
+        likeButton(){
+        if(this.likeColor == "gray") {
+          this.likeColor = "red"
+          console.log(this.likeColor)
+          console.log("HIHI")
+          // 찜하기
+            axios
+          .post(API_URL + "/api/v1/like", {
+            uid: storage.uid,
+            store_id: this.restaurant.store_id,
+            isLike: "1"
+          });
+        } else {
+          this.likeColor = "gray"
+          console.log(this.likeColor)
+          // 찜하기
+            axios
+          .post(API_URL + "/api/v1/like", {
+            uid: storage.uid,
+            store_id: this.restaurant.store_id,
+            isLike: "0"
+          });
+        }      
+      },
         pushing(naming){
           this.$router.push("/detail/"+naming);
         }

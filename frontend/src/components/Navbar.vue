@@ -49,22 +49,21 @@
         <div class="shortcuts" id="shortcuts" v-if="profile">
           <div class="inner_shortcuts">
             <div class="info_profile">
-              <span class="user_nickname">{{nickname}}</span>
-              <span class="user_email">{{userEmail}}</span>
+              <span class="user_nickname">내가 찜한 음식점</span>
             </div>
+            <v-for>
+
+            </v-for>
+
             <div class="list_menu">
-              <div class="myblog">
-                <router-link :to="{path: `/doblog/${this.uid}`}">내 블로그</router-link>
-              </div>
-              <div class="setting">
-                <router-link to="/setting">설정</router-link>
-              </div>
+              
               <div class="logout" v-if="!google_login" @click="onClickLogout">
                 로그아웃
               </div>
               <div class="logout" v-if="google_login" @click="onClickLogout">
                 <GoogleLogin :params="params" :logoutButton=true>로그아웃</GoogleLogin>
               </div>
+
             </div>
           </div>
         </div>
@@ -79,9 +78,10 @@
 <script>
 const storage = window.sessionStorage
 import GoogleLogin from 'vue-google-login';
+import axios from 'axios';
 
 // const API_URL = 'http://i3a507.p.ssafy.io:8081/'
-// const API_URL = 'http://localhost:8081/'
+const API_URL = 'http://localhost:8081/'
 
 export default {
   name: 'Navbar',
@@ -98,7 +98,7 @@ export default {
       isLogin: this.$store.state.isLoggedIn,
       google_login: storage.getItem("google_login"),
       profileImage: storage.getItem("profileImage"),
-
+      isLike: [],
       list: {
         title:''
       },
@@ -132,10 +132,18 @@ export default {
     },
     profileshow() {
       this.profile = !this.profile
+    },
+    isLikefunction(){
+      axios.get(API_URL+'api/v1/like/'+this.uid)
+      .then((response) => {
+        this.restaurant = response.data;
+      });
     }
   },
   created() {
     this.loginChecker()
+    
+
   },
   mounted(){
     // this.text = this.list[this.index];
