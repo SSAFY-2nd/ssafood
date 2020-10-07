@@ -3,9 +3,9 @@
         <Navbar></Navbar>
         <div class="detail">
             <div class="content">
-                  <img :src="require(`http://j3a407.p.ssafy.io/img/store/${restaurant.name}1.jpg`)" width="250" height="300" >
-                  <img :src="require(`http://j3a407.p.ssafy.io/img/store/${restaurant.name}2.jpg`)" width="250" height="300" > 
-                  <img :src="require(`http://j3a407.p.ssafy.io/img/store/${restaurant.name}3.jpg`)" width="250" height="300" >
+                  <img :src="require(`@/assets/img/${restaurant.store_id}_1.jpg`)" width="250" height="300" >
+                  <img :src="require(`@/assets/img/${restaurant.store_id}_2.jpg`)" width="250" height="300" > 
+                  <img :src="require(`@/assets/img/${restaurant.store_id}_3.jpg`)" width="250" height="300" >
             <h1 class="rest-title">{{restaurant.name}}</h1>
             <br>
             <v-icon slot="append" >mdi-eye</v-icon>조회수
@@ -154,7 +154,7 @@
                 <h1 class="rest-back">주변 인기 식당</h1><br>
                 <table v-for="(listdata,index) in around_list" :key="index">
                     <tr>
-                        <td rowspan=3><img :src="require(`http://j3a407.p.ssafy.io/img/store/${listdata.name}1.jpg`)"  width="70" height="70"></td>
+                        <td rowspan=3><img :src="require(`@/assets/img/${listdata.store_id}_1.jpg`)" width="70" height="70"></td>
                         <td class="td-header"><div style="margin-left:20px"><v-icon size="20">mdi-account-circle</v-icon>{{listdata.name}}</div></td>
                     </tr>
                     <tr><div style="margin-left:20px"><v-icon size="20">mdi-badge-account-horizontal </v-icon> {{listdata.address}}</div></tr>
@@ -181,7 +181,7 @@ export default {
     data(){
         return{
             restaurant:{
-              id:'',
+              store_id:'',
               name:'',
               branch:'',
               area:'',
@@ -211,6 +211,7 @@ export default {
             ).then((response) => {
               console.log("HIHI")
               this.around_list = response.data;
+              console.log(response.data)
               var mapContainer = document.getElementById('map'),  
               mapOption = {
                   //center: new kakao.maps.LatLng(37.556862, 126.926666), 
