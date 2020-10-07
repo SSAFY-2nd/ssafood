@@ -169,8 +169,8 @@ import Navbar from './Navbar.vue'
 import User from '../models/user'
 
 import axios from 'axios'
-//const API_URL = 'http://localhost:8081/'
-const API_URL = 'http://j3a407.p.ssafy.io:8081/'
+const API_URL = 'http://localhost:8081/'
+//const API_URL = 'http://j3a407.p.ssafy.io:8081/'
 
 export default {
   name: 'register',

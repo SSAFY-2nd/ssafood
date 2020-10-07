@@ -64,8 +64,8 @@ import axios from 'axios'
 //import axios from 'axios'
 const storage = window.sessionStorage
 
-//const API_URL = 'http://localhost:8081/'
-const API_URL = 'http://j3a407.p.ssafy.io:8081/'
+const API_URL = 'http://localhost:8081/'
+//const API_URL = 'http://j3a407.p.ssafy.io:8081/'
 export default {
     name: 'reviewinsert',
     components:{
