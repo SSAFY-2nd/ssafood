@@ -4,10 +4,8 @@ CREATE TABLE `user` (
   `nickname` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `profileImage` varchar(255) DEFAULT NULL,
-  `admin` tinyint NOT NULL,
-  `age` int DEFAULT NULL,
-  `sex` int DEFAULT NULL,
+  `age` varchar(255) DEFAULT NULL,
+  `sex` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`uid`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8
-
+) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8
