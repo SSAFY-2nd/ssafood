@@ -1,0 +1,272 @@
+<template>
+    <div>
+        <Navbar></Navbar>
+        <div class="detail">
+            <div class="content">
+          <h1>리뷰수정</h1>
+          <hr>
+         <h3>평점</h3>
+         <br>
+         <input type="radio" id="one" value=1 v-model="picked">
+         <label for="one" style="margin:10px"><v-icon color = "yellow">mdi-star</v-icon></label>
+         &nbsp;
+         <input type="radio" id="two" value=2 v-model="picked">
+         <label for="two" style="margin:10px"><v-icon color = "yellow">mdi-star</v-icon><v-icon color = "yellow">mdi-star</v-icon></label>
+
+         <input type="radio" id="three" value=3 v-model="picked">
+         <label for="three" style="margin:10px">
+           <v-icon color = "yellow">mdi-star</v-icon>
+           <v-icon color = "yellow">mdi-star</v-icon>
+           <v-icon color = "yellow">mdi-star</v-icon>
+           </label>
+
+         <input type="radio" id="four" value=4 v-model="picked">
+         <label for="four" style="margin:10px">
+           <v-icon color = "yellow">mdi-star</v-icon>
+           <v-icon color = "yellow">mdi-star</v-icon>
+           <v-icon color = "yellow">mdi-star</v-icon>
+           <v-icon color = "yellow">mdi-star</v-icon>
+           </label>
+
+         <input type="radio" id="five" value=5 v-model="picked">
+         <label for="five" style="margin:10px">
+           <v-icon color = "yellow">mdi-star</v-icon>
+           <v-icon color = "yellow">mdi-star</v-icon>
+           <v-icon color = "yellow">mdi-star</v-icon>
+           <v-icon color = "yellow">mdi-star</v-icon>
+           <v-icon color = "yellow">mdi-star</v-icon>
+         </label>
+          <br>
+          <!-- <span>선택: {{ picked }}</span> -->
+          <hr>
+
+             <h3>리뷰내용</h3>
+              <textarea class="content" placeholder="content" v-model="text"/>
+              
+              <br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+         <hr>
+         <v-btn color = "warning" elevation="9" x-large @click="submit(Review)" >
+                          리뷰 등록
+                        </v-btn>
+            </div>
+        
+           
+        </div>
+        
+    </div>
+    
+</template>
+
+<script>
+import Navbar from '../components/Navbar.vue'
+import axios from 'axios'
+//import axios from 'axios'
+const storage = window.sessionStorage
+
+const API_URL = 'http://localhost:8081/'
+
+export default {
+    name: 'reviewupdate',
+    components:{
+        Navbar
+    },
+    data(){
+        return{
+          picked:'',
+          text:'',
+          restaurant:{
+            id:'',
+            name:'',
+            branch:'',
+            area:'',
+            tel:'',
+            address:'',
+            latitude:'',
+            longtitude:'',
+            category:[],
+            menu:[],
+            reviewList:[],
+            bhour_list:[],
+            review_cnt:''
+          },
+          review_id:'',
+          Review:{
+              
+              store_id: this.$route.params.store_id,
+              writer_id:storage.getItem("login_user"),
+              gender:storage.getItem("sex"),
+              total_score: this.picked,
+              content:this.text,
+              
+          },
+            
+        }
+    },
+    created() {
+    //  axios.get(API_URL+'api/v1/detail/'+this.$route.params.store_id)
+    //     .then((response) => {
+    //       this.restaurant = response.data;
+    //       console.log(this.restaurant.length);
+    //     });
+
+      
+      //    //this.listData = testData
+    },
+     mounted() {
+        
+    },
+    methods: {
+       submit(Review) {
+         console.log(Review)
+         axios.put(API_URL+'api/v1/review',{
+              total_score: this.picked,
+              content:this.text,
+              review_id:this.$route.params.review_id
+         }).then((res) => {
+          console.log(res.data)
+          console.log("수정에 성공하였습니다.")
+          this.$router.push("/detail/"+this.$route.params.store_id)
+        })
+        .catch(err => {
+          console.log(err)
+          console.log("수정에 실패하였습니다.")
+        })
+       
+        
+        }
+        
+    }
+}
+</script>
+
+<style scoped>
+#map {
+    width: 500px;
+    height: 400px;
+}
+.detail {
+  padding-top:151px;
+  width:1400px;
+  margin-left : 100px;
+  height : 1500px;
+}
+.story{
+    margin-top : 50px;
+}
+.story tr{
+    margin-top : 10px;
+}
+.content {
+    width:900px;
+    float:left;
+    height:800px;
+}
+.header{
+    width:900px;
+    float:left;
+}
+.rest-title {
+  font-family: 'NanumSquare','나눔스퀘어','Noto Sans','Apple SD Gothic',sans-serif;
+  font-size: 36px;
+  font-weight: 800;
+}
+
+.rest-back {
+  font-family: 'NanumSquare','나눔스퀘어','Noto Sans','Apple SD Gothic',sans-serif;
+  font-size: 26px;
+  font-weight: 800;
+}
+.eye{
+    size : 100px;
+}
+.footer{
+    height:300px;
+}
+.right-side{
+    width : 300px;
+    float:left;
+    height:800px;
+}
+.td-header{
+  font-family: 'NanumSquare','나눔스퀘어','Noto Sans','Apple SD Gothic',sans-serif;
+  font-size: 22px;
+  font-weight: 800;
+}
+.rest-foot {
+  font-family: 'NanumSquare','나눔스퀘어','Noto Sans','Apple SD Gothic',sans-serif;
+  font-size: 26px;
+  font-weight: 800;
+}
+.all {
+  
+}
+
+.shadow-1:before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: inherit;
+  height: inherit;
+  z-index: -2;
+  box-sizing: border-box;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.13);
+}
+
+.shadow-1:after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: inherit;
+  height: inherit;
+  z-index: -2;
+  box-sizing: border-box;
+  box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.08);
+}
+
+.card {
+  position: relative;
+  height: 100px;
+  background: #fcfcfc;
+  margin: 20px 40px;
+  transition: 0.4s all;
+}
+
+.card.open {
+  height: 200px;
+  background: #ffffff;
+}
+.mr-1{
+  font-size: large;
+}
+.mr-2{
+ width: 40px;
+ height: 40px;
+ left: 700px;
+ font-size: x-large;
+}
+.mr-3{
+ left : 10px;
+}
+.gender{
+  -webkit-filter:opacity(0.5) drop-shadow(0 0 0 grey);
+  filter: opacity(0.5) drop-shadow(0 0 0 grey);
+  width : 25px;
+  height : 25px;
+}
+.link{
+  position: relative;
+  float : right;
+  bottom : 50px;
+}
+.content{
+  height:300px;
+  outline-color: orange;
+}
+</style>
