@@ -31,7 +31,8 @@ public class UserController {
 
 
 
-    private final String DEFAULT_PROFILE = "https://lh3.googleusercontent.com/proxy/G6E2A7-Wz84xXZgPEim_RvVolPgdM4hCYtfuuMQxybF8o5kkIH8cIvtPLMfEWvxHJUwhPunxzMO6z9GFQPzGNs7ZtwQCkGKD9pbVXXIY8Rsd7WSA2CQB5B9ESQ";
+
+    private final String DEFAULT_PROFILE = "http://j3a407.p.ssafy.io/img/user/default/defaultImage.png";
 
     @PostMapping("/googlelogin")
     public Object googleLogin(@RequestHeader final HttpHeaders header) throws Exception {
