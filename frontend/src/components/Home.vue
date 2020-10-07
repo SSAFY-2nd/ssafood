@@ -67,7 +67,7 @@
           <hr />
           <div class="row">
             <div v-for="(listdata,index) in listData" :key="index">
-               <img class="center-block" :src="require(`@/assets/img/${listdata.store_id}_1.jpg`)"  alt="By Scott Webb" /><br>
+               <img class="center-block" :src="require(`${API_URL}/images/${listdata.store_id}.jpg`)"  alt="By Scott Webb" /><br>
                <v-icon size="20">mdi-account-circle</v-icon> {{listdata.name}} <br>
                <v-icon size="20">mdi-badge-account-horizontal </v-icon> {{listdata.address}} <br>
                <v-icon size="20">mdi-cellphone-iphone</v-icon> {{listdata.tel}}<br>
@@ -111,11 +111,11 @@ import 'aos/dist/aos.css'
 import Card from "@/components/Card";
 import StoreListCard from "@/components/StoreListCard";
 import axios from 'axios'
-const API_URL = 'http://localhost:8081/'
+//const API_URL = 'http://localhost:8081/'
 const P_URL = "http://127.0.0.1:5000/";
 AOS.init();
 
-// const API_URL = 'http://j3a407.p.ssafy.io:8081/'
+ const API_URL = 'http://j3a407.p.ssafy.io:8081/'
  //const API_URL = 'http://localhost:8081/'
 // const storage = window.sessionStorage
 

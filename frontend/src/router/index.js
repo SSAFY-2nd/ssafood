@@ -4,7 +4,7 @@ import Home from '../components/Home.vue'
 import Login from '../components/Login.vue';
 import Register from '../components/Register.vue'
 // import TextEditor from '../components/TextEditor.vue'
-import Setting from '../components/Setting.vue'
+// import Setting from '../components/Setting.vue'
 // import PostDetail from '../components/PostDetail.vue'
 import Introduce from '../components/Introduce.vue'
 import Search from '../components/Search.vue'
@@ -16,15 +16,15 @@ import Detail from '../components/Detail.vue'
 import ReviewInsert from '../components/ReviewInsert.vue'
 import ReviewUpdate from '../components/ReviewUpdate.vue'
 Vue.use(VueRouter)
-import store from '../router/index.js'
+// import store from '../router/index.js'
 
-const requireAuth = () => (from, to, next) => {
-  if (store.app.$store.getters.isAuthenticated) {
-    return next() // isAuth === true면 페이지 이동
-  }
-  // 홈 화면으로 제대로 보내지지 않는 문제
-  return next('/') // isAuth === false면 다시 로그인 화면으로 이동
-}
+// const requireAuth = () => (from, to, next) => {
+//   if (store.app.$store.getters.isAuthenticated) {
+//     return next() // isAuth === true면 페이지 이동
+//   }
+//   // 홈 화면으로 제대로 보내지지 않는 문제
+//   return next('/') // isAuth === false면 다시 로그인 화면으로 이동
+// }
 
 
 export default new VueRouter({
@@ -55,12 +55,12 @@ export default new VueRouter({
     //   name : 'texteditor',
     //   component: TextEditor
     // },
-    {
-      path: '/setting',
-      name : 'setting',
-      component: Setting,
-      beforeEnter: requireAuth()
-    },
+    // {
+    //   path: '/setting',
+    //   name : 'setting',
+    //   component: Setting,
+    //   beforeEnter: requireAuth()
+    // },
     // {
     //   path: '/postdetail',
     //   name: 'postdetail',
