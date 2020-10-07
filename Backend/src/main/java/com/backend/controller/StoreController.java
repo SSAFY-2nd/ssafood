@@ -6,6 +6,7 @@ import com.backend.dto.review.Review;
 import com.backend.dto.store.Store;
 import com.backend.dto.store.StoreDetail;
 import com.backend.dto.store.StoreLength;
+import com.backend.dto.store.StoreLocation;
 import com.backend.dto.user.User;
 import com.backend.service.BhourService;
 import com.backend.service.ReviewService;
@@ -88,8 +89,8 @@ public class StoreController {
         details.setArea(store.getArea());
         details.setTel(store.getTel());
         details.setAddress(store.getAddress());
-        details.setLatitude(store.getLat());
-        details.setLongtitude(store.getLng());
+        details.setLatitude(store.getLatitude());
+        details.setLongtitude(store.getLongtitude());
 
         // 카테고리 문자열처리
         String category = store.getCategory();
@@ -207,6 +208,7 @@ public class StoreController {
         System.out.println(inputAddr);
 
         List<Store> storeList = storeService.findPopularLocation(inputAddr);
+        System.out.println(storeList);
         return storeList;
     }
 
@@ -219,7 +221,8 @@ public class StoreController {
     public List<StoreLength> NearLocation(@RequestBody Store location){
         // 같은 지역에 위치한 상점 리스트 불러오기
         // 거리 비교해서 1km이내 가장 가까운 상점 리스트 반환
-        List<StoreLength> storeList = storeService.findNearLocation(location.getLat(), location.getLng());
+        System.out.println(location.getLatitude() + " : "+ location.getLongtitude());
+        List<StoreLength> storeList = storeService.findNearLocation(location.getLatitude(), location.getLongtitude());
 
         return storeList;
     }

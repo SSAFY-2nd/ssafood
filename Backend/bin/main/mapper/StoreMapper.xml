@@ -28,14 +28,14 @@
     <!-- 주변 위치 음식점 모두 찾기  -->
     <select id="findNearLocation" resultType="com.backend.dto.store.StoreLength">
         SELECT *,
-        ROUND((6371*acos(cos(radians(#{latitude}))*cos(radians(latitude))*cos(radians(longtitude)
-        -radians(#{longtitude}))+sin(radians(#{latitude}))*sin(radians(latitude))))*1000,0)
+        ROUND((6371*acos(cos(radians(37.481571))*cos(radians(latitude))*cos(radians(longtitude)
+        -radians(126.958650))+sin(radians(37.481571))*sin(radians(latitude))))*1000,0)
         AS distance
         FROM store
         WHERE store.latitude is not NULL
         HAVING distance <![CDATA[ <= ]]> 1000
         ORDER BY distance
-        limit 8
+        limit 100
     </select>
 
 <!--    select review_info.store_id, name, branch, area, tel, address, latitude, longtitude, category, menu-->
@@ -49,7 +49,7 @@
         from review_info, (select * from store where address LIKE CONCAT('%', #{address}, '%')) as subquery1
         where review_info.store_id = subquery1.store_id
         group by review_info.store_id order by avg(total_score) DESC
-        limit 4;
+        limit 20;
     </select>
 
 </mapper>
