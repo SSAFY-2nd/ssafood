@@ -31,4 +31,15 @@ public class LiketoDaoImpl implements LiketoDao {
     public List<Store> findLikedList(int uid) {
         return mapper.findLikedList(uid);
     }
+
+    @Override
+    public Liketo findisExist(int uid, int store_id) {
+        return mapper.findisExist(uid, store_id);
+    }
+
+    @Override
+    public void insertLike(int uid, int store_id, int isLike) {
+        mapper.insertLike(uid, store_id, isLike);
+        return ;
+    }
 }

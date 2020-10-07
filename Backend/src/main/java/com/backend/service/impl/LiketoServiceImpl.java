@@ -31,4 +31,15 @@ public class LiketoServiceImpl implements LiketoService {
     public List<Store> findLikedList(int uid) {
         return dao.findLikedList(uid);
     }
+
+    @Override
+    public Liketo findisExist(int uid, int store_id) {
+        return dao.findisExist(uid, store_id);
+    }
+
+    @Override
+    public void insertLike(int uid, int store_id, int isLike) {
+        dao.insertLike(uid, store_id, isLike);
+        return ;
+    }
 }
