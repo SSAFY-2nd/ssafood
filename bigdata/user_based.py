@@ -137,6 +137,7 @@ def train(who, k):
     # name_list = dff.user.unique().tolist()
     # store_list = dff.store.unique().tolist()
 
+    # 없을때 처리 
     index = name_list.index(int(who))
 
     neighbors = algo.get_neighbors(index, k=k)  # k=5
@@ -158,27 +159,39 @@ def dump_dataframes(dataframes):
 def load_dataframes():
     return pd.read_pickle(DUMP_FILE)
 
-def main():
 
+def get10store(id):
     dataframes = load_dataframes()
-#    df = makeuserdump(dataframes)
-#    pd.to_pickle(df, "../data/over_10_review_peoples.pkl")
-
-#    data = pd.read_pickle("../data/over_10_review_peoples.pkl")
-#    frame = dic_to_train(data)
-#    pd.to_pickle(frame, "../data/dic_to_train.pkl")
-
-    recommend_store = train(345, 5)
-    
+    recommend_store = train(id, 5)
     stores_reviews = pd.merge(
         dataframes["stores"], dataframes["reviews"], left_on="id", right_on="store"
     )
-    print(stores_reviews[stores_reviews["user"]==345])
     scores_group = stores_reviews.groupby(["store", "store_name"]).mean()
+    
     recommend_df = scores_group.loc[recommend_store].sort_values(["score"], ascending=[False]).head(10)
-    print(recommend_df[["score"]])
+    ret = []
+    for i in recommend_df.index:
+        tmp = {}
+        tmp['store_id'] = i[0]
+        tmp['name'] = str(i[1])
+        tmp['score'] = str(recommend_df.loc[i][3])       
+        ret.append(tmp)
+        
+    return ret
+    
+def main():
+
+    dataframes = load_dataframes()
+#    over_3_df = makeuserdump(dataframes)
+#    pd.to_pickle(over_3_df, "../data/over_10review_peoples.pkl")
+
+#    data = pd.read_pickle("../data/over_10review_peoples.pkl")
+#    frame = dic_to_train(data)
+#    pd.to_pickle(frame, "../data/dic_to_train.pkl")
     # for idx in recommend_store:
     #     print(scores_group.loc[idx])
+    test = get10store(68632)
+    print(test)
 
 
 if __name__ == "__main__":
