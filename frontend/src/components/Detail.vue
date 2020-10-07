@@ -4,7 +4,7 @@
         <div class="detail">
             <div class="content">
               <div class="header-image">
-                  <img :src="require(`${API_URL}/images/${restaurant.store_id}.jpg`)" width="500" height="300" >
+                  <img :src="require(`http://j3a407.p.ssafy.io/images/${restaurant.store_id}.jpg`)" width="500" height="300" >
               </div>
             <h1 class="rest-title">{{restaurant.name}}</h1>
             <br>
@@ -155,7 +155,7 @@
                 <table v-for="(listdata,index) in around_list" :key="index">
                     
                     <tr>
-                        <td rowspan=3><img :src="require(`${API_URL}/images/${listdata.store_id}.jpg`)" width="70" height="70"></td>
+                        <td rowspan=3><img :src="require(`http://j3a407.p.ssafy.io/images/${listdata.store_id}.jpg`)" width="70" height="70"></td>
                         <router-link :to="{name:'detail',params:{store_id : listdata.store_id}}">
                         <td class="td-header"><div style="margin-left:20px"><v-icon size="20">mdi-account-circle</v-icon>{{listdata.name}}</div></td>
                          </router-link>
