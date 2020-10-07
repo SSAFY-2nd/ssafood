@@ -149,16 +149,21 @@
         </div>   
             </div>
             <div class = "right-side">
-               <div id="map"></div>
-               <br>
+               <div id="map"></div> 
+                <br>
                 <h1 class="rest-back">주변 인기 식당</h1><br>
                 <table v-for="(listdata,index) in around_list" :key="index">
+                    
                     <tr>
                         <td rowspan=3><img :src="require(`@/assets/img/${listdata.store_id}_1.jpg`)" width="70" height="70"></td>
+                        <router-link :to="{name:'detail',params:{store_id : listdata.store_id}}">
                         <td class="td-header"><div style="margin-left:20px"><v-icon size="20">mdi-account-circle</v-icon>{{listdata.name}}</div></td>
+                         </router-link>
                     </tr>
+                   
                     <tr><div style="margin-left:20px"><v-icon size="20">mdi-badge-account-horizontal </v-icon> {{listdata.address}}</div></tr>
                     <tr><div style="margin-left:20px"><v-icon size="20">mdi-cellphone-iphone</v-icon> {{listdata.tel}}</div></tr>
+                    
                 </table>
             </div>
         </div>
@@ -196,7 +201,7 @@ export default {
               review_cnt:''
             },
             address:'',
-            arount_list:[],
+            around_list:[],
             nickname:'',
             login_user: storage.getItem("login_user"),
         }
@@ -205,71 +210,21 @@ export default {
      axios.get(API_URL+'api/v1/detail/'+this.$route.params.store_id)
         .then((response) => {
           this.restaurant = response.data;
-        if (window.kakao && window.kakao.maps) {
-            console.log(this.restaurant.address)
-            axios.post(API_URL+'api/v1/search/popular/'+this.restaurant.address,
+           axios.post(API_URL+'api/v1/search/popular/'+this.restaurant.address,
             ).then((response) => {
               console.log("HIHI")
               this.around_list = response.data;
-              console.log(response.data)
-              var mapContainer = document.getElementById('map'),  
-              mapOption = {
-                  //center: new kakao.maps.LatLng(37.556862, 126.926666), 
-                  center: new kakao.maps.LatLng(this.restaurant.latitude, this.restaurant.longtitude), 
-                  level: 3 
-              };     
-              console.log(this.restaurant.latitude+' '+this.restaurant.longtitude)
-              var map = new kakao.maps.Map(mapContainer, mapOption); 
-              // var geocoder = new kakao.maps.services.Geocoder();
-              // var address = this.address
-              // var coords = new kakao.maps.LatLng(this.restaurant.latitude, this.restaurant.longtitude);
-              var imageSrc = 'https://ifh.cc/g/PIvBP3.png',    
-                  imageSize = new kakao.maps.Size(64, 69), 
-                  imageOption = {offset: new kakao.maps.Point(27, 69)}; 
-            
-              var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption),
-                  markerPosition = new kakao.maps.LatLng(this.restaurant.latitude, this.restaurant.longtitude); 
-                  //markerPosition = new kakao.maps.LatLng(37, 123); 
-
-              var marker = new kakao.maps.Marker({
-                  position: markerPosition, 
-                  image: markerImage // 마커이미지 설정 
-                  });
-
-              marker.setMap(map);  
-              var resname = this.restaurant.name;
-              console.log("res:"+resname);
-
-              var jwcontent='<div style="width:150px;text-align:center;padding:6px 0;">'+resname +'</div>';
-              var infowindow = new kakao.maps.InfoWindow({
-                  content: jwcontent
-                  // content: this.restaurant.name  
-                  });
-              infowindow.open(map, marker);
-              var imageSrc2 = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png"; 
-              console.log(this.around_list.length)
-                  for (var i = 0; i < this.around_list.length; i ++) {
-                              var imageSize2 = new kakao.maps.Size(24, 35); 
-                              // 마커 이미지를 생성합니다    
-                              var markerImage2 = new kakao.maps.MarkerImage(imageSrc2, imageSize2); 
-                              // 마커를 생성합니다
-                              var markerPosition2 = new kakao.maps.LatLng(this.around_list[i].latitude, this.around_list[i].longtitude)
-                              var marker2 = new kakao.maps.Marker({
-                                  map: map, // 마커를 표시할 지도
-                                  position: markerPosition2, // 마커를 표시할 위치
-                                  title : this.around_list[i].name, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
-                                  image : markerImage2 // 마커 이미지 
-                              })
-                              marker2.setMap(map);
-                        }                
-            });
-        } else {
-            const script = document.createElement('script');
-            /* global kakao */
-            script.onload = () => kakao.maps.load(this.initMap);
-            script.src = 'http://dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=55f188e963076732f3ffcc14970d59b1';
-            document.head.appendChild(script);
-        }
+              console.log(this.around_list)
+               if (window.kakao && window.kakao.maps) {
+                this.initMap();
+              } else {
+                  const script = document.createElement('script');
+                  /* global kakao */
+                  script.onload = () => kakao.maps.load(this.initMap);
+                  script.src = 'http://dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=55f188e963076732f3ffcc14970d59b1';
+                  document.head.appendChild(script);
+             }
+            })
         });
          //this.listData = testData
     },
@@ -285,15 +240,15 @@ export default {
       {
          alert('로그인이 필요합니다.')
          this.$router.push("/detail/"+this.$route.params.store_id);
-       
-        
-       
       }else{
         this.$router.push("/detail/reviewinsert/"+this.$route.params.store_id);
       }
     },
     ReviewUpdate(reviewList){
       this.$router.push("/detail/reviewupdate/"+this.$route.params.store_id+"/"+reviewList.review_id);
+    },
+    push(store_id){
+      this.$router.push("/detail/"+store_id);
     },
     ReviewDelete(reviewList){
       console.log("삭제확인")
@@ -317,10 +272,64 @@ export default {
       // }
     },
        initMap() {
-        
+         console.log(this.restaurant.address)
+           
+              var mapContainer = document.getElementById('map'),  
+              mapOption = {
+                  center: new kakao.maps.LatLng(this.restaurant.latitude, this.restaurant.longtitude), 
+                  level: 3 
+              };     
+              console.log(this.restaurant.latitude+' '+this.restaurant.longtitude)
+              var map = new kakao.maps.Map(mapContainer, mapOption); 
+  
+              var imageSrc = 'https://ifh.cc/g/PIvBP3.png',    
+                  imageSize = new kakao.maps.Size(64, 69), 
+                  imageOption = {offset: new kakao.maps.Point(27, 69)}; 
+            
+              var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption),
+                  markerPosition = new kakao.maps.LatLng(this.restaurant.latitude, this.restaurant.longtitude); 
+
+              var marker = new kakao.maps.Marker({
+                  position: markerPosition, 
+                  image: markerImage // 마커이미지 설정 
+                  });
+
+              marker.setMap(map);  
+              var resname = this.restaurant.name;
+              console.log("res:"+resname);
+
+              var jwcontent='<div style="width:150px;text-align:center;padding:6px 0;">'+resname +'</div>';
+              var infowindow = new kakao.maps.InfoWindow({
+                  content: jwcontent
+                  });
+              infowindow.open(map, marker);
+              var imageSrc2 = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png"; 
+              console.log(this.around_list.length)
+                  for (var i = 0; i < this.around_list.length; i ++) {
+                              var imageSize2 = new kakao.maps.Size(24, 35); 
+                              // 마커 이미지를 생성합니다    
+                              var markerImage2 = new kakao.maps.MarkerImage(imageSrc2, imageSize2); 
+                              // 마커를 생성합니다
+                              var markerPosition2 = new kakao.maps.LatLng(this.around_list[i].latitude, this.around_list[i].longtitude)
+                              var marker2 = new kakao.maps.Marker({
+                                  map: map, // 마커를 표시할 지도
+                                  position: markerPosition2, // 마커를 표시할 위치
+                                  title : this.around_list[i].name, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
+                                  image : markerImage2, // 마커 이미지
+                                  clickable : true
+                              })
+                              marker2.setMap(map);
+                              var naming = this.around_list[i].address
+                              kakao.maps.event.addListener(marker2,'click',function(){
+                                  console.log(naming)
+                              })
+                        }                
         },
         init(){
             
+        },
+        pushing(naming){
+          this.$router.push("/detail/"+naming);
         }
     }
 }
