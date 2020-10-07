@@ -11,11 +11,8 @@
     <v-toolbar-items style="align-items: center">
       <router-link to="/introduce">소개</router-link>
     </v-toolbar-items>
-    <v-toolbar-items style="align-items: center">
-      <router-link to="/forum">리스트</router-link>
-    </v-toolbar-items>
     <!-- <v-toolbar-items style="align-items: center">
-      <router-link to="/feed">피드</router-link>
+      <router-link to="/diary">다이어리</router-link>
     </v-toolbar-items> -->
 
     <!-- 공지사항 -->
@@ -44,9 +41,6 @@
       <!-- <div v-if="isLogin" class="info_blog">
         <v-icon small color="black" class="icon">fas fa-bell</v-icon>
       </div> -->
-      <div v-if="isLogin" class="newpost">
-        <router-link to="/texteditor"><v-btn rounded outlined depressed color="#6e8af8">새 글 작성</v-btn></router-link>
-      </div>
       <div v-if="isLogin" class="info_blog"> 
         <div @click="profileshow">
             <img v-bind:src=profileImage class="thumb_profile" alt>
@@ -85,10 +79,9 @@
 <script>
 const storage = window.sessionStorage
 import GoogleLogin from 'vue-google-login';
-import axios from 'axios';
 
 // const API_URL = 'http://i3a507.p.ssafy.io:8081/'
-const API_URL = 'http://localhost:8081/'
+// const API_URL = 'http://localhost:8081/'
 
 export default {
   name: 'Navbar',
@@ -139,21 +132,10 @@ export default {
     },
     profileshow() {
       this.profile = !this.profile
-    },
-    gotonotice(){
-      this.$router.push({path:'notice'})
     }
   },
   created() {
     this.loginChecker()
-    //공지사항 받아옴
-    axios.get(API_URL + 'api/v2/notice')
-        .then(res => {
-          // this.post = res.data
-          // pid를 활용하여 게시글로 이동
-          this.list.title = res.data[0].title
-    })
-    sessionStorage.setItem("noticelist",this.list.title)
   },
   mounted(){
     // this.text = this.list[this.index];

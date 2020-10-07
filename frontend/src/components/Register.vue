@@ -115,15 +115,13 @@
               <!-- <label for="password">비밀번호 확인</label> -->
               <td>
                 <v-text-field
-                  @keyup.enter="handleRegister"
                   solo
                   flat
                   hide-details
                   placeholder="나이를 적어주세요"
                   name="age"
                   v-model="user.age"
-                  v-validate="'required|min:3|max:20'"
-                  data-vv-as="password"
+                  data-vv-as="age"
                 />
                 <div
                   class="warn" v-if="submitted && errors.has('age')">
@@ -135,12 +133,12 @@
                 <v-icon>mdi-gender-male-female</v-icon>성별
               </td>
               <td>
-                <div id="demo">
-                <input type="radio" name="test_id" @change="onChange($event)" value="male"> Male
-                <input type="radio" name="test_id" @change="onChange($event)" value="female"> Female
+                <div id="demo" >
+                <input type="radio" name="sex" value=0 v-model="user.sex"> Male
+                <input type="radio" name="sex" value=1 v-model="user.sex"> Female
                 </div>
                 <div
-                  class="warn" v-if="submitted && errors.has('age')">
+                  class="warn" v-if="submitted && errors.has('sex')">
                 </div>
               </td>
             </tr>
@@ -181,14 +179,13 @@ export default {
   },
   data() {
     return {
-      user: new User('', '', '', '', '', ''),
+      user: new User('', '', '', '', ''),
       isLogin: this.$store.state.isLoggedIn,
       submitted: false,
       successful: false,
       message: '',
       dupcheck: false,//중복체크 했는지
-      fillcheck: false,
-      gender : []
+      fillcheck: false
     }
   },
   mounted() {
@@ -202,7 +199,7 @@ export default {
       // console.log(user)
       // if(){
       // }
-      if(this.user.email && this.user.password && this.user.confirmPassword && this.user.name){
+      if(this.user.email && this.user.password && this.user.confirmPassword && this.user.name && this.user.age){
         this.fillcheck= true;
         return true;
       }
@@ -241,6 +238,10 @@ export default {
       this.submitted = true
       this.$validator.validate().then(valid => {
         if (valid) {
+          console.log(this.user.sex);
+          console.log(this.user.age);
+          console.log(this.user.username);
+          
           this.$store.dispatch('register', this.user)
             .then(
               data => {

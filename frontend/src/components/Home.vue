@@ -12,12 +12,12 @@
         <v-container fill-height fluid grid-list-xl>
       <v-layout justify-center wrap mt-5>
         <v-flex xs12 md8>
-          <card title="맛집 검색">
-            <v-form>
+          <card title="맛집 검색 GO!" @click="searchFood(search)" to = "/search" >
+            <!-- <v-form>
               <v-container py-0>
                 <v-layout wrap>
                   <v-flex xs12 md12>
-                    <v-text-field v-model="storeName" label="음식점 이름" />
+                    <v-text-field v-model="search" label="음식점 이름" />
                   </v-flex>
                   <v-flex xs12 text-center>
                     <v-btn
@@ -25,12 +25,12 @@
                       class="indigo white--text ma-5"
                       rounded
                       color="orange darken-1"
-                      @click="onSubmit" to = "/search"
+                      @click="searchFood(search)" to = "/search"
                     >GO!</v-btn>
                   </v-flex>
                 </v-layout>
               </v-container>
-            </v-form>
+            </v-form> -->
           </card>
           <v-divider class="mx-4" />
         </v-flex>
@@ -51,128 +51,224 @@
     </section>
     
     <main class="page-content">
+    
     <div class="page-container">
+      
         <h1>About SSAFOOD</h1>
         <hr />
         <h2>당신이 가고 싶은 음식점은 어디?</h2>
-
-        <p>음식 추천 사이트</p>
-        
-        </div>
-        <section id="services" class="sec-services">
-        <div class="container">
-          <h1>Services</h1>
-          <hr/>
-          <div class="row">
-            <div class="col-sm-4">
-              <div class="col" style="right:30px">
-                <v-icon size="100" >mdi-kabaddi</v-icon>
-              </div>
-              <h2 class="h3"> 맛집 추천</h2>
-              <p>카테고리 별로 맛집을 추천해줍니다.</p>
-            </div>
-            <div class="col-sm-4">
-              <div class="col" style="right:30px">
-                <v-icon size="100" >mdi-calendar-clock</v-icon>
-              </div>
-              <h2 class="h3">다이어리</h2>
-              <p>나의 맛집 방문기록을 확인하세요</p>
-            </div>
-            <div class="col-sm-4">
-              <div class="col" style="right:30px">
-                <v-icon size="100" >mdi-nutrition</v-icon>
-              </div>
-              <h2 class="h3">식단</h2>
-              <p>적절한 칼로리의 식단을 제공합니다</p>
-            </div>
-          </div>
-        </div>
-      </section>
+        <!-- <p>음식 추천 사이트</p> -->
+        <br>
+    </div>
+    <div id="map"></div>
       <section id="folio" class="sec-folio">
         <div class="container">
-          <h1>평점 높은 음식들</h1>
+          <h1>주변 음식점</h1>
           <hr />
           <div class="row">
-            <div class="col-md-4">
-              <img class="center-block" src="../assets/img/순대국.png" alt="By Håkon Sataøen" /><br>
-              <v-icon size="20">mdi-account-circle</v-icon> 순대천국 <br>
-              <v-icon size="20">mdi-badge-account-horizontal </v-icon> 서울시 노원구 <br>
-              <v-icon size="20">mdi-cellphone-iphone</v-icon> 010 1357 2468           
-            </div>
-            <div class="col-md-4">
-              <img class="center-block" src="../assets/img/육회.png" alt="By Samuel Zeller" /><br>
-               <v-icon size="20">mdi-account-circle</v-icon> 육회천국 <br>
-              <v-icon size="20">mdi-badge-account-horizontal </v-icon> 서울시 노원구 <br>
-              <v-icon size="20">mdi-cellphone-iphone</v-icon> 010 1357 2468      
-            </div>
-            <div class="col-md-4">
-              <img class="center-block" src="../assets/img/조각케이크.png" alt="By Scott Webb" /><br>
-               <v-icon size="20">mdi-account-circle</v-icon> 케이크천국 <br>
-              <v-icon size="20">mdi-badge-account-horizontal </v-icon> 서울시 노원구 <br>
-              <v-icon size="20">mdi-cellphone-iphone</v-icon> 010 1357 2468   
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-md-4">
-              <img class="center-block" src="../assets/img/조각피자.png" alt="By Daniel Lozano Valdés" /><br>
-              <v-icon size="20">mdi-account-circle</v-icon> 피자공주 <br>
-              <v-icon size="20">mdi-badge-account-horizontal </v-icon> 서울시 노원구 <br>
-              <v-icon size="20">mdi-cellphone-iphone</v-icon> 010 1357 2468   
-            </div>
-            <div class="col-md-4">
-              <img class="center-block" src="../assets/img/치킨.png" alt="By Scott Webb" /><br>
-               <v-icon size="20">mdi-account-circle</v-icon> 치킨나라 <br>
-              <v-icon size="20">mdi-badge-account-horizontal </v-icon> 서울시 노원구 <br>
-              <v-icon size="20">mdi-cellphone-iphone</v-icon> 010 1357 2468    
-            </div>
-            <div class="col-md-4">
-              <img class="center-block" src="../assets/img/햄버거.png" alt="By Daniel Lozano Valdés" /><br>
-               <v-icon size="20">mdi-account-circle</v-icon> 햄버거파티 <br>
-              <v-icon size="20">mdi-badge-account-horizontal </v-icon> 서울시 노원구 <br>
-              <v-icon size="20">mdi-cellphone-iphone</v-icon> 010 1357 2468   
+            <div v-for="(listdata,index) in listData" :key="index">
+               <img class="center-block" :src="require(`@/assets/img/${listdata.name}1.jpg`)" alt="By Scott Webb" /><br>
+               <v-icon size="20">mdi-account-circle</v-icon> {{listdata.name}} <br>
+               <v-icon size="20">mdi-badge-account-horizontal </v-icon> {{listdata.address}} <br>
+               <v-icon size="20">mdi-cellphone-iphone</v-icon> {{listdata.tel}}<br>
             </div>
           </div>
         </div>
       </section>
       </main>
-
-
-
-    
   </div>
 </template>
 
 <script>
 import Navbar from '../components/Navbar.vue'
 
-// import axios from 'axios'
 import AOS from 'aos'
 import 'aos/dist/aos.css'
-//import InfiniteLoading from 'vue-infinite-loading';
+// import InfiniteLoading from 'vue-infinite-loading';
 import Card from "@/components/Card";
 import StoreListCard from "@/components/StoreListCard";
-
+import axios from 'axios'
+const API_URL = 'http://localhost:8081/'
 AOS.init();
 
-// const API_URL = 'http://i3a507.p.ssafy.io:8081/'
-//const API_URL = 'http://localhost:8081/'
-//const storage = window.sessionStorage
+// const API_URL = 'http://j3a407.p.ssafy.io:8081/'
+ //const API_URL = 'http://localhost:8081/'
+// const storage = window.sessionStorage
 
 export default {
   name: 'Home',
   data() {
     return {
-      
+        search: '',
+        listData: [],
+        searchData: [],
+        dataPerPage: 10,
+        curPageNum: 1,
+        curSelectIndex: 0,
+
+        lat : '',
+        lng : '',
+        
+        newData: {
+          id: Number,
+          guide_title: '',
+          guide_type: ''
+        },
+        selectedData: {
+          id: Number,
+          guide_title: '',
+          guide_type: ''
+        }
     }
   },
-  
+  mounted(){
+      if (navigator.geolocation) { // GPS를 지원하면
+          navigator.geolocation.getCurrentPosition(function(position) {
+          console.log(position.coords.latitude + ' ' + position.coords.longitude);
+          
+      }, function(error) {
+        console.error(error);
+      }, {
+        enableHighAccuracy: false,
+        maximumAge: 0,
+        timeout: Infinity
+      });
+      this.near();
+  } else {
+    alert('GPS를 지원하지 않습니다');
+  }
+  },
   components: {
-    //InfiniteLoading,
+    // InfiniteLoading,
     Navbar,
     Card,
     StoreListCard
   },
+   computed: {
+      startOffset() {
+        return ((this.curPageNum - 1) * this.dataPerPage);
+      },
+      endOffset() {
+		console.log('startoffset : ')
+		console.log(this.startOffset)
+        return (this.startOffset + this.dataPerPage);
+      },
+      numOfPages() {
+		console.log('endoffset : ')
+		console.log(this.endOffset)
+        return Math.ceil(this.listData.length/this.dataPerPage);
+      },
+      calData() {
+		console.log('numofPages : ')
+		console.log(this.startOffset)
+         return this.listData.slice(this.startOffset, this.endOffset)
+      }
+  },
+  methods: {
+        locatorButtonPressed(){
+          if(navigator.geolocation){
+            navigator.geolocation.getCurrentPosition(position=>{
+              console.log(position.coords.latitude);
+              console.log(position.coords.longitude);
+            },
+            error =>{
+                console.log(error.message);
+              }
+            );
+          }else{
+            console.log("your browser does not support geolocation API");
+            }
+        },
+        searchFood(search) {
+            if (search == null) {
+                alert("내용을 입력해주세요")
+                return
+            }
+        },
+        near(){
+         if(navigator.geolocation){
+            navigator.geolocation.getCurrentPosition(position=>{
+              this.lat = position.coords.latitude;
+              this.lng = position.coords.longitude;
+              axios.post(API_URL+'/api/v1/search/near',
+            {
+                latitude : this.lat,
+                longtitude : this.lng
+            }) .then((response) => {
+                  this.listData = response.data;
+                  console.log("위치 : " +this.lat)
+                  if (window.kakao && window.kakao.maps) {
+                        var mapContainer = document.getElementById('map'),  
+                        mapOption = {
+                            //center: new kakao.maps.LatLng(37.556862, 126.926666), 
+                            center: new kakao.maps.LatLng(this.lat, this.lng), 
+                            level: 3 
+                        };     
+                        console.log("안뇽 : "+this.lat)
+                        var map = new kakao.maps.Map(mapContainer, mapOption); 
+                        // var geocoder = new kakao.maps.services.Geocoder();
+                        // var address = this.address
+                        // var coords = new kakao.maps.LatLng(this.restaurant.latitude, this.restaurant.longtitude);
+                        var imageSrc = 'https://ifh.cc/g/PIvBP3.png',    
+                            imageSize = new kakao.maps.Size(64, 69), 
+                            imageOption = {offset: new kakao.maps.Point(27, 69)}; 
+                      
+                        var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption),
+                            markerPosition = new kakao.maps.LatLng(this.lat, this.lng); 
+                            //markerPosition = new kakao.maps.LatLng(37, 123); 
+
+                        var marker = new kakao.maps.Marker({
+                            position: markerPosition, 
+                            image: markerImage // 마커이미지 설정 
+                            });
+
+                        marker.setMap(map);  
+                        var resname = "현재 위치";
+                        var jwcontent='<div style="width:150px;text-align:center;padding:6px 0;">'+resname +'</div>';
+                        var infowindow = new kakao.maps.InfoWindow({
+                            content: jwcontent
+                            // content: this.restaurant.name  
+                            });
+                        infowindow.open(map, marker);
+                        var imageSrc2 = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png"; 
+                        console.log(this.listData.length)
+                        for (var i = 0; i < this.listData.length; i ++) {
+                              var imageSize2 = new kakao.maps.Size(24, 35); 
+                              // 마커 이미지를 생성합니다    
+                              console.log(this.listData[i].name)
+                              var markerImage2 = new kakao.maps.MarkerImage(imageSrc2, imageSize2); 
+                              // 마커를 생성합니다
+                              var markerPosition2 = new kakao.maps.LatLng(this.listData[i].latitude, this.listData[i].longtitude)
+                              var marker2 = new kakao.maps.Marker({
+                                  map: map, // 마커를 표시할 지도
+                                  position: markerPosition2, // 마커를 표시할 위치
+                                  title : this.listData[i].name, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
+                                  image : markerImage2 // 마커 이미지 
+                              })
+                              marker2.setMap(map);
+                        }                
+                                } else {
+                                  const script = document.createElement('script');
+                                  /* global kakao */
+                                  script.onload = () => kakao.maps.load(this.initMap);
+                                  script.src = 'http://dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=YOUR_APPKEY';
+                                  document.head.appendChild(script);
+                            }
+            });
+            },
+            error =>{
+                console.log(error.message);
+              }
+            );
+          }else{
+            console.log("your browser does not support geolocation API");
+            }
+          
+        },
+        initMap() {
+        
+        },
+  }
 }
 </script>
 
@@ -180,6 +276,11 @@ export default {
 /* @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap'); */
 @import url('http://fonts.googleapis.com/earlyaccess/notosanskr.css');
 
+.ui.button,
+.dot.circle.icon{
+  background-color:  #ff5a5f;
+  color : white;
+}
 .doasis{
   position: relative;
   line-height: 1;
@@ -267,10 +368,6 @@ em {
   float:right; 
   margin-top: -24px
 }
-
-
-
-
 
 body {
     font-size: 100%;
@@ -448,4 +545,15 @@ body {
   max-width: 100%;
 }
 
+.score {
+  font-size : 20px;
+  color : orange;
+  font-weight: bold;
+}
+
+#map {
+  margin-left: 600px;
+  width: 500px;
+  height: 400px;
+}
 </style>
